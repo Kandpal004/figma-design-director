@@ -123,6 +123,15 @@
     .hero__h1{max-width:20ch}
     .hero__trust{margin-top:36px}
   }
+  /* medium laptops (still 2-column): ease the cramped copy column so the CTA row and
+     trust cues do not wrap/clip */
+  @media (min-width:1081px) and (max-width:1300px){
+    .hero__copy{padding:40px clamp(28px,2.6vw,44px)}
+    .hero__h1{font-size:clamp(40px,4.7vw,58px)}
+    .hero__sub{font-size:16px}
+    .hero__cta{gap:20px}
+    .hero__trust{gap:12px 22px}
+  }
   @media (max-width:920px){
     .util .call,.ticker{display:none}
     nav.cats{display:none}
@@ -230,7 +239,9 @@
     window.addEventListener('scroll', onScroll, {passive:true});
     onScroll();
 
-    // fit the ENTIRE hero (below the header) into the first fold on any screen size
+    // fit the ENTIRE hero (below the header) into the first fold. Fixed height keeps the
+    // image constrained (object-fit cover); the copy is compressed at narrow widths so it
+    // never exceeds this height (no clipped trust cues).
     var hero = document.getElementById('hero');
     function fitHero(){
       hero.style.height = '';                                  // reset to measure real top
