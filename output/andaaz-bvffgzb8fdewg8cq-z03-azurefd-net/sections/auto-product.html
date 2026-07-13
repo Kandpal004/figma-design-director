@@ -61,8 +61,9 @@
   .hmain{max-width:1440px;margin:0 auto;padding:24px 40px 20px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:32px;transition:padding .28s ease}
   header.scrolled .hmain{padding:13px 40px}
   .hleft{display:flex;align-items:center;gap:26px}
-  .htxtbtn{display:inline-flex;align-items:center;gap:9px;background:none;border:0;padding:6px 0;color:var(--ink);font-size:12px;font-weight:500;letter-spacing:.16em;text-transform:uppercase}
-  .htxtbtn svg{width:19px;height:19px;stroke:currentColor;stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .htxtbtn{display:inline-flex;align-items:center;gap:9px;background:none;border:0;padding:6px 0;color:var(--ink);font-size:12px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;line-height:1}
+  .htxtbtn svg{display:block;width:19px;height:19px;stroke:currentColor;stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .htxtbtn .lbl{display:inline-flex;align-items:center;line-height:1;transform:translateY(1.5px)}
   .htxtbtn:hover{color:var(--brand)}
   .htxtbtn .lbl{position:relative}
   .htxtbtn .lbl::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:1.5px;background:var(--brand);transform:scaleX(0);transform-origin:left;transition:transform .25s}
