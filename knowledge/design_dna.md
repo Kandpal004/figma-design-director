@@ -59,6 +59,30 @@ exactly 4 WHOLE cards fit the row (no cut/partial peeking card), clean images (N
 badges, NO wishlist hearts), generous whitespace, refined name/price. Prev/next arrow controls
 are **rounded-square** buttons (~8px radius), NOT circles. Arrows page by a full row width.
 
+## 5b. Hero / banner sections — fold-fit + responsive (non-negotiable; NEVER wait to be told)
+This is baked so the user never has to ask for it. Every hero/banner you build MUST:
+- **Fit the FIRST FOLD on any screen.** Set the hero height with JS to `innerHeight - hero.offsetTop`
+  on load + resize (a FIXED height, not min-height — so a portrait image stays cropped via
+  `object-fit:cover` and never drives the page taller). The whole hero (below the sticky header)
+  is visible with NO scroll.
+- **Image never sizes the section.** Hero image is `object-fit:cover` inside a fixed-height/absolute
+  parent. A 1200x1800 portrait in a landscape hero must CROP, never stretch the page. Tune
+  `object-position` so the model/subject reads well.
+- **Vertical rhythm uses vh-scaled clamps** (e.g. `margin-top:clamp(24px,5vh,52px)`) so the copy
+  fills the fold on tall/wide screens (instead of centering with big empty bands) and compresses on
+  short screens — never overflow.
+- **Medium-laptop breakpoint** (`min-width:1081px and max-width:1300px`): trim copy padding / font /
+  gaps so the CTA row and trust cues never wrap or clip in the cramped 2-column width.
+- **Short-height breakpoints** (`max-height:820px`, `680px`): shrink headline/padding so nothing clips.
+- **Headline** = display size (clamp up to ~84px), **tight line-height (.92–.98)**, negative tracking.
+  It should fill the copy column width to the right edge; the sub-copy aligns to a similar right edge
+  (never one long headline over a short narrow paragraph — they look unbalanced).
+- **Eyebrow/kicker = plain text only.** NO decorative leading dash/line element (a ~30px rule before
+  the text reads as an em-dash → violates the no-long-dash rule). No middot `·` separators either.
+- **VERIFY across sizes before presenting** (part of the multi-state verify rule): render at
+  1920x950, 1440x900, 1366x768, 1180x700 and confirm page height == viewport (no scroll) and no
+  clipped content. Fix before showing.
+
 ## 6. Anti-slop (auto-fail — fix before showing)
 No banned fonts · no cream bg · no gradient/shadow/glassmorphism spam · no oversized radius
 (<=16px) · no floating cards without purpose · **NO long dashes anywhere in visible copy — no
