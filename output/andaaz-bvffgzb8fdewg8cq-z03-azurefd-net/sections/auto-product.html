@@ -424,6 +424,39 @@
   .ft-bar{border-top:1px solid rgba(255,255,255,.08);background:#000}
   .ft-bar .in{max-width:1320px;margin:0 auto;padding:22px 40px;display:flex;align-items:center;justify-content:space-between;font-size:12px;color:rgba(255,255,255,.45);letter-spacing:.03em}
   @media (max-width:900px){ .ft-top{grid-template-columns:1fr;padding:48px 18px;gap:24px} .ft-card{padding:32px 26px} .ft-cols .in{grid-template-columns:1fr 1fr;padding:40px 18px} .ft-bar .in{flex-direction:column;gap:10px;text-align:center} }
+
+  /* ===== SHOP VIA VIDEO CALL / BRIDAL STYLIST ===== */
+  .vcall{background:linear-gradient(115deg,#f4e7e6 0%,#efe3ec 38%,#e7e1f0 68%,#f3e9ea 100%)}
+  .vcall .in{max-width:1320px;margin:0 auto;padding:60px 40px;display:grid;grid-template-columns:1fr 1px 1fr;align-items:center}
+  .vcall .vcol{text-align:center;padding:0 48px}
+  .vcall .vicon{width:50px;height:50px;margin:0 auto 18px;color:#8a4a5c}
+  .vcall .vicon svg{width:100%;height:100%;stroke:currentColor;stroke-width:1.4;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .vcall h3{font-family:var(--logo);font-size:29px;font-weight:600;color:#6d2e44;letter-spacing:.01em;margin-bottom:12px}
+  .vcall p{font-size:14px;color:#8a5766;margin-bottom:24px;line-height:1.6}
+  .vcall .vbtn{background:#fff;color:#3a2028;border:0;border-radius:2px;padding:14px 34px;font-family:var(--f);font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:.2s;box-shadow:0 8px 22px -12px rgba(90,40,55,.45)}
+  .vcall .vbtn:hover{background:var(--brand);color:#fff}
+  .vcall .vdiv{width:1px;height:180px;background:rgba(120,70,90,.28);justify-self:center}
+  @media (max-width:900px){ .vcall .in{grid-template-columns:1fr;gap:40px;padding:44px 18px} .vcall .vdiv{width:60%;height:1px} }
+
+  /* ===== CUSTOMER STORIES ===== */
+  .cstory{max-width:1320px;margin:0 auto;padding:76px 40px;border-top:1px solid var(--line)}
+  .cstory .chead{text-align:center;margin-bottom:40px}
+  .cstory h2{font-family:var(--logo);font-size:30px;font-weight:600;color:var(--ink);letter-spacing:.01em}
+  .cstory .csub{font-size:13.5px;color:var(--muted);margin-top:8px}
+  .cstory .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+  .cstory .card{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;transition:box-shadow .3s,transform .3s}
+  .cstory .card:hover{box-shadow:0 22px 46px -28px rgba(0,0,0,.32);transform:translateY(-4px)}
+  .cstory .cmedia{aspect-ratio:3/4;overflow:hidden;background:var(--field)}
+  .cstory .cmedia img{width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform .6s}
+  .cstory .card:hover .cmedia img{transform:scale(1.05)}
+  .cstory .cbody{padding:22px 24px}
+  .cstory .cstars{color:var(--brand);font-size:13px;letter-spacing:1.5px}
+  .cstory .cquote{font-family:var(--logo);font-size:16px;line-height:1.55;color:var(--ink);margin:12px 0 16px;font-style:italic}
+  .cstory .cwho{display:flex;align-items:center;gap:12px}
+  .cstory .cav{width:38px;height:38px;border-radius:50%;background:var(--brand-tint);color:var(--brand);display:grid;place-items:center;font-weight:700;font-size:14px;flex:0 0 auto}
+  .cstory .cname{font-size:13.5px;font-weight:600;color:var(--ink)}
+  .cstory .cloc{font-size:12px;color:var(--muted)}
+  @media (max-width:900px){ .cstory{padding:48px 18px} .cstory .grid{grid-template-columns:1fr} }
 </style>
 </head>
 <body>
@@ -752,6 +785,59 @@
       <article class="ctl__card"><a class="ctl__link" href="#"><div class="ctl__media"><img src="../ctl/ctl-1.jpg" alt="Light Pink Georgette Zari Embroidered Saree" loading="lazy" draggable="false"></div><h3 class="ctl__name">Light Pink Georgette Zari Embroidered Saree</h3><div class="ctl__price"><span class="ctl__now">$11,334.00</span><span class="ctl__was">$14,760.00</span></div></a></article>
       <article class="ctl__card"><a class="ctl__link" href="#"><div class="ctl__media"><img src="../ctl/ctl-6.jpg" alt="Mint Blue Tissue Saree with Dori Work" loading="lazy" draggable="false"></div><h3 class="ctl__name">Mint Blue Tissue Saree with Dori Work</h3><div class="ctl__price"><span class="ctl__now">$8,698.00</span><span class="ctl__was">$12,476.00</span></div></a></article>
       <article class="ctl__card"><a class="ctl__link" href="#"><div class="ctl__media"><img src="../ctl/ctl-4.jpg" alt="Plum Purple Organza Saree with Stone Work" loading="lazy" draggable="false"></div><h3 class="ctl__name">Plum Purple Organza Saree with Stone Work</h3><div class="ctl__price"><span class="ctl__now">$6,941.00</span><span class="ctl__was">$9,928.00</span></div></a></article>
+    </div>
+  </section>
+
+  <!-- ============ SHOP VIA VIDEO CALL / BRIDAL STYLIST ============ -->
+  <section class="vcall">
+    <div class="in">
+      <div class="vcol">
+        <div class="vicon"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="12" height="12" rx="2"/><path d="M15 10l5-3v10l-5-3"/><circle cx="8.5" cy="10.5" r="1.4"/><path d="M6 14.5c.4-1.1 1.3-1.7 2.5-1.7s2.1.6 2.5 1.7"/></svg></div>
+        <h3>Shop Via Video Call</h3>
+        <p>Get a free virtual styling session</p>
+        <button class="vbtn">Book an Appointment</button>
+      </div>
+      <div class="vdiv"></div>
+      <div class="vcol">
+        <div class="vicon"><svg viewBox="0 0 24 24"><path d="M9.5 3l2.5 2.5L14.5 3"/><path d="M12 5.5V9"/><path d="M8.5 9h7l3 10.5a1 1 0 0 1-1 1.3H6.5a1 1 0 0 1-1-1.3L8.5 9z"/></svg></div>
+        <h3>The Bridal Stylist</h3>
+        <p>Book your personal bridal consultation and buy the perfect wedding dress</p>
+        <button class="vbtn">Book an Appointment</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CUSTOMER STORIES ============ -->
+  <section class="cstory" aria-labelledby="cs-title">
+    <div class="chead">
+      <h2 id="cs-title">Customer Stories</h2>
+      <p class="csub">Real brides &amp; shoppers, styled in Andaaz</p>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <div class="cmedia"><img src="../images/img-0.jpg" alt="Customer styled in Andaaz palazzo set" loading="lazy"></div>
+        <div class="cbody">
+          <div class="cstars">★★★★★</div>
+          <p class="cquote">"The zari work is even richer in person. I felt like royalty at my haldi."</p>
+          <div class="cwho"><span class="cav">A</span><div><div class="cname">Aisha M.</div><div class="cloc">London, UK</div></div></div>
+        </div>
+      </article>
+      <article class="card">
+        <div class="cmedia"><img src="../ctl/ctl-1.jpg" alt="Customer styled in Andaaz saree" loading="lazy"></div>
+        <div class="cbody">
+          <div class="cstars">★★★★★</div>
+          <p class="cquote">"Draped beautifully and the fabric felt premium. Compliments all evening."</p>
+          <div class="cwho"><span class="cav">P</span><div><div class="cname">Priya K.</div><div class="cloc">Toronto, CA</div></div></div>
+        </div>
+      </article>
+      <article class="card">
+        <div class="cmedia"><img src="../ctl/ctl-3.jpg" alt="Customer styled in Andaaz pre-draped saree" loading="lazy"></div>
+        <div class="cbody">
+          <div class="cstars">★★★★☆</div>
+          <p class="cquote">"Custom stitching fit me perfectly. Delivery was quick and duty paid."</p>
+          <div class="cwho"><span class="cav">S</span><div><div class="cname">Sana R.</div><div class="cloc">Dubai, UAE</div></div></div>
+        </div>
+      </article>
     </div>
   </section>
 
