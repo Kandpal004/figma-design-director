@@ -73,12 +73,15 @@
   .logo .fm{display:flex;align-items:center;gap:9px;margin-top:7px}
   .logo .fm i{height:1px;width:22px;background:var(--line-2);display:inline-block}
   .logo .fm span{font-size:9.5px;letter-spacing:.52em;color:var(--ink-2);text-transform:uppercase;padding-left:.52em}
-  .hright{justify-self:end;display:flex;align-items:center;gap:24px}
-  .ic{position:relative;display:inline-flex;flex-direction:column;align-items:center;gap:5px;background:none;border:0;color:var(--ink)}
-  .ic svg{width:23px;height:23px;stroke:currentColor;stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
-  .ic .t{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)}
-  .ic:hover{color:var(--brand)}.ic:hover .t{color:var(--brand)}
-  .ic .n{position:absolute;top:-6px;right:calc(50% - 20px);min-width:16px;height:16px;padding:0 4px;border-radius:8px;background:var(--brand);color:#fff;font-size:9.5px;font-weight:600;display:grid;place-items:center;border:2px solid #fff}
+  .hright{justify-self:end;display:flex;align-items:center;gap:22px}
+  .ic{position:relative;display:inline-flex;align-items:center;justify-content:center;background:none;border:0;padding:0;color:var(--ink)}
+  .ic svg{width:24px;height:24px;stroke:currentColor;stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .ic .t{display:none}
+  .ic:hover{color:var(--brand)}
+  .ic .n{position:absolute;top:-7px;right:-8px;min-width:17px;height:17px;padding:0 4px;border-radius:9px;background:#e5122e;color:#fff;font-size:10px;font-weight:700;display:grid;place-items:center;border:2px solid #fff}
+  .region-in{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--ink);letter-spacing:.04em;cursor:pointer}
+  .region-in svg{width:16px;height:16px;stroke:var(--ink-2);stroke-width:1.5;fill:none}
+  .region-in:hover{color:var(--brand)}
   nav.cats{border-top:1px solid var(--line)}
   nav.cats .in{max-width:1440px;margin:0 auto;padding:0 40px;display:flex;align-items:center;justify-content:center;gap:2px;flex-wrap:wrap}
   nav.cats a{position:relative;padding:14px 16px;font-size:12px;font-weight:400;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);white-space:nowrap}
@@ -393,6 +396,7 @@
         <button class="ic" aria-label="Account"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M5.6 19.6c.2-3.5 3-5.6 6.4-5.6s6.2 2.1 6.4 5.6"/></svg><span class="t">Account</span></button>
         <button class="ic" aria-label="Wishlist"><svg viewBox="0 0 24 24"><path d="M12 20.3c-.5-.4-8-5.6-8-10.9A4.25 4.25 0 0 1 8.3 5.1c1.6 0 3 .85 3.7 2.15C12.7 5.95 14.1 5.1 15.7 5.1A4.25 4.25 0 0 1 20 9.4c0 5.3-7.5 10.5-8 10.9z"/></svg><span class="t">Wishlist</span><span class="n">2</span></button>
         <button class="ic" aria-label="Shopping bag" id="bag"><svg viewBox="0 0 24 24"><path d="M6 8h12l.85 11.4a1 1 0 0 1-1 1.1H6.15a1 1 0 0 1-1-1.1L6 8z"/><path d="M8.7 8.5V6.9a3.3 3.3 0 0 1 6.6 0v1.6"/></svg><span class="t">Bag</span><span class="n">0</span></button>
+        <button class="region-in" aria-label="Region: India"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.5 2.4 3.8 5.6 3.8 9s-1.3 6.6-3.8 9c-2.5-2.4-3.8-5.6-3.8-9s1.3-6.6 3.8-9z"/></svg>IN</button>
       </div>
     </div>
     <nav class="cats" aria-label="Product categories"><div class="in">
