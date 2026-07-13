@@ -84,12 +84,12 @@
   nav.cats a .new{position:absolute;top:6px;right:2px;font-size:8px;font-weight:600;letter-spacing:.12em;color:var(--brand)}
 
   /* ===================== HERO ===================== */
-  .hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.02fr);min-height:520px;background:#fff}
+  .hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.02fr);min-height:clamp(520px,62vh,640px);background:#fff}
   .hero__copy{display:flex;flex-direction:column;justify-content:center;padding:48px clamp(36px,3.6vw,60px) 48px clamp(40px,4.4vw,72px);border-right:1px solid var(--line)}
   .hero__eyebrow{display:inline-flex;align-items:center;font-size:12.5px;font-weight:600;letter-spacing:.32em;text-transform:uppercase;color:var(--brand)}
-  .hero__h1{font-family:var(--f);font-weight:700;font-size:clamp(46px,6vw,84px);line-height:.93;letter-spacing:-.033em;color:var(--ink);margin:clamp(16px,2.4vh,26px) 0 0;max-width:none}
-  .hero__sub{font-size:17.5px;line-height:1.6;color:var(--ink-2);max-width:60ch;margin-top:clamp(14px,2.2vh,22px);font-weight:400}
-  .hero__cta{display:flex;align-items:center;gap:28px;flex-wrap:wrap;margin-top:clamp(24px,4.5vh,44px)}
+  .hero__h1{font-family:var(--f);font-weight:700;font-size:clamp(46px,6vw,84px);line-height:.93;letter-spacing:-.033em;color:var(--ink);margin:20px 0 0;max-width:none}
+  .hero__sub{font-size:17.5px;line-height:1.6;color:var(--ink-2);max-width:60ch;margin-top:20px;font-weight:400}
+  .hero__cta{display:flex;align-items:center;gap:28px;flex-wrap:wrap;margin-top:32px}
   .btn-primary{display:inline-flex;align-items:center;gap:11px;background:var(--brand);color:#fff;border:0;border-radius:3px;padding:18px 36px;font-size:13.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;transition:background .18s,transform .12s}
   .btn-primary svg{width:16px;height:16px;stroke:#fff;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s}
   .btn-primary:hover{background:var(--brand-dark)}
@@ -102,7 +102,7 @@
   .link-secondary:hover{color:var(--brand)}
   .link-secondary:hover .u::after{transform:scaleX(1)}
   .link-secondary:hover svg{transform:translateX(3px)}
-  .hero__trust{display:flex;flex-wrap:wrap;gap:14px 32px;margin-top:clamp(28px,6vh,64px);padding-top:26px;border-top:1px solid var(--line)}
+  .hero__trust{display:flex;flex-wrap:wrap;gap:14px 32px;margin-top:34px;padding-top:26px;border-top:1px solid var(--line)}
   .hero__trust .t{display:inline-flex;align-items:center;gap:10px;font-size:12.5px;font-weight:500;letter-spacing:.02em;color:var(--ink-2)}
   .hero__trust .t svg{width:21px;height:21px;stroke:var(--brand);stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}
 
@@ -163,7 +163,7 @@
 
   /* ===================== CATEGORY STRIP (above hero) ===================== */
   .catstrip{border-bottom:1px solid var(--line);background:#fff}
-  .catstrip__row{list-style:none;max-width:1440px;margin:0 auto;padding:22px 40px;display:flex;align-items:flex-start;justify-content:center;gap:clamp(20px,3vw,42px);overflow-x:auto;scroll-snap-type:x proximity;-ms-overflow-style:none;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .catstrip__row{list-style:none;max-width:1440px;margin:0 auto;padding:15px 40px;display:flex;align-items:flex-start;justify-content:center;gap:clamp(20px,3vw,42px);overflow-x:auto;scroll-snap-type:x proximity;-ms-overflow-style:none;scrollbar-width:none;-webkit-overflow-scrolling:touch}
   .catstrip__row::-webkit-scrollbar{display:none}
   .catstrip__item{flex:0 0 auto;scroll-snap-align:start}
   .catstrip__item a{display:flex;flex-direction:column;align-items:center;gap:11px;width:96px;text-align:center}
@@ -280,19 +280,9 @@
     window.addEventListener('scroll', onScroll, {passive:true});
     onScroll();
 
-    // fit the ENTIRE hero (below the header) into the first fold. Fixed height keeps the
-    // image constrained (object-fit cover); the copy is compressed at narrow widths so it
-    // never exceeds this height (no clipped trust cues).
-    var hero = document.getElementById('hero');
-    function fitHero(){
-      hero.style.height = '';                                  // reset to measure real top
-      var top = hero.getBoundingClientRect().top + (window.scrollY || window.pageYOffset || 0);
-      var h = window.innerHeight - top;                        // remaining viewport below header
-      if (h > 480) hero.style.height = h + 'px';               // guard tiny screens
-    }
-    window.addEventListener('resize', fitHero);
-    window.addEventListener('load', fitHero);
-    fitHero();
+    // Hero is a fixed-height banner (image constrained via object-fit cover). With the category
+    // strip above it, the page scrolls naturally like a real ecommerce homepage — we do NOT
+    // force the whole hero into the fold here.
   </script>
 </body>
 </html>
