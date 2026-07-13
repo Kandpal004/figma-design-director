@@ -106,8 +106,13 @@
   .hero__trust .t{display:inline-flex;align-items:center;gap:10px;font-size:12.5px;font-weight:500;letter-spacing:.02em;color:var(--ink-2)}
   .hero__trust .t svg{width:21px;height:21px;stroke:var(--brand);stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}
 
-  .hero__media{position:relative;overflow:hidden;background:var(--field)}
-  .hero__media img{width:100%;height:100%;object-fit:cover;object-position:top center}
+  /* campaign block: model sits on a soft rani-tint mat, matted inside a hairline frame so
+     the light studio background reads as a designed panel, not a bare cropped photo */
+  .hero__media{position:relative;overflow:hidden;background:var(--brand-tint-2);padding:clamp(18px,2vw,30px)}
+  .hero__frame{position:relative;height:100%;width:100%;border-radius:5px;overflow:hidden;border:1px solid rgba(161,0,71,.13)}
+  .hero__frame img{width:100%;height:100%;object-fit:cover;object-position:top center}
+  /* quiet editorial plate, top-left of the image (diagonally clear of the bottom-left shop caption) */
+  .hero__plate{position:absolute;top:15px;left:15px;z-index:3;font-size:10.5px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:rgba(28,27,29,.62);text-shadow:0 1px 2px rgba(255,255,255,.55)}
   /* shoppable caption, bottom-left, single overlay (no collision) */
   .as-seen{position:absolute;left:24px;bottom:24px;z-index:3;display:inline-flex;align-items:center;gap:12px;background:rgba(255,255,255,.94);backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,.6);border-radius:3px;padding:11px 15px;box-shadow:0 6px 22px -12px rgba(0,0,0,.4);transition:transform .2s}
   .as-seen:hover{transform:translateY(-2px)}
@@ -118,7 +123,7 @@
 
   @media (max-width:1080px){
     .hero{grid-template-columns:1fr;min-height:0}
-    .hero__media{order:1;aspect-ratio:4/5;max-height:66vh}
+    .hero__media{order:1;aspect-ratio:4/5;max-height:66vh;padding:clamp(12px,3.4vw,20px)}
     .hero__copy{order:2;border-right:0;border-top:1px solid var(--line);padding:44px clamp(20px,6vw,48px) 48px;text-align:left}
     .hero__h1{max-width:20ch}
     .hero__trust{margin-top:36px}
@@ -221,14 +226,17 @@
     </div>
 
     <div class="hero__media">
-      <img src="../images/img-0.jpg" alt="Model wearing a rani pink zari-embroidered A-line kurta, palazzo and organza dupatta from the Andaaz Festive Edit" fetchpriority="high">
-      <a class="as-seen" href="#" aria-label="Shop the look: Pink Zari Palazzo Set">
-        <span>
-          <span class="k">As Seen</span>
-          <span class="n">Pink Zari Palazzo Set</span>
-        </span>
-        <span class="arw"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
-      </a>
+      <div class="hero__frame">
+        <img src="../images/img-0.jpg" alt="Model wearing a rani pink zari-embroidered A-line kurta, palazzo and organza dupatta from the Andaaz Festive Edit" fetchpriority="high">
+        <span class="hero__plate">The Andaaz Atelier</span>
+        <a class="as-seen" href="#" aria-label="Shop the look: Pink Zari Palazzo Set">
+          <span>
+            <span class="k">As Seen</span>
+            <span class="n">Pink Zari Palazzo Set</span>
+          </span>
+          <span class="arw"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
+        </a>
+      </div>
     </div>
   </main>
 
