@@ -425,18 +425,23 @@
   .ft-bar .in{max-width:1320px;margin:0 auto;padding:22px 40px;display:flex;align-items:center;justify-content:space-between;font-size:12px;color:rgba(255,255,255,.45);letter-spacing:.03em}
   @media (max-width:900px){ .ft-top{grid-template-columns:1fr;padding:48px 18px;gap:24px} .ft-card{padding:32px 26px} .ft-cols .in{grid-template-columns:1fr 1fr;padding:40px 18px} .ft-bar .in{flex-direction:column;gap:10px;text-align:center} }
 
-  /* ===== SHOP VIA VIDEO CALL / BRIDAL STYLIST ===== */
-  .vcall{background:linear-gradient(115deg,#f4e7e6 0%,#efe3ec 38%,#e7e1f0 68%,#f3e9ea 100%)}
-  .vcall .in{max-width:1320px;margin:0 auto;padding:60px 40px;display:grid;grid-template-columns:1fr 1px 1fr;align-items:center}
-  .vcall .vcol{text-align:center;padding:0 48px}
-  .vcall .vicon{width:50px;height:50px;margin:0 auto 18px;color:#8a4a5c}
-  .vcall .vicon svg{width:100%;height:100%;stroke:currentColor;stroke-width:1.4;fill:none;stroke-linecap:round;stroke-linejoin:round}
-  .vcall h3{font-family:var(--logo);font-size:29px;font-weight:600;color:#6d2e44;letter-spacing:.01em;margin-bottom:12px}
-  .vcall p{font-size:14px;color:#8a5766;margin-bottom:24px;line-height:1.6}
-  .vcall .vbtn{background:#fff;color:#3a2028;border:0;border-radius:2px;padding:14px 34px;font-family:var(--f);font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:.2s;box-shadow:0 8px 22px -12px rgba(90,40,55,.45)}
-  .vcall .vbtn:hover{background:var(--brand);color:#fff}
-  .vcall .vdiv{width:1px;height:180px;background:rgba(120,70,90,.28);justify-self:center}
-  @media (max-width:900px){ .vcall .in{grid-template-columns:1fr;gap:40px;padding:44px 18px} .vcall .vdiv{width:60%;height:1px} }
+  /* ===== PERSONAL STYLING (original dark editorial) ===== */
+  .vcall{position:relative;background:#181316;overflow:hidden}
+  .vcall::before{content:"";position:absolute;inset:0;background:radial-gradient(110% 120% at 85% -12%, rgba(161,0,71,.22), transparent 52%);z-index:0}
+  .vcall .in{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:74px 40px;text-align:center}
+  .vcall .veye{font-size:11.5px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:#e0699a}
+  .vcall .vhead{font-family:var(--logo);font-size:34px;font-weight:600;color:#fff;letter-spacing:.01em;margin:14px 0 8px}
+  .vcall .vhsub{font-size:14px;color:rgba(255,255,255,.58);margin-bottom:52px}
+  .vcall .row{display:grid;grid-template-columns:1fr 1fr}
+  .vcall .vcol{padding:0 56px;position:relative}
+  .vcall .vcol+.vcol::before{content:"";position:absolute;left:0;top:6%;bottom:6%;width:1px;background:rgba(255,255,255,.12)}
+  .vcall .vicon{width:52px;height:52px;margin:0 auto 20px;display:grid;place-items:center;border:1px solid rgba(224,105,154,.45);border-radius:50%;color:#e0699a}
+  .vcall .vicon svg{width:23px;height:23px;stroke:currentColor;stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .vcall h3{font-family:var(--logo);font-size:23px;font-weight:600;color:#fff;margin-bottom:9px}
+  .vcall p{font-size:13.5px;color:rgba(255,255,255,.6);margin:0 auto 24px;line-height:1.65;max-width:330px}
+  .vcall .vbtn{background:transparent;border:1px solid var(--brand);color:#fff;border-radius:26px;padding:12px 30px;font-family:var(--f);font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:.22s}
+  .vcall .vbtn:hover{background:var(--brand);border-color:var(--brand);color:#fff}
+  @media (max-width:900px){ .vcall .in{padding:52px 18px} .vcall .row{grid-template-columns:1fr;gap:44px} .vcall .vcol{padding:0} .vcall .vcol+.vcol::before{display:none} .vcall .vcol+.vcol{border-top:1px solid rgba(255,255,255,.12);padding-top:44px} }
 
   /* ===== CUSTOMER STORIES ===== */
   .cstory{max-width:1320px;margin:0 auto;padding:76px 40px;border-top:1px solid var(--line)}
@@ -788,21 +793,25 @@
     </div>
   </section>
 
-  <!-- ============ SHOP VIA VIDEO CALL / BRIDAL STYLIST ============ -->
+  <!-- ============ PERSONAL STYLING (original) ============ -->
   <section class="vcall">
     <div class="in">
-      <div class="vcol">
-        <div class="vicon"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="12" height="12" rx="2"/><path d="M15 10l5-3v10l-5-3"/><circle cx="8.5" cy="10.5" r="1.4"/><path d="M6 14.5c.4-1.1 1.3-1.7 2.5-1.7s2.1.6 2.5 1.7"/></svg></div>
-        <h3>Shop Via Video Call</h3>
-        <p>Get a free virtual styling session</p>
-        <button class="vbtn">Book an Appointment</button>
-      </div>
-      <div class="vdiv"></div>
-      <div class="vcol">
-        <div class="vicon"><svg viewBox="0 0 24 24"><path d="M9.5 3l2.5 2.5L14.5 3"/><path d="M12 5.5V9"/><path d="M8.5 9h7l3 10.5a1 1 0 0 1-1 1.3H6.5a1 1 0 0 1-1-1.3L8.5 9z"/></svg></div>
-        <h3>The Bridal Stylist</h3>
-        <p>Book your personal bridal consultation and buy the perfect wedding dress</p>
-        <button class="vbtn">Book an Appointment</button>
+      <div class="veye">The Andaaz Experience</div>
+      <h2 class="vhead">Styled by Our Experts</h2>
+      <p class="vhsub">Personal appointments, on your schedule.</p>
+      <div class="row">
+        <div class="vcol">
+          <div class="vicon"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="12" height="12" rx="2"/><path d="M15 10l5-3v10l-5-3"/><circle cx="8.5" cy="10.5" r="1.4"/><path d="M6 14.5c.4-1.1 1.3-1.7 2.5-1.7s2.1.6 2.5 1.7"/></svg></div>
+          <h3>Shop via Video Call</h3>
+          <p>A complimentary one-on-one virtual styling session with a personal stylist.</p>
+          <button class="vbtn">Book an Appointment</button>
+        </div>
+        <div class="vcol">
+          <div class="vicon"><svg viewBox="0 0 24 24"><path d="M9.5 3l2.5 2.5L14.5 3"/><path d="M12 5.5V9"/><path d="M8.5 9h7l3 10.5a1 1 0 0 1-1 1.3H6.5a1 1 0 0 1-1-1.3L8.5 9z"/></svg></div>
+          <h3>The Bridal Stylist</h3>
+          <p>A dedicated bridal consultation to find your perfect wedding ensemble.</p>
+          <button class="vbtn">Book an Appointment</button>
+        </div>
       </div>
     </div>
   </section>
