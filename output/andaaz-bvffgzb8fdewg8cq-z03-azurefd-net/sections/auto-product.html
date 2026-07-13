@@ -838,6 +838,22 @@
       rail.addEventListener('click',function(e){if(moved){e.preventDefault();moved=false;}},true);
       upd();
     })();
+
+    // ===== Recently Viewed rail (arrows + drag-scroll) =====
+    (function(){
+      var rail=document.getElementById('rv-rail'); if(!rail) return;
+      var prevBtn=document.getElementById('rv-prev'), nextBtn=document.getElementById('rv-next');
+      function upd(){var max=rail.scrollWidth-rail.clientWidth-1;prevBtn.disabled=rail.scrollLeft<=1;nextBtn.disabled=rail.scrollLeft>=max;}
+      prevBtn.addEventListener('click',function(){rail.scrollBy({left:-rail.clientWidth,behavior:'smooth'});});
+      nextBtn.addEventListener('click',function(){rail.scrollBy({left:rail.clientWidth,behavior:'smooth'});});
+      rail.addEventListener('scroll',upd,{passive:true}); addEventListener('resize',upd);
+      var down=false,sx=0,ss=0,moved=false;
+      rail.addEventListener('pointerdown',function(e){if(e.pointerType==='touch')return;down=true;moved=false;sx=e.clientX;ss=rail.scrollLeft;rail.classList.add('is-grabbing');});
+      addEventListener('pointermove',function(e){if(!down)return;var dx=e.clientX-sx;if(Math.abs(dx)>4)moved=true;rail.scrollLeft=ss-dx;});
+      addEventListener('pointerup',function(){if(!down)return;down=false;rail.classList.remove('is-grabbing');upd();});
+      rail.addEventListener('click',function(e){if(moved){e.preventDefault();moved=false;}},true);
+      upd();
+    })();
   </script>
 </body>
 </html>
