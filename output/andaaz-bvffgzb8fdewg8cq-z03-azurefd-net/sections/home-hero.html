@@ -230,6 +230,18 @@
     var onScroll = function(){ hdr.classList.toggle('scrolled', window.scrollY > 8); };
     window.addEventListener('scroll', onScroll, {passive:true});
     onScroll();
+
+    // fit the ENTIRE hero (below the header) into the first fold on any screen size
+    var hero = document.getElementById('hero');
+    function fitHero(){
+      hero.style.height = '';                                  // reset to measure real top
+      var top = hero.getBoundingClientRect().top + (window.scrollY || window.pageYOffset || 0);
+      var h = window.innerHeight - top;                        // remaining viewport below header
+      if (h > 480) hero.style.height = h + 'px';               // guard tiny screens
+    }
+    window.addEventListener('resize', fitHero);
+    window.addEventListener('load', fitHero);
+    fitHero();
   </script>
 </body>
 </html>
