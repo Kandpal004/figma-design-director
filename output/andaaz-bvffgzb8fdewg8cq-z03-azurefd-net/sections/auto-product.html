@@ -777,6 +777,28 @@
     </div>
   </section>
 
+  <!-- ============ WATCH & SHOP (shoppable reels) ============ -->
+  <section class="reels" aria-labelledby="reel-title">
+    <div class="rhead">
+      <div class="reye">Watch &amp; Shop</div>
+      <h2 id="reel-title">Styled on Reels</h2>
+      <p class="rsub">Real drapes, in motion. Play a look, then shop it.</p>
+      <div class="rnav">
+        <button class="ctl__arrow" id="reel-prev" aria-label="Previous reels"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+        <button class="ctl__arrow" id="reel-next" aria-label="Next reels"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+      </div>
+    </div>
+    <div class="reel-rail" id="reel-rail" tabindex="0">
+      <a class="reel" href="#"><img src="../ctl/ctl-1.jpg" alt="Light Pink Georgette Zari Saree reel" loading="lazy" draggable="false"><span class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span><div class="rtag"><div class="rname">Light Pink Georgette Zari Saree</div><div class="rprice">$11,334.00</div><span class="rshop">Shop <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></a>
+      <a class="reel" href="#"><img src="../ctl/ctl-5.jpg" alt="Black Satin Hand Beadwork Saree reel" loading="lazy" draggable="false"><span class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span><div class="rtag"><div class="rname">Black Satin Hand Beadwork Saree</div><div class="rprice">$10,455.00</div><span class="rshop">Shop <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></a>
+      <a class="reel" href="#"><img src="../ctl/ctl-2.jpg" alt="Trombone Yellow Pre-Draped Saree reel" loading="lazy" draggable="false"><span class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span><div class="rtag"><div class="rname">Trombone Yellow Pre-Draped Saree</div><div class="rprice">$13,091.00</div><span class="rshop">Shop <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></a>
+      <a class="reel" href="#"><img src="../ctl/ctl-6.jpg" alt="Mint Blue Tissue Dori Saree reel" loading="lazy" draggable="false"><span class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span><div class="rtag"><div class="rname">Mint Blue Tissue Dori Saree</div><div class="rprice">$8,698.00</div><span class="rshop">Shop <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></a>
+      <a class="reel" href="#"><img src="../ctl/ctl-3.jpg" alt="Cherry Red Satin Pre-Draped Saree reel" loading="lazy" draggable="false"><span class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span><div class="rtag"><div class="rname">Cherry Red Satin Pre-Draped Saree</div><div class="rprice">$13,091.00</div><span class="rshop">Shop <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></a>
+      <a class="reel" href="#"><img src="../ctl/ctl-7.jpg" alt="Light Mauve Tissue Dori Saree reel" loading="lazy" draggable="false"><span class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span><div class="rtag"><div class="rname">Light Mauve Tissue Dori Saree</div><div class="rprice">$8,698.00</div><span class="rshop">Shop <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></a>
+      <a class="reel" href="#"><img src="../ctl/ctl-4.jpg" alt="Plum Purple Organza Saree reel" loading="lazy" draggable="false"><span class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span><div class="rtag"><div class="rname">Plum Purple Organza Saree</div><div class="rprice">$6,941.00</div><span class="rshop">Shop <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></a>
+    </div>
+  </section>
+
   <!-- ============ SIMILAR PRODUCTS ============ -->
   <section class="sim" aria-labelledby="sim-title">
     <div class="sim__head">
@@ -1054,6 +1076,22 @@
     (function(){
       var rail=document.getElementById('rv-rail'); if(!rail) return;
       var prevBtn=document.getElementById('rv-prev'), nextBtn=document.getElementById('rv-next');
+      function upd(){var max=rail.scrollWidth-rail.clientWidth-1;prevBtn.disabled=rail.scrollLeft<=1;nextBtn.disabled=rail.scrollLeft>=max;}
+      prevBtn.addEventListener('click',function(){rail.scrollBy({left:-rail.clientWidth,behavior:'smooth'});});
+      nextBtn.addEventListener('click',function(){rail.scrollBy({left:rail.clientWidth,behavior:'smooth'});});
+      rail.addEventListener('scroll',upd,{passive:true}); addEventListener('resize',upd);
+      var down=false,sx=0,ss=0,moved=false;
+      rail.addEventListener('pointerdown',function(e){if(e.pointerType==='touch')return;down=true;moved=false;sx=e.clientX;ss=rail.scrollLeft;rail.classList.add('is-grabbing');});
+      addEventListener('pointermove',function(e){if(!down)return;var dx=e.clientX-sx;if(Math.abs(dx)>4)moved=true;rail.scrollLeft=ss-dx;});
+      addEventListener('pointerup',function(){if(!down)return;down=false;rail.classList.remove('is-grabbing');upd();});
+      rail.addEventListener('click',function(e){if(moved){e.preventDefault();moved=false;}},true);
+      upd();
+    })();
+
+    // ===== Watch & Shop reels rail (arrows + drag-scroll) =====
+    (function(){
+      var rail=document.getElementById('reel-rail'); if(!rail) return;
+      var prevBtn=document.getElementById('reel-prev'), nextBtn=document.getElementById('reel-next');
       function upd(){var max=rail.scrollWidth-rail.clientWidth-1;prevBtn.disabled=rail.scrollLeft<=1;nextBtn.disabled=rail.scrollLeft>=max;}
       prevBtn.addEventListener('click',function(){rail.scrollBy({left:-rail.clientWidth,behavior:'smooth'});});
       nextBtn.addEventListener('click',function(){rail.scrollBy({left:rail.clientWidth,behavior:'smooth'});});
