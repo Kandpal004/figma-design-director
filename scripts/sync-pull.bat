@@ -1,5 +1,4 @@
 @echo off
-REM Auto-pull. Run on the OTHER (office) laptop every 5 min via Task Scheduler.
-REM Edit the path below to where the project lives on that laptop.
-cd /d "D:\Projects\AI Agent\figma-design-director"
+REM Auto-pull. Path-agnostic (works from any clone location). Run every 5 min on the other laptop.
+cd /d "%~dp0.."
 git pull --rebase --autostash >nul 2>&1

@@ -1,6 +1,6 @@
 @echo off
-REM Auto-commit + push if there are changes. Run this laptop every ~3 min via Task Scheduler.
-cd /d "D:\Projects\AI Agent\figma-design-director"
+REM Auto-commit + push if there are changes. Path-agnostic (works from any clone location).
+cd /d "%~dp0.."
 git add -A
 git diff --cached --quiet
 if errorlevel 1 (
