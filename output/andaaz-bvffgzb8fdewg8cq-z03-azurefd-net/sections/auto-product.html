@@ -382,6 +382,43 @@
   .sim__title{font-size:25px;font-weight:700;letter-spacing:.01em;color:var(--ink)}
   .sim__nav{position:absolute;right:0;bottom:0;display:flex;gap:8px}
   @media (max-width:900px){ .sim{padding:8px 18px 60px} .sim__nav{display:none} }
+
+  /* ===================== FOOTER ===================== */
+  .ft{border-top:1px solid var(--line);background:#fff}
+  .ft-top{max-width:1440px;margin:0 auto;padding:56px 40px 44px;display:grid;grid-template-columns:1fr 1fr;gap:30px}
+  .ft-card{background:#fafafb;border:1px solid var(--line-2);border-radius:14px;padding:34px 40px}
+  .ft-card h3{text-align:center;font-size:22px;font-weight:700;color:var(--ink);margin-bottom:22px}
+  .ft-hrow{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:15px 0;border-bottom:1px solid var(--line)}
+  .ft-hrow:last-child{border-bottom:0}
+  .ft-hrow .t{font-size:14.5px;font-weight:600;color:var(--ink)}
+  .ft-hrow .s{font-size:12.5px;color:var(--muted);margin-top:3px}
+  .ft-btn{flex:0 0 auto;border:1px solid var(--ink);background:#fff;color:var(--ink);border-radius:22px;padding:9px 24px;font-family:var(--f);font-size:12.5px;font-weight:600;letter-spacing:.03em;cursor:pointer;transition:.2s}
+  .ft-btn:hover{background:var(--ink);color:#fff}
+  .ft-addr{text-align:center}
+  .ft-addr .pin{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:var(--ink);margin-bottom:6px}
+  .ft-addr .pin svg{width:15px;height:15px;stroke:var(--brand);stroke-width:1.7;fill:none}
+  .ft-addr .line{font-size:13.5px;color:var(--ink-2);line-height:1.95}
+  .ft-addr .line a{color:var(--brand)}
+  .ft-sub{font-size:20px;font-weight:700;color:var(--ink);margin:26px 0 16px}
+  .ft-social{display:flex;justify-content:center;gap:22px}
+  .ft-social a{color:var(--ink-2);transition:color .2s}.ft-social a:hover{color:var(--brand)}
+  .ft-social svg{width:20px;height:20px;fill:currentColor;display:block}
+  .ft-stores{display:flex;justify-content:center;gap:30px;flex-wrap:wrap;margin-top:14px}
+  .ft-stores a{font-size:13px;color:var(--ink-2)}.ft-stores a:hover{color:var(--brand)}
+  .ft-cols{border-top:1px solid var(--line);background:#fafafb}
+  .ft-cols .in{max-width:1440px;margin:0 auto;padding:50px 40px;display:grid;grid-template-columns:repeat(4,1fr) 1.35fr;gap:40px}
+  .ft-col h4{font-size:15px;font-weight:700;color:var(--ink);margin-bottom:14px}
+  .ft-col a{display:block;font-size:13.5px;color:var(--ink-2);padding:6px 0;transition:color .2s}
+  .ft-col a:hover{color:var(--brand)}
+  .ft-join h4{font-size:17px;font-weight:700;color:var(--ink);text-align:center}
+  .ft-join p{font-size:13px;color:var(--muted);margin:6px 0 18px;text-align:center}
+  .ft-news{display:flex;border:1px solid var(--line-2);border-radius:6px;overflow:hidden;background:#fff}
+  .ft-news input{flex:1;min-width:0;border:0;padding:13px 16px;font-family:var(--f);font-size:13.5px;color:var(--ink);outline:none}
+  .ft-news button{border:0;background:var(--brand);color:#fff;padding:0 26px;font-family:var(--f);font-size:12.5px;font-weight:700;letter-spacing:.05em;cursor:pointer;transition:.2s}
+  .ft-news button:hover{background:var(--brand-dark)}
+  .ft-bar{border-top:1px solid var(--line);background:#fafafb}
+  .ft-bar .in{max-width:1440px;margin:0 auto;padding:20px 40px;display:flex;align-items:center;justify-content:space-between;font-size:12.5px;color:var(--muted);letter-spacing:.02em}
+  @media (max-width:900px){ .ft-top{grid-template-columns:1fr;padding:40px 18px} .ft-card{padding:28px 22px} .ft-cols .in{grid-template-columns:1fr 1fr;padding:36px 18px} .ft-bar .in{flex-direction:column;gap:10px;text-align:center} }
 </style>
 </head>
 <body>
