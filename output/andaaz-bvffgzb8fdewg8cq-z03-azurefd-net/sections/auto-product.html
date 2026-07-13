@@ -334,7 +334,7 @@
   }
 
   /* ===================== COMPLETE THE LOOK (premium) ===================== */
-  .ctl{max-width:1440px;margin:0 auto;padding:76px 40px;border-top:1px solid var(--line)}
+  .ctl{max-width:1440px;margin:0 auto;padding:72px 40px 40px;border-top:1px solid var(--line)}
   .ctl__title{text-align:center;font-size:25px;font-weight:700;letter-spacing:.01em;color:var(--ink)}
   .ctl__tabs{display:flex;justify-content:center;gap:34px;margin-top:22px;border-bottom:1px solid var(--line)}
   .ctl__tab{position:relative;background:none;border:0;padding:12px 2px 15px;font-size:14px;font-weight:600;color:var(--muted);letter-spacing:.03em;text-transform:uppercase;transition:color .2s}
@@ -365,8 +365,8 @@
   @media (max-width:900px){ .ctl{padding:44px 18px} .ctl__tabs{gap:22px} .ctl__rail{gap:16px} .ctl__card{flex:0 0 calc((100% - 16px)/2)} }
 
   /* ===================== SIMILAR PRODUCTS ===================== */
-  .sim{max-width:1440px;margin:0 auto;padding:8px 40px 80px;border-top:1px solid var(--line)}
-  .sim__head{position:relative;text-align:center;padding-top:56px;margin-bottom:28px}
+  .sim{max-width:1440px;margin:0 auto;padding:0 40px 72px;border-top:1px solid var(--line)}
+  .sim__head{position:relative;text-align:center;padding-top:36px;margin-bottom:28px}
   .sim__title{font-size:25px;font-weight:700;letter-spacing:.01em;color:var(--ink)}
   .sim__nav{position:absolute;right:0;bottom:0;display:flex;gap:8px}
   @media (max-width:900px){ .sim{padding:8px 18px 60px} .sim__nav{display:none} }
@@ -679,6 +679,25 @@
       <article class="ctl__card"><a class="ctl__link" href="#"><div class="ctl__media"><img src="../ctl/ctl-6.jpg" alt="Mint Blue Tissue Saree with Dori Work" loading="lazy" draggable="false"></div><h3 class="ctl__name">Mint Blue Tissue Saree with Dori Work</h3><div class="ctl__price"><span class="ctl__now">$8,698.00</span><span class="ctl__was">$12,476.00</span></div></a></article>
       <article class="ctl__card"><a class="ctl__link" href="#"><div class="ctl__media"><img src="../ctl/ctl-4.jpg" alt="Plum Purple Organza Saree with Stone Work" loading="lazy" draggable="false"></div><h3 class="ctl__name">Plum Purple Organza Saree with Stone Work</h3><div class="ctl__price"><span class="ctl__now">$6,941.00</span><span class="ctl__was">$9,928.00</span></div></a></article>
       <article class="ctl__card"><a class="ctl__link" href="#"><div class="ctl__media"><img src="../ctl/ctl-7.jpg" alt="Light Mauve Tissue Saree with Dori Work" loading="lazy" draggable="false"></div><h3 class="ctl__name">Light Mauve Tissue Saree with Dori Work</h3><div class="ctl__price"><span class="ctl__now">$8,698.00</span><span class="ctl__was">$12,476.00</span></div></a></article>
+    </div>
+  </section>
+
+  <!-- ============ RECENTLY VIEWED ============ -->
+  <section class="sim" aria-labelledby="rv-title">
+    <div class="sim__head">
+      <h2 class="sim__title" id="rv-title">Recently Viewed</h2>
+      <div class="sim__nav">
+        <button class="ctl__arrow" id="rv-prev" aria-label="Previous products"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+        <button class="ctl__arrow" id="rv-next" aria-label="Next products"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+      </div>
+    </div>
+    <div class="ctl__rail" id="rv-rail" tabindex="0">
+      <article class="ctl__card"><a class="ctl__link" href="#"><div class="ctl__media"><img src="../images/img-0.jpg" alt="Pink Palazzo Set With Zari Embroidered A-Line Kurta And Dupatta" loading="lazy" draggable="false"></div><h3 class="ctl__name">Pink Palazzo Set With Zari Embroidered A-Line Kurta And Dupatta</h3><div class="ctl__price"><span class="ctl__now">$149.00</span><span class="ctl__was">$199.00</span></div></a></article>
+      <article class="ctl__card"><a class="ctl__link" href="#"><div class="ctl__media"><img src="../ctl/ctl-3.jpg" alt="Cherry Red Satin Pre-Draped Saree" loading="lazy" draggable="false"></div><h3 class="ctl__name">Cherry Red Satin Pre-Draped Saree</h3><div class="ctl__price"><span class="ctl__now">$13,091.00</span><span class="ctl__was">$18,977.00</span></div></a></article>
+      <article class="ctl__card"><a class="ctl__link" href="#"><div class="ctl__media"><img src="../ctl/ctl-5.jpg" alt="Black Satin Hand Beadwork Saree" loading="lazy" draggable="false"></div><h3 class="ctl__name">Black Satin Hand Beadwork Saree</h3><div class="ctl__price"><span class="ctl__now">$10,455.00</span><span class="ctl__was">$11,685.00</span></div></a></article>
+      <article class="ctl__card"><a class="ctl__link" href="#"><div class="ctl__media"><img src="../ctl/ctl-1.jpg" alt="Light Pink Georgette Zari Embroidered Saree" loading="lazy" draggable="false"></div><h3 class="ctl__name">Light Pink Georgette Zari Embroidered Saree</h3><div class="ctl__price"><span class="ctl__now">$11,334.00</span><span class="ctl__was">$14,760.00</span></div></a></article>
+      <article class="ctl__card"><a class="ctl__link" href="#"><div class="ctl__media"><img src="../ctl/ctl-6.jpg" alt="Mint Blue Tissue Saree with Dori Work" loading="lazy" draggable="false"></div><h3 class="ctl__name">Mint Blue Tissue Saree with Dori Work</h3><div class="ctl__price"><span class="ctl__now">$8,698.00</span><span class="ctl__was">$12,476.00</span></div></a></article>
+      <article class="ctl__card"><a class="ctl__link" href="#"><div class="ctl__media"><img src="../ctl/ctl-4.jpg" alt="Plum Purple Organza Saree with Stone Work" loading="lazy" draggable="false"></div><h3 class="ctl__name">Plum Purple Organza Saree with Stone Work</h3><div class="ctl__price"><span class="ctl__now">$6,941.00</span><span class="ctl__was">$9,928.00</span></div></a></article>
     </div>
   </section>
 
