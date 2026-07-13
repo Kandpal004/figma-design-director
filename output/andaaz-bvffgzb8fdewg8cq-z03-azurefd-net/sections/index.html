@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Andaaz Fashion | Premium Ethnic Wear, Custom-Stitched Worldwide</title>
+<!--
+  FULL HOMEPAGE (assembled). Combines three already-built sections into one standalone document:
+  (1) utility bar + sticky HEADER + category strip + HERO  ....... sections/home-hero.html
+  (2) SHOP BY COLLECTION (3-card occasion block)  ................. sections/home-collections.html
+  (3) NEW ARRIVALS product rail (.ctl__ pattern)  ................ sections/home-newarrivals.html
+  Shared :root tokens, header CSS, and the header-scroll JS are included ONCE (from the hero file,
+  which carries the superset tokens incl. --brand-tint-2). Each section's UNIQUE css/markup/JS is
+  appended once, in page order. No section changed visually; same images, text and behaviour.
+  Grounding: output/andaaz-.../tokens.json, ctl-data.json, real images (images/, home/, ctl/).
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ===================== SHARED TOKENS + BASE (once) ===================== */
+  :root{
+    --brand:#a10047; --brand-tint:#fbeef3; --brand-tint-2:#f7e4ec; --brand-dark:#800038;
+    --ink:#1c1b1d; --ink-2:#464a54; --muted:#6e727b;
+    --line:#ececee; --line-2:#e2e2e6; --field:#f5f5f7; --ok:#1f7a4d; --dark:#201c1d;
+    --f:"Hanken Grotesk",system-ui,-apple-system,sans-serif; --logo:"Hanken Grotesk",system-ui,-apple-system,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--f);color:var(--ink);background:#fff;font-weight:400;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit;cursor:pointer}
+  img{display:block;max-width:100%}
+  :focus-visible{outline:2px solid var(--brand);outline-offset:3px;border-radius:2px}
+  .skip{position:absolute;left:-999px;top:0;z-index:300;background:var(--ink);color:#fff;padding:10px 16px;font-size:13px;letter-spacing:.04em}
+  .skip:focus{left:12px;top:10px}
+
+  /* ===================== HEADER (shared, once) ===================== */
+  .util{background:var(--dark);color:#fff}
+  .util .in{max-width:1440px;margin:0 auto;padding:0 40px;height:38px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;font-size:12px;letter-spacing:.05em}
+  .util .call{display:inline-flex;align-items:center;gap:8px;color:#fff;opacity:.92}
+  .util .call svg{width:15px;height:15px;stroke:currentColor;stroke-width:1.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .ticker{overflow:hidden;height:20px;text-align:center}
+  .ticker ul{list-style:none;animation:roll 12s infinite}
+  .ticker li{height:20px;line-height:20px;text-transform:uppercase;letter-spacing:.18em;font-size:11px;color:#efe7ea}
+  @keyframes roll{0%,28%{transform:translateY(0)}33%,61%{transform:translateY(-20px)}66%,94%{transform:translateY(-40px)}100%{transform:translateY(-60px)}}
+  @media (prefers-reduced-motion:reduce){.ticker ul{animation:none}}
+  .util .right{justify-self:end;display:inline-flex;align-items:center;gap:16px}
+  header{position:sticky;top:0;z-index:60;background:#fff;border-bottom:1px solid var(--line);transition:box-shadow .3s}
+  header.scrolled{box-shadow:0 8px 26px -20px rgba(0,0,0,.32)}
+  .hmain{max-width:1440px;margin:0 auto;padding:24px 40px 20px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:32px;transition:padding .28s ease}
+  header.scrolled .hmain{padding:13px 40px}
+  .hleft{display:flex;align-items:center;gap:26px}
+  .htxtbtn{display:inline-flex;align-items:center;gap:9px;background:none;border:0;padding:6px 0;color:var(--ink);font-size:12px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;line-height:1}
+  .htxtbtn svg{display:block;width:20px;height:20px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .htxtbtn .lbl{display:inline-flex;align-items:center;line-height:1;transform:translateY(1.5px);position:relative}
+  .htxtbtn:hover{color:var(--brand)}
+  .htxtbtn .lbl::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:1.5px;background:var(--brand);transform:scaleX(0);transform-origin:left;transition:transform .25s}
+  .htxtbtn:hover .lbl::after{transform:scaleX(1)}
+  .logo{justify-self:center;display:flex;flex-direction:column;align-items:center;line-height:.96}
+  .logo .a{font-family:var(--logo);font-weight:700;font-size:32px;letter-spacing:.05em;transition:font-size .28s ease}
+  header.scrolled .logo .a{font-size:25px}
+  .logo .fm{display:flex;align-items:center;gap:9px;margin-top:7px}
+  .logo .fm i{height:1px;width:22px;background:var(--line-2);display:inline-block}
+  .logo .fm span{font-size:9.5px;letter-spacing:.52em;color:var(--ink-2);text-transform:uppercase;padding-left:.52em}
+  .hright{justify-self:end;display:flex;align-items:center;gap:22px}
+  .ic{position:relative;display:inline-flex;align-items:center;justify-content:center;background:none;border:0;padding:0;color:var(--ink)}
+  .ic svg{width:22px;height:22px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .ic .t{display:none}
+  .ic:hover{color:var(--brand)}
+  .ic .n{position:absolute;top:-7px;right:-8px;min-width:17px;height:17px;padding:0 4px;border-radius:9px;background:#e5122e;color:#fff;font-size:10px;font-weight:700;display:grid;place-items:center;border:2px solid #fff}
+  .region-in{display:inline-flex;align-items:center;gap:6px;background:none;border:0;padding:0;font-family:var(--f);font-size:13px;font-weight:600;color:var(--ink);letter-spacing:.04em;cursor:pointer}
+  .region-in svg{width:16px;height:16px;stroke:var(--ink-2);stroke-width:1.5;fill:none}
+  .region-in:hover{color:var(--brand)}
+  nav.cats{border-top:1px solid var(--line)}
+  nav.cats .in{max-width:1440px;margin:0 auto;padding:0 40px;display:flex;align-items:center;justify-content:center;gap:2px;flex-wrap:wrap}
+  nav.cats a{position:relative;padding:14px 16px;font-size:12px;font-weight:400;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);white-space:nowrap}
+  nav.cats a::after{content:"";position:absolute;left:16px;right:16px;bottom:9px;height:1.5px;background:var(--brand);transform:scaleX(0);transform-origin:center;transition:transform .25s}
+  nav.cats a:hover{color:var(--brand)}nav.cats a:hover::after{transform:scaleX(1)}
+  nav.cats a.sale{color:var(--brand);font-weight:500}
+  nav.cats a .new{position:absolute;top:6px;right:2px;font-size:8px;font-weight:600;letter-spacing:.12em;color:var(--brand)}
+  /* shared header responsive (once) */
+  @media (max-width:920px){
+    .util .call,.ticker{display:none}
+    nav.cats{display:none}
+    .hmain{grid-template-columns:auto 1fr auto;padding:16px 20px;gap:14px}
+    .util .in{grid-template-columns:1fr;justify-items:end}
+  }
+
+  /* ===================== HERO (from home-hero.html) ===================== */
+  .hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.02fr);min-height:clamp(520px,62vh,640px);background:#fff}
+  .hero__copy{display:flex;flex-direction:column;justify-content:center;padding:48px clamp(36px,3.6vw,60px) 48px clamp(40px,4.4vw,72px);border-right:1px solid var(--line)}
+  .hero__eyebrow{display:inline-flex;align-items:center;font-size:12.5px;font-weight:600;letter-spacing:.32em;text-transform:uppercase;color:var(--brand)}
+  .hero__h1{font-family:var(--f);font-weight:700;font-size:clamp(46px,6vw,84px);line-height:.93;letter-spacing:-.033em;color:var(--ink);margin:20px 0 0;max-width:none}
+  .hero__sub{font-size:17.5px;line-height:1.6;color:var(--ink-2);max-width:60ch;margin-top:20px;font-weight:400}
+  .hero__cta{display:flex;align-items:center;gap:28px;flex-wrap:wrap;margin-top:32px}
+  .btn-primary{display:inline-flex;align-items:center;gap:11px;background:var(--brand);color:#fff;border:0;border-radius:3px;padding:18px 36px;font-size:13.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;transition:background .18s,transform .12s}
+  .btn-primary svg{width:16px;height:16px;stroke:#fff;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s}
+  .btn-primary:hover{background:var(--brand-dark)}
+  .btn-primary:hover svg{transform:translateX(3px)}
+  .btn-primary:active{transform:translateY(1px)}
+  .link-secondary{display:inline-flex;align-items:center;gap:9px;font-size:13px;font-weight:600;letter-spacing:.06em;color:var(--ink);position:relative}
+  .link-secondary svg{width:16px;height:16px;stroke:currentColor;stroke-width:1.7;fill:none;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s}
+  .link-secondary .u{position:relative}
+  .link-secondary .u::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:1.5px;background:var(--brand);transform:scaleX(0);transform-origin:left;transition:transform .25s}
+  .link-secondary:hover{color:var(--brand)}
+  .link-secondary:hover .u::after{transform:scaleX(1)}
+  .link-secondary:hover svg{transform:translateX(3px)}
+  .hero__trust{display:flex;flex-wrap:wrap;gap:14px 32px;margin-top:34px;padding-top:26px;border-top:1px solid var(--line)}
+  .hero__trust .t{display:inline-flex;align-items:center;gap:10px;font-size:12.5px;font-weight:500;letter-spacing:.02em;color:var(--ink-2)}
+  .hero__trust .t svg{width:21px;height:21px;stroke:var(--brand);stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}
+
+  /* campaign block: model sits on a soft rani-tint mat, matted inside a hairline frame so
+     the light studio background reads as a designed panel, not a bare cropped photo */
+  .hero__media{position:relative;overflow:hidden;background:var(--brand-tint-2);padding:clamp(18px,2vw,30px)}
+  .hero__frame{position:relative;height:100%;width:100%;border-radius:5px;overflow:hidden;border:1px solid rgba(161,0,71,.13)}
+  .hero__frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center}
+  /* quiet editorial plate, top-left of the image (diagonally clear of the bottom-left shop caption) */
+  .hero__plate{position:absolute;top:15px;left:15px;z-index:3;font-size:10.5px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:rgba(28,27,29,.62);text-shadow:0 1px 2px rgba(255,255,255,.55)}
+  /* shoppable caption, bottom-left, single overlay (no collision) */
+  .as-seen{position:absolute;left:24px;bottom:24px;z-index:3;display:inline-flex;align-items:center;gap:12px;background:rgba(255,255,255,.94);backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,.6);border-radius:3px;padding:11px 15px;box-shadow:0 6px 22px -12px rgba(0,0,0,.4);transition:transform .2s}
+  .as-seen:hover{transform:translateY(-2px)}
+  .as-seen .k{font-size:9.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--brand);display:block;margin-bottom:3px}
+  .as-seen .n{font-size:13px;font-weight:600;color:var(--ink);line-height:1.2}
+  .as-seen .arw{width:22px;height:22px;border-radius:50%;background:var(--ink);display:grid;place-items:center;flex:0 0 auto}
+  .as-seen .arw svg{width:13px;height:13px;stroke:#fff;stroke-width:1.9;fill:none;stroke-linecap:round;stroke-linejoin:round}
+
+  @media (max-width:1080px){
+    .hero{grid-template-columns:1fr;min-height:0}
+    .hero__media{order:1;aspect-ratio:4/5;max-height:66vh;padding:clamp(12px,3.4vw,20px)}
+    .hero__copy{order:2;border-right:0;border-top:1px solid var(--line);padding:44px clamp(20px,6vw,48px) 48px;text-align:left}
+    .hero__h1{max-width:20ch}
+    .hero__trust{margin-top:36px}
+  }
+  /* medium laptops (still 2-column): ease the cramped copy column so the CTA row and
+     trust cues do not wrap/clip */
+  @media (min-width:1081px) and (max-width:1300px){
+    .hero__copy{padding:40px clamp(28px,2.6vw,44px)}
+    .hero__h1{font-size:clamp(40px,4.7vw,58px)}
+    .hero__sub{font-size:16px}
+    .hero__cta{gap:20px}
+    .hero__trust{gap:12px 22px}
+  }
+  @media (max-width:520px){
+    .hero__cta{gap:18px}
+    .btn-primary{flex:1 1 auto;justify-content:center}
+  }
+  /* short screens: keep the whole hero in the first fold by compressing the copy */
+  @media (min-width:1081px) and (max-height:820px){
+    .hero__copy{padding-top:30px;padding-bottom:30px}
+    .hero__h1{font-size:clamp(40px,4.8vw,62px)}
+    .hero__sub{margin-top:14px;font-size:15.5px}
+    .hero__cta{margin-top:24px}
+    .hero__trust{margin-top:24px;padding-top:18px}
+  }
+  @media (min-width:1081px) and (max-height:680px){
+    .hero__copy{padding-top:20px;padding-bottom:20px}
+    .hero__h1{font-size:clamp(34px,4vw,50px)}
+    .hero__trust{gap:8px 26px;margin-top:18px;padding-top:14px}
+  }
+
+  /* ===================== CATEGORY STRIP (above hero) ===================== */
+  .catstrip{border-bottom:1px solid var(--line);background:#fff}
+  .catstrip__row{list-style:none;max-width:1440px;margin:0 auto;padding:12px 40px;display:flex;align-items:flex-start;justify-content:space-between;gap:10px;overflow-x:auto;scroll-snap-type:x proximity;-ms-overflow-style:none;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .catstrip__row::-webkit-scrollbar{display:none}
+  .catstrip__item{flex:0 0 auto;scroll-snap-align:start}
+  .catstrip__item a{display:flex;flex-direction:column;align-items:center;gap:9px;width:auto;text-align:center}
+  .catstrip__thumb{width:60px;height:60px;border-radius:50%;overflow:hidden;background:var(--field);box-shadow:0 0 0 1px var(--line-2), 0 0 0 0 rgba(161,0,71,0);transition:box-shadow .22s ease,transform .22s ease}
+  .catstrip__thumb img{width:100%;height:100%;object-fit:cover;object-position:center top}
+  .catstrip__item a:hover .catstrip__thumb{transform:translateY(-3px);box-shadow:0 0 0 1.5px var(--brand), 0 10px 20px -12px rgba(161,0,71,.4)}
+  .catstrip__label{font-size:11.5px;font-weight:500;letter-spacing:.01em;line-height:1.25;color:var(--ink);white-space:nowrap;transition:color .18s}
+  .catstrip__item a:hover .catstrip__label{color:var(--brand)}
+  @media (max-width:920px){
+    .catstrip__row{padding:14px 20px;justify-content:flex-start;gap:16px}
+  }
+
+  /* ===================== SHOP BY COLLECTION (from home-collections.html) ===================== */
+  .collections{max-width:1440px;margin:0 auto;padding:84px 40px 104px}
+  .col-head{display:flex;align-items:flex-end;justify-content:space-between;gap:32px;margin-bottom:44px}
+  .col-eyebrow{font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--brand)}
+  .col-title{font-size:36px;font-weight:700;letter-spacing:-.015em;line-height:1.12;color:var(--ink);margin-top:14px}
+  .col-sub{font-size:14px;line-height:1.6;color:var(--ink-2);margin-top:12px;max-width:44ch}
+  .col-viewall{flex:0 0 auto;display:inline-flex;align-items:center;gap:9px;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);padding-bottom:6px;white-space:nowrap}
+  .col-viewall svg{width:16px;height:16px;stroke:currentColor;stroke-width:1.7;fill:none;stroke-linecap:round;stroke-linejoin:round;transition:transform .25s}
+  .col-viewall:hover{color:var(--brand)}
+  .col-viewall:hover svg{transform:translateX(4px)}
+
+  .col-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:start}
+  .ccard{position:relative;display:block;overflow:hidden;border-radius:4px;background:var(--field);aspect-ratio:3/4}
+  .ccard.stagger{margin-top:44px}
+  .ccard img{width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+  .ccard:hover img{transform:scale(1.045)}
+  .ccard::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(19,13,16,.74) 0%,rgba(19,13,16,.30) 30%,rgba(19,13,16,0) 56%);z-index:1}
+  .ccap{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:32px}
+  .cidx{font-size:11px;font-weight:600;letter-spacing:.2em;color:rgba(255,255,255,.72)}
+  .clabel{font-size:24px;font-weight:600;letter-spacing:.005em;color:#fff;margin-top:10px;line-height:1.1}
+  .cline{font-size:13.5px;line-height:1.55;color:rgba(255,255,255,.84);margin-top:9px;max-width:30ch}
+  .cshop{display:inline-flex;align-items:center;gap:10px;margin-top:20px;font-size:11.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#fff}
+  .cshop .u{position:relative;padding-bottom:5px}
+  .cshop .u::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--brand);transform:scaleX(1);transform-origin:left;transition:transform .3s}
+  .ccard:hover .cshop .u::after{background:#fff}
+  .cshop svg{width:16px;height:16px;stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round;transition:transform .3s}
+  .ccard:hover .cshop svg{transform:translateX(4px)}
+
+  @media (max-width:900px){
+    .collections{padding:52px 20px 64px}
+    .col-head{flex-direction:column;align-items:flex-start;gap:20px;margin-bottom:28px}
+    .col-title{font-size:28px}
+    .col-grid{grid-template-columns:1fr;gap:16px}
+    .ccard{aspect-ratio:4/5}
+    .ccard.stagger{margin-top:0}
+    .ccap{padding:26px}
+  }
+
+  /* ===================== NEW ARRIVALS RAIL (from home-newarrivals.html) ===================== */
+  .na{max-width:1440px;margin:0 auto;padding:72px 40px 80px}
+  .na__head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:26px}
+  .na__eyebrow{font-size:11.5px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--brand)}
+  .na__title{font-size:29px;font-weight:700;letter-spacing:.005em;line-height:1.24;color:var(--ink);margin-top:9px}
+  .na__right{display:flex;align-items:center;gap:20px;flex:0 0 auto}
+  .na__viewall{font-size:12.5px;font-weight:500;color:var(--ink-2);letter-spacing:.02em;display:inline-flex;align-items:center;gap:7px;transition:color .2s}
+  .na__viewall svg{width:15px;height:15px;stroke:currentColor;stroke-width:1.7;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .na__viewall:hover{color:var(--brand)}
+  .na__nav{display:flex;gap:8px}
+  .ctl__arrow{width:40px;height:40px;display:grid;place-items:center;background:#fff;border:1px solid var(--line-2);border-radius:8px;color:var(--ink);transition:.18s}
+  .ctl__arrow svg{width:17px;height:17px;stroke:currentColor;stroke-width:1.7;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .ctl__arrow:hover:not(:disabled){border-color:var(--brand);color:var(--brand)}
+  .ctl__arrow:disabled{opacity:.3;cursor:default}
+  .ctl__rail{display:flex;gap:32px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding-bottom:6px;scrollbar-width:none}
+  .ctl__rail::-webkit-scrollbar{display:none}
+  .ctl__rail.is-grabbing{scroll-behavior:auto;cursor:grabbing;scroll-snap-type:none}
+  /* exactly 4 whole cards fit the row — no cut/partial card */
+  .ctl__card{flex:0 0 calc((100% - 96px)/4);scroll-snap-align:start}
+  .ctl__media{position:relative;background:var(--field);overflow:hidden;aspect-ratio:3/4}
+  .ctl__media img{width:100%;height:100%;object-fit:cover;transition:transform .7s ease}
+  .ctl__card:hover .ctl__media img{transform:scale(1.03)}
+  .ctl__name{margin-top:16px;font-size:14px;font-weight:400;color:var(--ink);line-height:1.45;letter-spacing:.005em;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+  .ctl__price{margin-top:7px;display:flex;align-items:baseline;gap:10px}
+  .ctl__now{font-size:14.5px;font-weight:600;color:var(--ink)}
+  .ctl__was{font-size:13px;font-weight:400;color:var(--muted);text-decoration:line-through}
+
+  @media (max-width:900px){
+    .na{padding:44px 18px 54px}
+    .na__nav{display:none}
+    .ctl__rail{gap:16px}
+    .ctl__card{flex:0 0 calc((100% - 16px)/2)}
+  }
+</style>
+</head>
+<body>
+  <a class="skip" href="#hero">Skip to content</a>
+
+  <!-- ============ HEADER (once) ============ -->
+  <div class="util"><div class="in">
+    <a class="call" href="#"><svg viewBox="0 0 24 24"><path d="M6 4h3l1.5 4-2 1.4a12 12 0 0 0 5.1 5.1l1.4-2 4 1.5v3a2 2 0 0 1-2.2 2A16 16 0 0 1 4 6.2 2 2 0 0 1 6 4z"/></svg>Book a Styling Consultation</a>
+    <div class="ticker" aria-hidden="true"><ul>
+      <li>Free Shipping Worldwide</li><li>Delivered Duty Paid, No Surprises</li><li>48-Hour Express Dispatch</li>
+    </ul></div>
+    <div class="right"><a href="#">Track Order</a></div>
+  </div></div>
+
+  <header id="hdr">
+    <div class="hmain">
+      <div class="hleft">
+        <button class="htxtbtn" aria-label="Search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><span class="lbl">Search</span></button>
+      </div>
+      <a class="logo" href="#" aria-label="Andaaz Fashion home">
+        <span class="a">ANDAAZ</span><span class="fm"><i></i><span>Fashion</span><i></i></span>
+      </a>
+      <div class="hright">
+        <button class="ic" aria-label="Account"><svg viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="t">Account</span></button>
+        <button class="ic" aria-label="Shopping bag" id="bag"><svg viewBox="0 0 24 24"><path d="M16 10a4 4 0 0 1-8 0"/><path d="M3.103 6.034h17.794"/><path d="M3.4 5.467a2 2 0 0 0-.4 1.2V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.667a2 2 0 0 0-.4-1.2l-2-2.667A2 2 0 0 0 17 2H7a2 2 0 0 0-1.6.8z"/></svg><span class="t">Bag</span><span class="n">0</span></button>
+        <button class="region-in" aria-label="Region: India"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.5 2.4 3.8 5.6 3.8 9s-1.3 6.6-3.8 9c-2.5-2.4-3.8-5.6-3.8-9s1.3-6.6 3.8-9z"/></svg>IN</button>
+      </div>
+    </div>
+    <nav class="cats" aria-label="Product categories"><div class="in">
+      <a href="#">Sarees</a><a href="#">Salwar Kameez</a><a href="#">Lehenga Choli</a>
+      <a href="#">Kurtis <span class="new">NEW</span></a><a href="#">Gowns</a><a href="#">Menswear</a>
+      <a href="#">Jewellery</a><a href="#" class="sale">Sale</a><a href="#">Home</a>
+    </div></nav>
+  </header>
+
+  <!-- ============ CATEGORY STRIP (real homepage tiles, above the hero) ============ -->
+  <nav class="catstrip" aria-label="Shop by category">
+    <ul class="catstrip__row" id="catstrip">
+      <li class="catstrip__item"><a href="#"><span class="catstrip__thumb"><img src="../home/category/tile-1.png" alt="Any 2 for $199" loading="lazy"></span><span class="catstrip__label">Any 2 for $199</span></a></li>
+      <li class="catstrip__item"><a href="#"><span class="catstrip__thumb"><img src="../home/category/tile-2.png" alt="Best Seller" loading="lazy"></span><span class="catstrip__label">Best Seller</span></a></li>
+      <li class="catstrip__item"><a href="#"><span class="catstrip__thumb"><img src="../home/category/tile-3.png" alt="Wedding Dresses" loading="lazy"></span><span class="catstrip__label">Wedding Dresses</span></a></li>
+      <li class="catstrip__item"><a href="#"><span class="catstrip__thumb"><img src="../home/category/tile-4.png" alt="Plus Size" loading="lazy"></span><span class="catstrip__label">Plus Size</span></a></li>
+      <li class="catstrip__item"><a href="#"><span class="catstrip__thumb"><img src="../home/category/tile-5.png" alt="Men Clothing" loading="lazy"></span><span class="catstrip__label">Men Clothing</span></a></li>
+      <li class="catstrip__item"><a href="#"><span class="catstrip__thumb"><img src="../home/category/tile-6.png" alt="Saree" loading="lazy"></span><span class="catstrip__label">Saree</span></a></li>
+      <li class="catstrip__item"><a href="#"><span class="catstrip__thumb"><img src="../home/category/tile-7.png" alt="Indo-western" loading="lazy"></span><span class="catstrip__label">Indo-western</span></a></li>
+      <li class="catstrip__item"><a href="#"><span class="catstrip__thumb"><img src="../home/category/tile-8.png" alt="Pakistani Suits" loading="lazy"></span><span class="catstrip__label">Pakistani Suits</span></a></li>
+      <li class="catstrip__item"><a href="#"><span class="catstrip__thumb"><img src="../home/category/tile-9.png" alt="Lehenga" loading="lazy"></span><span class="catstrip__label">Lehenga</span></a></li>
+      <li class="catstrip__item"><a href="#"><span class="catstrip__thumb"><img src="../home/category/tile-10.png" alt="Kids Collection" loading="lazy"></span><span class="catstrip__label">Kids Collection</span></a></li>
+      <li class="catstrip__item"><a href="#"><span class="catstrip__thumb"><img src="../home/category/tile-11.png" alt="Trouser Suits" loading="lazy"></span><span class="catstrip__label">Trouser Suits</span></a></li>
+      <li class="catstrip__item"><a href="#"><span class="catstrip__thumb"><img src="../home/category/tile-12.png" alt="Jewellery" loading="lazy"></span><span class="catstrip__label">Jewellery</span></a></li>
+    </ul>
+  </nav>
+
+  <!-- ============ HERO BANNER ============ -->
+  <main id="hero" class="hero">
+    <div class="hero__copy">
+      <span class="hero__eyebrow">The Festive Edit 2026</span>
+      <h1 class="hero__h1">Woven for the moments you&rsquo;ll never forget</h1>
+      <p class="hero__sub">Hand-embroidered zari sarees, lehengas and palazzo sets. Custom-stitched to your measurements and delivered worldwide, so you arrive at every celebration exactly as you imagined.</p>
+      <div class="hero__cta">
+        <a class="btn-primary" href="#">Shop the Festive Edit
+          <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+        </a>
+        <a class="link-secondary" href="#"><span class="u">Explore Sarees &amp; Lehengas</span>
+          <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+        </a>
+      </div>
+      <div class="hero__trust">
+        <span class="t">
+          <svg viewBox="0 0 24 24"><path d="M12 3l2.1 4.6 5 .5-3.7 3.4 1 4.9L12 18.6 7.6 16.8l1-4.9L4.9 8.1l5-.5z"/></svg>
+          Handcrafted zari embroidery
+        </span>
+        <span class="t">
+          <svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.6"/><circle cx="6" cy="18" r="2.6"/><path d="M8.1 7.6 20 18M20 6 8.1 16.4"/></svg>
+          Custom-stitched to your fit
+        </span>
+        <span class="t">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.4 2.4 3.7 5.6 3.7 9s-1.3 6.6-3.7 9c-2.4-2.4-3.7-5.6-3.7-9s1.3-6.6 3.7-9z"/></svg>
+          Worldwide delivery, duties paid
+        </span>
+      </div>
+    </div>
+
+    <div class="hero__media">
+      <div class="hero__frame">
+        <img src="../images/img-0.jpg" alt="Model wearing a rani pink zari-embroidered A-line kurta, palazzo and organza dupatta from the Andaaz Festive Edit" fetchpriority="high">
+        <span class="hero__plate">The Andaaz Atelier</span>
+        <a class="as-seen" href="#" aria-label="Shop the look: Pink Zari Palazzo Set">
+          <span>
+            <span class="k">As Seen</span>
+            <span class="n">Pink Zari Palazzo Set</span>
+          </span>
+          <span class="arw"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- ============ SHOP BY COLLECTION ============ -->
+  <section class="collections" id="collections" aria-labelledby="col-title">
+    <div class="col-head">
+      <div>
+        <p class="col-eyebrow">Curated for the occasion</p>
+        <h2 class="col-title" id="col-title">Shop by Collection</h2>
+        <p class="col-sub">Three edits, one for every celebration on your calendar. Start with the moment, we will style the rest.</p>
+      </div>
+      <a class="col-viewall" href="#">View all collections
+        <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+
+    <div class="col-grid">
+      <a class="ccard" href="#" aria-label="Shop the Wedding edit">
+        <img src="../home/banner/hero1.jpg" alt="Deep red wedding suit with intricate embroidery">
+        <div class="ccap">
+          <span class="cidx">01</span>
+          <p class="clabel">Wedding</p>
+          <p class="cline">Lehengas, heavy sarees and bridal sets for the big day.</p>
+          <span class="cshop"><span class="u">Shop the Wedding Edit</span>
+            <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <a class="ccard stagger" href="#" aria-label="Shop Festive looks">
+        <img src="../home/banner/hero2.jpg" alt="Blush pink festive lehenga with zari detailing">
+        <div class="ccap">
+          <span class="cidx">02</span>
+          <p class="clabel">Festive</p>
+          <p class="cline">Diwali, Eid and celebration looks made to catch the light.</p>
+          <span class="cshop"><span class="u">Shop Festive Looks</span>
+            <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <a class="ccard" href="#" aria-label="Shop Ready to Ship, delivered in 24 hours">
+        <img src="../home/banner/hero3.jpg" alt="Gold saree, ready to ship, styled full length">
+        <div class="ccap">
+          <span class="cidx">03</span>
+          <p class="clabel">Ready to Ship</p>
+          <p class="cline">Stitched and dispatched within 24 hours, in time for the date.</p>
+          <span class="cshop"><span class="u">Ships in 24 Hours</span>
+            <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+          </span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============ NEW ARRIVALS ============ -->
+  <section class="na" id="newarrivals" aria-labelledby="na-title">
+    <div class="na__head">
+      <div class="na__lead">
+        <span class="na__eyebrow">Trending Now</span>
+        <h2 class="na__title" id="na-title">New Arrivals</h2>
+      </div>
+      <div class="na__right">
+        <a class="na__viewall" href="#">View All<svg viewBox="0 0 24 24"><path d="M5 12h14"/><polyline points="13 6 19 12 13 18"/></svg></a>
+        <div class="na__nav">
+          <button class="ctl__arrow" id="na-prev" aria-label="Previous products"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+          <button class="ctl__arrow" id="na-next" aria-label="Next products"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="ctl__rail" id="na-rail" tabindex="0" aria-label="New arrivals product rail">
+      <article class="ctl__card"><a class="ctl__link" href="#"><div class="ctl__media"><img src="../ctl/ctl-0.jpg" alt="Plum Purple Organza Saree with Dori Work" loading="lazy" draggable="false"></div><h3 class="ctl__name">Plum Purple Organza Saree with Dori Work</h3><div class="ctl__price"><span class="ctl__now">$8,698.00</span><span class="ctl__was">$12,476.00</span></div></a></article>
+      <article class="ctl__card"><a class="ctl__link" href="#"><div class="ctl__media"><img src="../ctl/ctl-1.jpg" alt="Light Pink Georgette Zari Embroidered Saree" loading="lazy" draggable="false"></div><h3 class="ctl__name">Light Pink Georgette Zari Embroidered Saree</h3><div class="ctl__price"><span class="ctl__now">$11,334.00</span><span class="ctl__was">$14,760.00</span></div></a></article>
+      <article class="ctl__card"><a class="ctl__link" href="#"><div class="ctl__media"><img src="../ctl/ctl-2.jpg" alt="Trombone Yellow Georgette Pre-Draped Saree" loading="lazy" draggable="false"></div><h3 class="ctl__name">Trombone Yellow Georgette Pre-Draped Saree</h3><div class="ctl__price"><span class="ctl__now">$13,091.00</span><span class="ctl__was">$17,045.00</span></div></a></article>
+      <article class="ctl__card"><a class="ctl__link" href="#"><div class="ctl__media"><img src="../ctl/ctl-3.jpg" alt="Cherry Red Satin Pre-Draped Saree" loading="lazy" draggable="false"></div><h3 class="ctl__name">Cherry Red Satin Pre-Draped Saree</h3><div class="ctl__price"><span class="ctl__now">$13,091.00</span><span class="ctl__was">$18,977.00</span></div></a></article>
+      <article class="ctl__card"><a class="ctl__link" href="#"><div class="ctl__media"><img src="../ctl/ctl-4.jpg" alt="Plum Purple Organza Saree with Stone Work" loading="lazy" draggable="false"></div><h3 class="ctl__name">Plum Purple Organza Saree with Stone Work</h3><div class="ctl__price"><span class="ctl__now">$6,941.00</span><span class="ctl__was">$9,928.00</span></div></a></article>
+      <article class="ctl__card"><a class="ctl__link" href="#"><div class="ctl__media"><img src="../ctl/ctl-5.jpg" alt="Black Satin Hand Beadwork Saree" loading="lazy" draggable="false"></div><h3 class="ctl__name">Black Satin Hand Beadwork Saree</h3><div class="ctl__price"><span class="ctl__now">$10,455.00</span><span class="ctl__was">$11,685.00</span></div></a></article>
+      <article class="ctl__card"><a class="ctl__link" href="#"><div class="ctl__media"><img src="../ctl/ctl-6.jpg" alt="Mint Blue Tissue Saree with Dori Work" loading="lazy" draggable="false"></div><h3 class="ctl__name">Mint Blue Tissue Saree with Dori Work</h3><div class="ctl__price"><span class="ctl__now">$8,698.00</span><span class="ctl__was">$12,476.00</span></div></a></article>
+      <article class="ctl__card"><a class="ctl__link" href="#"><div class="ctl__media"><img src="../ctl/ctl-7.jpg" alt="Light Mauve Tissue Saree with Dori Work" loading="lazy" draggable="false"></div><h3 class="ctl__name">Light Mauve Tissue Saree with Dori Work</h3><div class="ctl__price"><span class="ctl__now">$8,698.00</span><span class="ctl__was">$12,476.00</span></div></a></article>
+    </div>
+  </section>
+
+  <script>
+    // ===== Sticky header shadow on scroll (once, shared by all sections) =====
+    var hdr = document.getElementById('hdr');
+    var onScroll = function(){ hdr.classList.toggle('scrolled', window.scrollY > 8); };
+    window.addEventListener('scroll', onScroll, {passive:true});
+    onScroll();
+
+    // ===== New Arrivals rail (arrows page a full row + drag-scroll) =====
+    (function(){
+      var rail=document.getElementById('na-rail'); if(!rail) return;
+      var prevBtn=document.getElementById('na-prev'), nextBtn=document.getElementById('na-next');
+      function upd(){var max=rail.scrollWidth-rail.clientWidth-1;prevBtn.disabled=rail.scrollLeft<=1;nextBtn.disabled=rail.scrollLeft>=max;}
+      prevBtn.addEventListener('click',function(){rail.scrollBy({left:-rail.clientWidth,behavior:'smooth'});});
+      nextBtn.addEventListener('click',function(){rail.scrollBy({left:rail.clientWidth,behavior:'smooth'});});
+      rail.addEventListener('scroll',upd,{passive:true}); addEventListener('resize',upd);
+      var down=false,sx=0,ss=0,moved=false;
+      rail.addEventListener('pointerdown',function(e){if(e.pointerType==='touch')return;down=true;moved=false;sx=e.clientX;ss=rail.scrollLeft;rail.classList.add('is-grabbing');});
+      addEventListener('pointermove',function(e){if(!down)return;var dx=e.clientX-sx;if(Math.abs(dx)>4)moved=true;rail.scrollLeft=ss-dx;});
+      addEventListener('pointerup',function(){if(!down)return;down=false;rail.classList.remove('is-grabbing');upd();});
+      rail.addEventListener('click',function(e){if(moved){e.preventDefault();moved=false;}},true);
+      upd();
+    })();
+  </script>
+</body>
+</html>
