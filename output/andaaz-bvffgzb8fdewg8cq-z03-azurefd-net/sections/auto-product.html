@@ -248,8 +248,11 @@
 
   /* spec + accordions */
   .details{max-width:1440px;margin:24px auto 0;padding:44px 40px 8px;border-top:1px solid var(--line)}
-  .details-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
-  .dcol-h{font-size:20px;font-weight:600;letter-spacing:.01em;color:var(--ink);margin-bottom:22px}
+  .details-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+  .reviews,.dcol-right{background:#fafafb;border:1px solid var(--line-2);border-radius:12px;padding:30px 34px}
+  .dcol-h{font-size:19px;font-weight:600;letter-spacing:.01em;color:var(--ink);margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid var(--line)}
+  .dcol-right .acc{margin-top:4px}
+  .acc details:last-child{border-bottom:0}
   /* reviews (premium) */
   .rv-summary{display:flex;gap:36px;align-items:center;padding-bottom:26px;border-bottom:1px solid var(--line)}
   .rv-score{text-align:center;flex:0 0 auto}
