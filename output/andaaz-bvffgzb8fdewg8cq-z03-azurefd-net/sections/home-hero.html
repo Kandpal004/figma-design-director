@@ -163,14 +163,14 @@
 
   /* ===================== CATEGORY STRIP (above hero) ===================== */
   .catstrip{border-bottom:1px solid var(--line);background:#fff}
-  .catstrip__row{list-style:none;max-width:1440px;margin:0 auto;padding:12px 40px;display:flex;align-items:flex-start;justify-content:safe center;gap:clamp(12px,1.5vw,22px);overflow-x:auto;scroll-snap-type:x proximity;-ms-overflow-style:none;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .catstrip__row{list-style:none;max-width:1440px;margin:0 auto;padding:12px 40px;display:flex;align-items:flex-start;justify-content:space-between;gap:10px;overflow-x:auto;scroll-snap-type:x proximity;-ms-overflow-style:none;scrollbar-width:none;-webkit-overflow-scrolling:touch}
   .catstrip__row::-webkit-scrollbar{display:none}
   .catstrip__item{flex:0 0 auto;scroll-snap-align:start}
-  .catstrip__item a{display:flex;flex-direction:column;align-items:center;gap:9px;width:80px;text-align:center}
+  .catstrip__item a{display:flex;flex-direction:column;align-items:center;gap:9px;width:auto;text-align:center}
   .catstrip__thumb{width:60px;height:60px;border-radius:50%;overflow:hidden;background:var(--field);box-shadow:0 0 0 1px var(--line-2), 0 0 0 0 rgba(161,0,71,0);transition:box-shadow .22s ease,transform .22s ease}
   .catstrip__thumb img{width:100%;height:100%;object-fit:cover;object-position:center top}
   .catstrip__item a:hover .catstrip__thumb{transform:translateY(-3px);box-shadow:0 0 0 1.5px var(--brand), 0 10px 20px -12px rgba(161,0,71,.4)}
-  .catstrip__label{font-size:11.5px;font-weight:500;letter-spacing:.01em;line-height:1.25;color:var(--ink);transition:color .18s}
+  .catstrip__label{font-size:11.5px;font-weight:500;letter-spacing:.01em;line-height:1.25;color:var(--ink);white-space:nowrap;transition:color .18s}
   .catstrip__item a:hover .catstrip__label{color:var(--brand)}
   @media (max-width:920px){
     .catstrip__row{padding:14px 20px;justify-content:flex-start;gap:16px}
