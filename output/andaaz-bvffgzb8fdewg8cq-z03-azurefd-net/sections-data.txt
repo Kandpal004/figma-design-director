@@ -1,0 +1,20 @@
+{
+  "headings": [
+    "Complete the look",
+    "Similar Products",
+    "Recently Viewed"
+  ],
+  "completeLookTabs": [
+    "Jewellery",
+    "Jutti",
+    "Hijab",
+    "Potli"
+  ],
+  "reviewsSample": [
+    "4.3/5\n★★★★☆\n★ Verified Reviews\nBased on 8 reviews subject to moderation ⓘ\nSee all reviews on this site\n5 stars\n6\n4 stars\n0\n3 stars\n1\n2 stars\n0\n1 stars\n1\n★★★★★\n5/5\n✓ Verified review\n\nAbsolutely stunning zari work, colour is rich and vibrant.\n\nReview of 7/9/2026 by Aisha M.\n\n⚑ Report",
+    "4.3/5\n★★★★☆\n★ Verified Reviews\nBased on 8 reviews subject to moderation ⓘ\nSee all reviews on this site",
+    "Based on 8 reviews subject to moderation ⓘ",
+    "5 stars\n6\n4 stars\n0\n3 stars\n1\n2 stars\n0\n1 stars\n1"
+  ],
+  "fullTextLen": 2889
+}

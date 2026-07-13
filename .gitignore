@@ -1,0 +1,23 @@
+# Secrets — NEVER commit
+.env
+*.key
+*.pem
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Agent scratch / cache (not needed on the other machine)
+.cache/
+.agent/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Keep: agent/ extract/ gates/ references/ knowledge/ agents/ output/ *.md pyproject.toml .env.example
+
+# Agent run logs (scratch)
+run_*.log

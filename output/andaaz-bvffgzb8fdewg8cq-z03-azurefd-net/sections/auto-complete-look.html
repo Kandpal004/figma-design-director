@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Complete the Look | Andaaz PDP section</title>
+<!--
+  SECTION: "Complete the Look" (PDP cross-sell rail). Standalone renderable rebuild of the
+  real Andaaz Magento block.
+  Kept (real data, verbatim): centered "Complete the look" heading; 4 real tabs
+  (Jewellery active / Jutti / Hijab / Potli); centered "View All Jewellery" link; the
+  category label + prev/next arrow controls; horizontally-scrollable rail of real product
+  cards with real names, prices, strikethrough was-prices and real downloaded images
+  (../ctl/ctl-0..7.jpg).
+  Improved (craft/CRO): generic Magento type -> house Hanken Grotesk on an 8pt grid;
+  rani #a10047 used only as a whisper (active tab underline + View-All link);
+  fine print stays plain text (no boxed accent); working JS for tabs, arrow paging and
+  drag/scroll on the rail; keyboard + aria for the controls; snap scrolling.
+  Grounding: output/andaaz-.../ctl-data.json + REF-ctl.png + ctl/ctl-0..7.jpg.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --brand:#a10047; --brand-dark:#800038;
+    --ink:#1c1b1d; --ink-2:#464a54; --muted:#6e727b;
+    --line:#ececee; --line-2:#e2e2e6; --field:#f5f5f7;
+    --f:"Hanken Grotesk",system-ui,-apple-system,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--f);color:var(--ink);background:#fff;font-weight:400;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit;cursor:pointer}
+  img{display:block;max-width:100%}
+  :focus-visible{outline:2px solid var(--brand);outline-offset:3px;border-radius:2px}
+
+  /* ===================== COMPLETE THE LOOK ===================== */
+  .ctl{max-width:1440px;margin:0 auto;padding:48px 40px 56px}
+  .ctl__title{text-align:center;font-size:24px;font-weight:700;letter-spacing:.01em;color:var(--ink)}
+
+  /* tabs */
+  .ctl__tabs{display:flex;justify-content:center;gap:32px;margin-top:24px;border-bottom:1px solid var(--line)}
+  .ctl__tab{position:relative;background:none;border:0;padding:12px 2px 14px;font-size:15px;font-weight:600;color:var(--muted);letter-spacing:.01em;transition:color .2s}
+  .ctl__tab:hover{color:var(--ink-2)}
+  .ctl__tab[aria-selected="true"]{color:var(--brand)}
+  .ctl__tab[aria-selected="true"]::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--brand)}
+
+  /* view all */
+  .ctl__viewall{text-align:center;margin-top:16px}
+  .ctl__viewall a{font-size:13px;font-weight:500;color:var(--brand);text-decoration:underline;text-underline-offset:3px;letter-spacing:.01em}
+  .ctl__viewall a:hover{color:var(--brand-dark)}
+
+  /* rail header: category label + arrows */
+  .ctl__bar{display:flex;align-items:center;justify-content:space-between;margin-top:24px}
+  .ctl__label{font-size:16px;font-weight:700;color:var(--ink)}
+  .ctl__nav{display:flex;gap:8px}
+  .ctl__arrow{width:36px;height:36px;display:grid;place-items:center;background:#fff;border:1px solid var(--line-2);border-radius:8px;color:var(--ink);transition:border-color .18s,background .18s}
+  .ctl__arrow svg{width:18px;height:18px;stroke:currentColor;stroke-width:1.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .ctl__arrow:hover:not(:disabled){border-color:var(--ink);background:var(--field)}
+  .ctl__arrow:disabled{opacity:.35;cursor:default}
+
+  /* rail */
+  .ctl__rail{display:flex;gap:24px;margin-top:16px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding-bottom:8px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .ctl__rail::-webkit-scrollbar{display:none}
+  .ctl__rail.is-grabbing{scroll-behavior:auto;cursor:grabbing;scroll-snap-type:none}
+  .ctl__rail.is-grabbing .ctl__card{cursor:grabbing}
+
+  .ctl__card{flex:0 0 auto;width:280px;scroll-snap-align:start}
+  .ctl__media{position:relative;background:var(--field);overflow:hidden;aspect-ratio:280/376}
+  .ctl__media img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+  .ctl__card:hover .ctl__media img{transform:scale(1.04)}
+  .ctl__name{margin-top:12px;font-size:14px;font-weight:400;color:var(--ink-2);line-height:1.4;
+    display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+  .ctl__price{margin-top:6px;display:flex;align-items:baseline;gap:8px}
+  .ctl__now{font-size:15px;font-weight:700;color:var(--ink)}
+  .ctl__was{font-size:13px;font-weight:400;color:var(--muted);text-decoration:line-through}
+
+  @media (max-width:900px){
+    .ctl{padding:40px 20px 44px}
+    .ctl__tabs{gap:22px}
+    .ctl__card{width:220px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .ctl__rail{scroll-behavior:auto}
+    .ctl__media img{transition:none}
+  }
+</style>
+</head>
+<body>
+  <section class="ctl" aria-labelledby="ctl-title">
+    <h2 class="ctl__title" id="ctl-title">Complete the look</h2>
+
+    <div class="ctl__tabs" role="tablist" aria-label="Complete the look categories">
+      <button class="ctl__tab" role="tab" id="tab-jewellery" aria-selected="true"  data-cat="Jewellery">Jewellery</button>
+      <button class="ctl__tab" role="tab" id="tab-jutti"     aria-selected="false" data-cat="Jutti">Jutti</button>
+      <button class="ctl__tab" role="tab" id="tab-hijab"     aria-selected="false" data-cat="Hijab">Hijab</button>
+      <button class="ctl__tab" role="tab" id="tab-potli"     aria-selected="false" data-cat="Potli">Potli</button>
+    </div>
+
+    <p class="ctl__viewall"><a href="#" id="ctl-viewall">View All Jewellery</a></p>
+
+    <div class="ctl__bar">
+      <span class="ctl__label" id="ctl-label">Jewellery</span>
+      <div class="ctl__nav">
+        <button class="ctl__arrow" id="ctl-prev" aria-label="Previous products" aria-controls="ctl-rail">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="ctl__arrow" id="ctl-next" aria-label="Next products" aria-controls="ctl-rail">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Real product cards (verbatim from ctl-data.json + downloaded ctl/ctl-0..7.jpg) -->
+    <div class="ctl__rail" id="ctl-rail" role="tabpanel" aria-labelledby="tab-jewellery" tabindex="0">
+      <article class="ctl__card"><a class="ctl__link" href="#" aria-label="Plum Purple Organza Saree with Dori Work">
+        <div class="ctl__media"><img src="../ctl/ctl-0.jpg" alt="Plum Purple Organza Saree with Dori Work" loading="lazy" draggable="false"></div>
+        <h3 class="ctl__name">Plum Purple Organza Saree with Dori Work</h3>
+        <div class="ctl__price"><span class="ctl__now">$8,698.00</span><span class="ctl__was">$12,476.00</span></div></a></article>
+
+      <article class="ctl__card"><a class="ctl__link" href="#" aria-label="Light Pink Georgette Zari Embroidered Saree">
+        <div class="ctl__media"><img src="../ctl/ctl-1.jpg" alt="Light Pink Georgette Zari Embroidered Saree" loading="lazy" draggable="false"></div>
+        <h3 class="ctl__name">Light Pink Georgette Zari Embroidered Saree</h3>
+        <div class="ctl__price"><span class="ctl__now">$11,334.00</span><span class="ctl__was">$14,760.00</span></div></a></article>
+
+      <article class="ctl__card"><a class="ctl__link" href="#" aria-label="Trombone Yellow Georgette Pre-Draped Saree">
+        <div class="ctl__media"><img src="../ctl/ctl-2.jpg" alt="Trombone Yellow Georgette Pre-Draped Saree" loading="lazy" draggable="false"></div>
+        <h3 class="ctl__name">Trombone Yellow Georgette Pre-Draped Saree</h3>
+        <div class="ctl__price"><span class="ctl__now">$13,091.00</span><span class="ctl__was">$17,045.00</span></div></a></article>
+
+      <article class="ctl__card"><a class="ctl__link" href="#" aria-label="Cherry Red Satin Pre-Draped Saree">
+        <div class="ctl__media"><img src="../ctl/ctl-3.jpg" alt="Cherry Red Satin Pre-Draped Saree" loading="lazy" draggable="false"></div>
+        <h3 class="ctl__name">Cherry Red Satin Pre-Draped Saree</h3>
+        <div class="ctl__price"><span class="ctl__now">$13,091.00</span><span class="ctl__was">$18,977.00</span></div></a></article>
+
+      <article class="ctl__card"><a class="ctl__link" href="#" aria-label="Plum Purple Organza Saree with Stone Work">
+        <div class="ctl__media"><img src="../ctl/ctl-4.jpg" alt="Plum Purple Organza Saree with Stone Work" loading="lazy" draggable="false"></div>
+        <h3 class="ctl__name">Plum Purple Organza Saree with Stone Work</h3>
+        <div class="ctl__price"><span class="ctl__now">$6,941.00</span><span class="ctl__was">$9,928.00</span></div></a></article>
+
+      <article class="ctl__card"><a class="ctl__link" href="#" aria-label="Black Satin Hand Beadwork Saree">
+        <div class="ctl__media"><img src="../ctl/ctl-5.jpg" alt="Black Satin Hand Beadwork Saree" loading="lazy" draggable="false"></div>
+        <h3 class="ctl__name">Black Satin Hand Beadwork Saree</h3>
+        <div class="ctl__price"><span class="ctl__now">$10,455.00</span><span class="ctl__was">$11,685.00</span></div></a></article>
+
+      <article class="ctl__card"><a class="ctl__link" href="#" aria-label="Mint Blue Tissue Saree with Dori Work">
+        <div class="ctl__media"><img src="../ctl/ctl-6.jpg" alt="Mint Blue Tissue Saree with Dori Work" loading="lazy" draggable="false"></div>
+        <h3 class="ctl__name">Mint Blue Tissue Saree with Dori Work</h3>
+        <div class="ctl__price"><span class="ctl__now">$8,698.00</span><span class="ctl__was">$12,476.00</span></div></a></article>
+
+      <article class="ctl__card"><a class="ctl__link" href="#" aria-label="Light Mauve Tissue Saree with Dori Work">
+        <div class="ctl__media"><img src="../ctl/ctl-7.jpg" alt="Light Mauve Tissue Saree with Dori Work" loading="lazy" draggable="false"></div>
+        <h3 class="ctl__name">Light Mauve Tissue Saree with Dori Work</h3>
+        <div class="ctl__price"><span class="ctl__now">$8,698.00</span><span class="ctl__was">$12,476.00</span></div></a></article>
+    </div>
+  </section>
+
+<script>
+(function(){
+  var rail    = document.getElementById('ctl-rail');
+  var label   = document.getElementById('ctl-label');
+  var viewall = document.getElementById('ctl-viewall');
+  var prevBtn = document.getElementById('ctl-prev');
+  var nextBtn = document.getElementById('ctl-next');
+  var tabs    = Array.prototype.slice.call(document.querySelectorAll('.ctl__tab'));
+
+  function selectTab(btn){
+    // Only the Jewellery block has real extracted product cards; other tabs re-label the
+    // same real rail as a scaffold until their real cross-sell data is extracted.
+    tabs.forEach(function(t){ t.setAttribute('aria-selected', t===btn ? 'true':'false'); });
+    var cat = btn.getAttribute('data-cat');
+    label.textContent = cat;
+    viewall.textContent = 'View All ' + cat;
+    rail.setAttribute('aria-labelledby', btn.id);
+    rail.scrollTo({left:0, behavior:'smooth'});
+    updateArrows();
+  }
+
+  tabs.forEach(function(btn, i){
+    btn.addEventListener('click', function(){ selectTab(btn); });
+    btn.addEventListener('keydown', function(e){
+      if(e.key==='ArrowRight' || e.key==='ArrowLeft'){
+        e.preventDefault();
+        var dir = e.key==='ArrowRight' ? 1 : -1;
+        var next = tabs[(i + dir + tabs.length) % tabs.length];
+        next.focus(); selectTab(next);
+      }
+    });
+  });
+
+  // Arrow paging: scroll by ~2 cards (card width + gap).
+  function step(){
+    var card = rail.querySelector('.ctl__card');
+    if(!card) return 320;
+    var gap = 24;
+    return (card.getBoundingClientRect().width + gap) * 2;
+  }
+  function updateArrows(){
+    var max = rail.scrollWidth - rail.clientWidth - 1;
+    prevBtn.disabled = rail.scrollLeft <= 1;
+    nextBtn.disabled = rail.scrollLeft >= max;
+  }
+  prevBtn.addEventListener('click', function(){ rail.scrollBy({left:-step(), behavior:'smooth'}); });
+  nextBtn.addEventListener('click', function(){ rail.scrollBy({left: step(), behavior:'smooth'}); });
+  rail.addEventListener('scroll', updateArrows, {passive:true});
+  window.addEventListener('resize', updateArrows);
+
+  // Drag-to-scroll on the rail (desktop pointer).
+  var down=false, startX=0, startScroll=0, moved=false;
+  rail.addEventListener('pointerdown', function(e){
+    if(e.pointerType==='touch') return;
+    down=true; moved=false; startX=e.clientX; startScroll=rail.scrollLeft;
+    rail.classList.add('is-grabbing');
+  });
+  window.addEventListener('pointermove', function(e){
+    if(!down) return;
+    var dx = e.clientX - startX;
+    if(Math.abs(dx)>4) moved=true;
+    rail.scrollLeft = startScroll - dx;
+  });
+  window.addEventListener('pointerup', function(){
+    if(!down) return;
+    down=false; rail.classList.remove('is-grabbing'); updateArrows();
+  });
+  // Suppress click after a drag so cards don't navigate mid-drag.
+  rail.addEventListener('click', function(e){
+    if(moved){ e.preventDefault(); moved=false; }
+  }, true);
+
+  updateArrows();
+})();
+</script>
+</body>
+</html>

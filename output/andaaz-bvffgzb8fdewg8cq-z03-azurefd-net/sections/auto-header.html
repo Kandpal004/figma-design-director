@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Andaaz — Premium Header</title>
+<!--
+  SECTION: HEADER (editorial-premium rebuild of the real Andaaz retail header).
+  Kept (real data): brand name ANDAAZ Fashion, real top nav (Sarees · Salwar Kameez ·
+  Lehenga Choli · Kurtis · Gowns · Menswear · Jewellery · Sale · Home), region US/$ USD,
+  shipping promise, brand accent rani #a10047, bag/wishlist/account CRO anchors.
+  Improved (craft): generic Open Sans -> Playfair Display + Jost; dense 3-row retail
+  chrome -> calm editorial hierarchy (utility strip -> centred wordmark with balanced
+  Search/Menu left & Account/Wishlist/Bag right -> letter-spaced category nav); accent
+  used as a whisper (Sale + badges + hover underline) not a flood; 8pt grid spacing;
+  sharp 1.5-stroke line icons; sticky shrink-on-scroll; search overlay + mobile drawer;
+  a11y skip link + aria labels + visible focus.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --brand:#a10047; --brand-tint:#fbeef3; --brand-dark:#800038;
+    --ink:#1c1b1d; --ink-2:#4c505b; --muted:#8a8f99;
+    --line:#ececee; --line-2:#e2e2e6; --field:#f5f5f7; --dark:#201c1d;
+    --f:"Jost",system-ui,-apple-system,sans-serif; --logo:"Playfair Display",Georgia,serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--f);color:var(--ink);background:#fff;font-weight:300;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit;cursor:pointer}
+  :focus-visible{outline:2px solid var(--brand);outline-offset:3px;border-radius:2px}
+
+  .skip{position:absolute;left:-999px;top:0;z-index:300;background:var(--ink);color:#fff;padding:10px 16px;font-size:13px;letter-spacing:.04em}
+  .skip:focus{left:12px;top:10px}
+
+  /* ---------- utility strip ---------- */
+  .util{background:var(--dark);color:#fff}
+  .util .in{max-width:1440px;margin:0 auto;padding:0 40px;height:38px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;font-size:12px;letter-spacing:.05em}
+  .util .call{display:inline-flex;align-items:center;gap:8px;color:#fff;opacity:.92}
+  .util .call:hover{opacity:1}
+  .util .call svg{width:15px;height:15px;stroke:currentColor;stroke-width:1.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .ticker{overflow:hidden;height:20px;text-align:center}
+  .ticker ul{list-style:none;animation:roll 12s infinite}
+  .ticker li{height:20px;line-height:20px;text-transform:uppercase;letter-spacing:.18em;font-size:11px;color:#efe7ea}
+  @keyframes roll{0%,28%{transform:translateY(0)}33%,61%{transform:translateY(-20px)}66%,94%{transform:translateY(-40px)}100%{transform:translateY(-60px)}}
+  @media (prefers-reduced-motion:reduce){.ticker ul{animation:none}}
+  .util .right{justify-self:end;display:inline-flex;align-items:center;gap:16px}
+  .util .right a{opacity:.92}.util .right a:hover{opacity:1}
+  .util .region{display:inline-flex;align-items:center;gap:7px;border-left:1px solid rgba(255,255,255,.18);padding-left:16px;cursor:pointer}
+  .util .region .flag{width:18px;height:12px;border-radius:1px;object-fit:cover;display:inline-block;background:linear-gradient(#3c3b6e 33%,#fff 33% 66%,#b22234 66%)}
+
+  /* ---------- main header ---------- */
+  header{position:sticky;top:0;z-index:60;background:#fff;border-bottom:1px solid var(--line);transition:box-shadow .3s}
+  header.scrolled{box-shadow:0 8px 26px -20px rgba(0,0,0,.32)}
+  .hmain{max-width:1440px;margin:0 auto;padding:26px 40px 22px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:32px;transition:padding .28s ease}
+  header.scrolled .hmain{padding:14px 40px}
+
+  /* left cluster */
+  .hleft{display:flex;align-items:center;gap:26px}
+  .htxtbtn{display:inline-flex;align-items:center;gap:9px;background:none;border:0;padding:6px 0;color:var(--ink);font-size:12px;font-weight:500;letter-spacing:.16em;text-transform:uppercase}
+  .htxtbtn svg{width:19px;height:19px;stroke:currentColor;stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .htxtbtn:hover{color:var(--brand)}
+  .htxtbtn .lbl{position:relative}
+  .htxtbtn .lbl::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:1.5px;background:var(--brand);transform:scaleX(0);transform-origin:left;transition:transform .25s}
+  .htxtbtn:hover .lbl::after{transform:scaleX(1)}
+
+  /* centred wordmark */
+  .logo{justify-self:center;display:flex;flex-direction:column;align-items:center;line-height:.96}
+  .logo .a{font-family:var(--logo);font-weight:700;font-size:34px;letter-spacing:.05em;transition:font-size .28s ease}
+  header.scrolled .logo .a{font-size:26px}
+  .logo .f{display:flex;align-items:center;gap:9px;margin-top:7px}
+  .logo .f i{height:1px;width:22px;background:var(--line-2);display:inline-block}
+  .logo .f span{font-size:9.5px;letter-spacing:.52em;color:var(--ink-2);text-transform:uppercase;padding-left:.52em}
+
+  /* right cluster */
+  .hright{justify-self:end;display:flex;align-items:center;gap:24px}
+  .ic{position:relative;display:inline-flex;flex-direction:column;align-items:center;gap:5px;background:none;border:0;color:var(--ink)}
+  .ic svg{width:23px;height:23px;stroke:currentColor;stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .ic .t{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)}
+  .ic:hover{color:var(--brand)}.ic:hover .t{color:var(--brand)}
+  .ic .n{position:absolute;top:-6px;right:calc(50% - 20px);min-width:16px;height:16px;padding:0 4px;border-radius:8px;background:var(--brand);color:#fff;font-size:9.5px;font-weight:600;display:grid;place-items:center;border:2px solid #fff;letter-spacing:0}
+
+  /* ---------- category nav ---------- */
+  nav.cats{border-top:1px solid var(--line)}
+  nav.cats .in{max-width:1440px;margin:0 auto;padding:0 40px;display:flex;align-items:center;justify-content:center;gap:2px;flex-wrap:wrap}
+  nav.cats a{position:relative;padding:14px 16px;font-size:12px;font-weight:400;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);white-space:nowrap}
+  nav.cats a::after{content:"";position:absolute;left:16px;right:16px;bottom:9px;height:1.5px;background:var(--brand);transform:scaleX(0);transform-origin:center;transition:transform .25s}
+  nav.cats a:hover{color:var(--brand)}
+  nav.cats a:hover::after{transform:scaleX(1)}
+  nav.cats a.sale{color:var(--brand);font-weight:500}
+  nav.cats a .new{position:absolute;top:6px;right:2px;font-size:8px;font-weight:600;letter-spacing:.12em;color:var(--brand)}
+
+  /* ---------- search overlay ---------- */
+  .searchwrap{position:fixed;inset:0;z-index:120;display:none}
+  .searchwrap.open{display:block}
+  .searchwrap .scrim{position:absolute;inset:0;background:rgba(20,18,19,.42);opacity:0;transition:opacity .25s}
+  .searchwrap.open .scrim{opacity:1}
+  .searchpanel{position:absolute;top:0;left:0;right:0;background:#fff;transform:translateY(-100%);transition:transform .3s ease;box-shadow:0 20px 40px -28px rgba(0,0,0,.4)}
+  .searchwrap.open .searchpanel{transform:translateY(0)}
+  .searchpanel .in{max-width:820px;margin:0 auto;padding:46px 40px 40px}
+  .searchpanel .field{display:flex;align-items:center;gap:14px;border-bottom:1.5px solid var(--ink);padding-bottom:14px}
+  .searchpanel .field svg{width:24px;height:24px;stroke:var(--ink);stroke-width:1.6;fill:none;stroke-linecap:round}
+  .searchpanel input{flex:1;border:0;background:transparent;font-family:var(--logo);font-size:26px;font-weight:500;color:var(--ink);outline:none}
+  .searchpanel input::placeholder{color:var(--muted);font-style:italic}
+  .searchpanel .close{background:none;border:0;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+  .searchpanel .close:hover{color:var(--brand)}
+  .searchpanel .sugg{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+  .searchpanel .sugg span{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-right:4px}
+  .searchpanel .sugg a{font-size:13px;color:var(--ink-2);border:1px solid var(--line-2);border-radius:20px;padding:7px 15px}
+  .searchpanel .sugg a:hover{border-color:var(--brand);color:var(--brand)}
+
+  /* ---------- mobile drawer ---------- */
+  .menubtn{display:none}
+  .drawer{position:fixed;inset:0;z-index:130;display:none}
+  .drawer.open{display:block}
+  .drawer .scrim{position:absolute;inset:0;background:rgba(20,18,19,.42)}
+  .drawer .panel{position:absolute;top:0;left:0;bottom:0;width:84%;max-width:360px;background:#fff;transform:translateX(-100%);transition:transform .3s ease;display:flex;flex-direction:column;overflow-y:auto}
+  .drawer.open .panel{transform:translateX(0)}
+  .drawer .top{display:flex;align-items:center;justify-content:space-between;padding:20px 22px;border-bottom:1px solid var(--line)}
+  .drawer .top .a{font-family:var(--logo);font-weight:700;font-size:22px;letter-spacing:.04em}
+  .drawer .top .x{background:none;border:0;color:var(--ink)}
+  .drawer .top .x svg{width:22px;height:22px;stroke:currentColor;stroke-width:1.6;fill:none;stroke-linecap:round}
+  .drawer .links{padding:8px 0}
+  .drawer .links a{display:flex;align-items:center;justify-content:space-between;padding:15px 22px;font-size:14px;letter-spacing:.08em;text-transform:uppercase;border-bottom:1px solid var(--line)}
+  .drawer .links a.sale{color:var(--brand)}
+  .drawer .links a svg{width:16px;height:16px;stroke:var(--muted);stroke-width:1.6;fill:none;stroke-linecap:round}
+  .drawer .foot{margin-top:auto;padding:22px;border-top:1px solid var(--line);font-size:13px;color:var(--ink-2);display:flex;flex-direction:column;gap:12px}
+  .drawer .foot a{display:inline-flex;align-items:center;gap:9px}
+  .drawer .foot svg{width:17px;height:17px;stroke:var(--brand);stroke-width:1.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+
+  /* ---------- responsive ---------- */
+  @media (max-width:1180px){
+    nav.cats a{padding:13px 11px;letter-spacing:.12em}
+  }
+  @media (max-width:920px){
+    .util .in{grid-template-columns:1fr auto;padding:0 20px}
+    .util .call,.ticker{display:none}
+    .util .right{grid-column:1/-1;justify-self:center}
+    nav.cats{display:none}
+    .hmain{grid-template-columns:auto 1fr auto;padding:16px 20px;gap:14px}
+    header.scrolled .hmain{padding:12px 20px}
+    .hleft{gap:0}
+    .htxtbtn .lbl{display:none}
+    .menubtn{display:inline-flex}
+    .logo .a{font-size:26px}header.scrolled .logo .a{font-size:23px}
+    .ic .t{display:none}
+    .hright{gap:18px}
+    .searchbtn{display:none}
+  }
+  /* demo scroll body only — not part of the section */
+  .demo{max-width:1440px;margin:0 auto;padding:60px 40px;color:var(--muted);font-size:13px;letter-spacing:.04em;height:1400px}
+</style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <!-- ============ UTILITY STRIP ============ -->
+  <div class="util">
+    <div class="in">
+      <a class="call" href="#">
+        <svg viewBox="0 0 24 24"><path d="M6 4h3l1.5 4-2 1.4a12 12 0 0 0 5.1 5.1l1.4-2 4 1.5v3a2 2 0 0 1-2.2 2A16 16 0 0 1 4 6.2 2 2 0 0 1 6 4z"/></svg>
+        Book a Styling Consultation
+      </a>
+      <div class="ticker" aria-hidden="true">
+        <ul>
+          <li>Free Shipping Worldwide</li>
+          <li>Delivered Duty Paid — No Surprises</li>
+          <li>48-Hour Express Dispatch</li>
+        </ul>
+      </div>
+      <div class="right">
+        <a href="#">Track Order</a>
+        <span class="region"><span class="flag" role="img" aria-label="United States"></span> US · $ USD</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ MAIN HEADER ============ -->
+  <header id="hdr">
+    <div class="hmain">
+      <div class="hleft">
+        <button class="htxtbtn menubtn" id="menuOpen" aria-label="Open menu">
+          <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+        <button class="htxtbtn searchbtn" id="searchOpen" aria-label="Open search">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          <span class="lbl">Search</span>
+        </button>
+      </div>
+
+      <a class="logo" href="#" aria-label="Andaaz Fashion home">
+        <span class="a">ANDAAZ</span>
+        <span class="f"><i></i><span>Fashion</span><i></i></span>
+      </a>
+
+      <div class="hright">
+        <button class="ic" aria-label="Account">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M5.6 19.6c.2-3.5 3-5.6 6.4-5.6s6.2 2.1 6.4 5.6"/></svg>
+          <span class="t">Account</span>
+        </button>
+        <button class="ic" aria-label="Wishlist">
+          <svg viewBox="0 0 24 24"><path d="M12 20.3c-.5-.4-8-5.6-8-10.9A4.25 4.25 0 0 1 8.3 5.1c1.6 0 3 .85 3.7 2.15C12.7 5.95 14.1 5.1 15.7 5.1A4.25 4.25 0 0 1 20 9.4c0 5.3-7.5 10.5-8 10.9z"/></svg>
+          <span class="t">Wishlist</span>
+          <span class="n">2</span>
+        </button>
+        <button class="ic" aria-label="Shopping bag" id="bag">
+          <svg viewBox="0 0 24 24"><path d="M6 8h12l.85 11.4a1 1 0 0 1-1 1.1H6.15a1 1 0 0 1-1-1.1L6 8z"/><path d="M8.7 8.5V6.9a3.3 3.3 0 0 1 6.6 0v1.6"/></svg>
+          <span class="t">Bag</span>
+          <span class="n">0</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ============ CATEGORY NAV (real Andaaz top-level labels) ============ -->
+    <nav class="cats" aria-label="Product categories">
+      <div class="in">
+        <a href="#">Sarees</a>
+        <a href="#">Salwar Kameez</a>
+        <a href="#">Lehenga Choli</a>
+        <a href="#">Kurtis <span class="new">NEW</span></a>
+        <a href="#">Gowns</a>
+        <a href="#">Menswear</a>
+        <a href="#">Jewellery</a>
+        <a href="#" class="sale">Sale</a>
+        <a href="#">Home</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ============ SEARCH OVERLAY ============ -->
+  <div class="searchwrap" id="searchWrap" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="scrim" data-close></div>
+    <div class="searchpanel">
+      <div class="in">
+        <div class="field">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          <input id="searchInput" type="search" placeholder="Search sarees, lehengas, occasions…" aria-label="Search products">
+          <button class="close" data-close>Close</button>
+        </div>
+        <div class="sugg">
+          <span>Popular</span>
+          <a href="#">Bridal Lehenga</a>
+          <a href="#">Palazzo Sets</a>
+          <a href="#">Zari Embroidered</a>
+          <a href="#">Festive Sarees</a>
+          <a href="#">Plus Size</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ MOBILE DRAWER ============ -->
+  <div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Menu">
+    <div class="scrim" data-close></div>
+    <div class="panel">
+      <div class="top">
+        <span class="a">ANDAAZ</span>
+        <button class="x" data-close aria-label="Close menu"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      </div>
+      <div class="links">
+        <a href="#">Sarees <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a>
+        <a href="#">Salwar Kameez <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a>
+        <a href="#">Lehenga Choli <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a>
+        <a href="#">Kurtis <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a>
+        <a href="#">Gowns <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a>
+        <a href="#">Menswear <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a>
+        <a href="#">Jewellery <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a>
+        <a href="#" class="sale">Sale <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a>
+        <a href="#">Home <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></a>
+      </div>
+      <div class="foot">
+        <a href="#"><svg viewBox="0 0 24 24"><path d="M6 4h3l1.5 4-2 1.4a12 12 0 0 0 5.1 5.1l1.4-2 4 1.5v3a2 2 0 0 1-2.2 2A16 16 0 0 1 4 6.2 2 2 0 0 1 6 4z"/></svg> Book a Styling Consultation</a>
+        <a href="#"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M5.6 19.6c.2-3.5 3-5.6 6.4-5.6s6.2 2.1 6.4 5.6"/></svg> Account · Track Order</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- demo scroll region (not part of the header section) -->
+  <main id="main"><div class="demo">Scroll to see the sticky shrink + shadow behaviour. This grey block is only a scroll demo, not part of the header.</div></main>
+
+  <script>
+    // sticky shrink + shadow
+    var hdr=document.getElementById('hdr');
+    function onScroll(){hdr.classList.toggle('scrolled',window.scrollY>4);}
+    onScroll();addEventListener('scroll',onScroll,{passive:true});
+
+    // search overlay
+    var sw=document.getElementById('searchWrap');
+    var si=document.getElementById('searchInput');
+    function openSearch(){sw.classList.add('open');setTimeout(function(){si.focus();},250);}
+    function closeSearch(){sw.classList.remove('open');}
+    document.getElementById('searchOpen').addEventListener('click',openSearch);
+
+    // mobile drawer
+    var dr=document.getElementById('drawer');
+    document.getElementById('menuOpen').addEventListener('click',function(){dr.classList.add('open');});
+
+    // shared close (scrim / close buttons)
+    document.querySelectorAll('[data-close]').forEach(function(el){
+      el.addEventListener('click',function(){sw.classList.remove('open');dr.classList.remove('open');});
+    });
+    addEventListener('keydown',function(e){if(e.key==='Escape'){closeSearch();dr.classList.remove('open');}});
+
+    // bag micro-interaction (demo count bump)
+    var bag=document.getElementById('bag');
+    bag.addEventListener('click',function(){
+      var n=bag.querySelector('.n');n.textContent=(+n.textContent+1);
+      bag.animate([{transform:'scale(1)'},{transform:'scale(1.18)'},{transform:'scale(1)'}],{duration:260});
+    });
+  </script>
+</body>
+</html>

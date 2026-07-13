@@ -1,0 +1,67 @@
+{
+  "found": true,
+  "tabs": [
+    "Jewellery",
+    "Jutti",
+    "Hijab",
+    "Potli"
+  ],
+  "cards": [
+    {
+      "name": "Plum Purple Organza Saree with Dori Work",
+      "price": "$8,698.00",
+      "was": "$12,476.00",
+      "img": "https://andaaz-bvffgzb8fdewg8cq.z03.azurefd.net/media/catalog/product/cache/2765542505660baab28ecd555e27366e/s/1/s1_1.jpg",
+      "file": "ctl/ctl-0.jpg"
+    },
+    {
+      "name": "Light Pink Georgette Zari Embroidered Saree",
+      "price": "$11,334.00",
+      "was": "$14,760.00",
+      "img": "https://andaaz-bvffgzb8fdewg8cq.z03.azurefd.net/media/catalog/product/cache/2765542505660baab28ecd555e27366e/s/2/s2_1.jpg",
+      "file": "ctl/ctl-1.jpg"
+    },
+    {
+      "name": "Trombone Yellow Georgette Pre-Draped Saree",
+      "price": "$13,091.00",
+      "was": "$17,045.00",
+      "img": "https://andaaz-bvffgzb8fdewg8cq.z03.azurefd.net/media/catalog/product/cache/2765542505660baab28ecd555e27366e/s/3/s3_1.jpg",
+      "file": "ctl/ctl-2.jpg"
+    },
+    {
+      "name": "Cherry Red Satin Pre-Draped Saree",
+      "price": "$13,091.00",
+      "was": "$18,977.00",
+      "img": "https://andaaz-bvffgzb8fdewg8cq.z03.azurefd.net/media/catalog/product/cache/2765542505660baab28ecd555e27366e/s/5/s5_1.jpg",
+      "file": "ctl/ctl-3.jpg"
+    },
+    {
+      "name": "Plum Purple Organza Saree with Stone Work",
+      "price": "$6,941.00",
+      "was": "$9,928.00",
+      "img": "https://andaaz-bvffgzb8fdewg8cq.z03.azurefd.net/media/catalog/product/cache/2765542505660baab28ecd555e27366e/s/6/s6_1.jpg",
+      "file": "ctl/ctl-4.jpg"
+    },
+    {
+      "name": "Black Satin Hand Beadwork Saree",
+      "price": "$10,455.00",
+      "was": "$11,685.00",
+      "img": "https://andaaz-bvffgzb8fdewg8cq.z03.azurefd.net/media/catalog/product/cache/2765542505660baab28ecd555e27366e/s/7/s7_1.jpg",
+      "file": "ctl/ctl-5.jpg"
+    },
+    {
+      "name": "Mint Blue Tissue Saree with Dori Work",
+      "price": "$8,698.00",
+      "was": "$12,476.00",
+      "img": "https://andaaz-bvffgzb8fdewg8cq.z03.azurefd.net/media/catalog/product/cache/2765542505660baab28ecd555e27366e/s/8/s8_1.jpg",
+      "file": "ctl/ctl-6.jpg"
+    },
+    {
+      "name": "Light Mauve Tissue Saree with Dori Work",
+      "price": "$8,698.00",
+      "was": "$12,476.00",
+      "img": "https://andaaz-bvffgzb8fdewg8cq.z03.azurefd.net/media/catalog/product/cache/2765542505660baab28ecd555e27366e/s/9/s9_1.jpg",
+      "file": "ctl/ctl-7.jpg"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+[project]
+name = "figma-design-director"
+version = "0.1.0"
+description = "AI Ecommerce Design Director — audit a real site, extract real design data, rebuild section-by-section with human approval, export to Figma."
+requires-python = ">=3.11"
+dependencies = [
+    "claude-agent-sdk>=0.1.0",
+    "playwright>=1.44",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["agent", "extract", "gates", "references"]

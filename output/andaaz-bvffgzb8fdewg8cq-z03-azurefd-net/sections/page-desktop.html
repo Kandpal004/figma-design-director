@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Andaaz — Desktop PDP</title>
+<!--
+  Desktop PDP faithful to the real Andaaz Magento (Andaaz\CatalogPdp): summary order,
+  inline "4 Offers" button, working stitching (Unstitched/Stitched/Custom) that reveals the
+  full REAL size grid (32..69 with real +$ surcharges) + height, live price recalc, add-ons,
+  and an always-sticky premium Add-to-Cart bar. Premium fonts: Playfair Display + Jost.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --brand:#a10047; --brand-tint:#fbeef3; --brand-dark:#800038;
+    --ink:#1c1b1d; --ink-2:#4c505b; --muted:#8a8f99;
+    --line:#ececee; --line-2:#e2e2e6; --field:#f5f5f7; --ok:#1f7a4d; --teal:#0d7a6f; --dark:#201c1d;
+    --f:"Jost",system-ui,-apple-system,sans-serif; --logo:"Playfair Display",Georgia,serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--f);color:var(--ink);background:#fff;font-weight:300;-webkit-font-smoothing:antialiased;padding-bottom:76px}
+  a{color:inherit;text-decoration:none} img{display:block;max-width:100%}
+
+  /* header */
+  .ship{background:var(--dark);color:#fff}
+  .ship .in{max-width:1440px;margin:0 auto;padding:9px 40px;text-align:center;font-size:12px;letter-spacing:.06em}
+  header{position:sticky;top:0;z-index:60;background:#fff;border-bottom:1px solid var(--line);transition:box-shadow .3s}
+  header.scrolled{box-shadow:0 6px 22px -16px rgba(0,0,0,.28)}
+  .hmain{max-width:1440px;margin:0 auto;padding:18px 40px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:40px}
+  .logo{display:flex;flex-direction:column;align-items:center;line-height:.98}
+  .logo .a{font-family:var(--logo);font-weight:700;font-size:32px;letter-spacing:.03em}
+  .logo .f{font-size:10.5px;letter-spacing:.6em;color:var(--ink-2);text-transform:uppercase;margin-top:4px;padding-left:.6em}
+  .search{display:flex;align-items:center;background:var(--field);border:1px solid var(--line-2);border-radius:3px;height:46px;padding:0 6px 0 18px}
+  .search input{flex:1;border:0;background:transparent;font-family:var(--f);font-size:14px;outline:none}
+  .search .go{display:grid;place-items:center;width:38px;height:38px;cursor:pointer}
+  .search .go svg{width:20px;height:20px;stroke:var(--ink-2);stroke-width:1.7;fill:none;stroke-linecap:round}
+  .tools{display:flex;align-items:center;gap:20px}
+  .help{font-size:13px;color:var(--brand);text-decoration:underline;text-underline-offset:4px;white-space:nowrap}
+  .tools .icons{display:flex;gap:18px}
+  .ic{display:grid;place-items:center;cursor:pointer;color:var(--ink);position:relative}
+  .ic svg{width:23px;height:23px;stroke:currentColor;stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .ic .n{position:absolute;top:-6px;right:-8px;min-width:16px;height:16px;padding:0 4px;border-radius:8px;background:var(--brand);color:#fff;font-size:9.5px;font-weight:600;display:grid;place-items:center;border:2px solid #fff}
+  .region{font-size:12.5px;color:var(--ink-2);display:flex;align-items:center;gap:6px;cursor:pointer;border-left:1px solid var(--line-2);padding-left:16px}
+  nav{border-top:1px solid var(--line)}
+  nav .in{max-width:1440px;margin:0 auto;padding:0 40px;display:flex;align-items:center;justify-content:center;gap:4px;flex-wrap:wrap}
+  nav a{position:relative;padding:13px 12px;font-size:13.5px;white-space:nowrap}
+  nav a:hover,nav a.accent{color:var(--brand)}
+  nav a.promo{background:var(--brand);color:#fff;border-radius:3px;padding:7px 12px;margin:0 6px;font-weight:600;font-size:12.5px}
+
+  /* breadcrumb + layout */
+  .crumb{max-width:1440px;margin:0 auto;padding:16px 40px;font-size:12.5px;color:var(--muted)}
+  .crumb a{color:var(--ink-2)} .crumb .cur{color:var(--ink-2)}
+  .pdp{max-width:1440px;margin:0 auto;padding:6px 40px 56px;display:grid;grid-template-columns:1.02fr .98fr;gap:52px;align-items:start}
+
+  /* gallery */
+  .gallery{display:grid;grid-template-columns:84px 1fr;gap:16px;position:sticky;top:24px}
+  .thumbs{display:flex;flex-direction:column;gap:12px}
+  .thumbs button{padding:0;border:1px solid var(--line-2);border-radius:4px;overflow:hidden;cursor:pointer;background:#fff;aspect-ratio:84/108;transition:border-color .2s}
+  .thumbs button.on{border-color:var(--brand)}
+  .thumbs img{width:100%;height:100%;object-fit:cover}
+  .stage{position:relative;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:#faf7f8;aspect-ratio:620/760}
+  .stage>img{width:100%;height:100%;object-fit:cover}
+  .disp{position:absolute;top:16px;left:16px;background:var(--teal);color:#fff;font-size:11px;font-weight:600;padding:6px 11px;border-radius:3px;display:flex;align-items:center;gap:6px}
+  .gtools{position:absolute;top:14px;right:14px;display:flex;flex-direction:column;gap:10px}
+  .gtools button{width:42px;height:42px;border-radius:50%;background:#fff;border:1px solid var(--line-2);display:grid;place-items:center;cursor:pointer;box-shadow:0 2px 8px -4px rgba(0,0,0,.2)}
+  .gtools svg{width:19px;height:19px;stroke:currentColor;stroke-width:1.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .gpills{position:absolute;left:14px;right:14px;bottom:14px;display:flex;justify-content:space-between}
+  .gpill{background:rgba(0,0,0,.55);color:#fff;font-size:11.5px;padding:6px 13px;border-radius:20px}
+  .gpill.colors{background:#fff;color:var(--ink);font-weight:500}
+
+  /* info */
+  .title{font-family:var(--logo);font-weight:600;font-size:30px;line-height:1.24;margin:0 0 10px}
+  .wishtop{width:38px;height:38px;border:1px solid var(--line-2);border-radius:50%;display:grid;place-items:center;cursor:pointer;color:var(--ink);margin-bottom:14px}
+  .wishtop svg{width:19px;height:19px;stroke:currentColor;stroke-width:1.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .wishtop:hover{color:var(--brand);border-color:var(--brand)}
+
+  .pricerow{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .price{display:flex;align-items:baseline;gap:12px}
+  .price .now{font-size:29px;font-weight:600;color:var(--ink)} .price .was{font-size:16px;color:var(--muted);text-decoration:line-through}
+  .price .off{font-size:12.5px;font-weight:500;color:var(--ok);background:#eef7f1;padding:3px 9px;border-radius:20px}
+  .offersbtn{display:flex;align-items:center;gap:8px;background:var(--brand);color:#fff;font-size:12.5px;font-weight:600;padding:9px 15px;border-radius:22px;border:0;cursor:pointer;font-family:var(--f)}
+  .offersbtn svg{width:15px;height:15px;stroke:#fff;stroke-width:2;fill:none}
+  .metarow{font-size:12.5px;color:var(--muted);margin:12px 0} .metarow b{color:var(--ok);font-weight:600} .metarow .sep{margin:0 8px;opacity:.5}
+  .paypal{font-size:12.5px;color:var(--ink-2);background:var(--field);border-radius:6px;padding:10px 14px;margin-bottom:12px}
+  .paypal .pp{font-weight:700}.paypal .pp .a{color:#003087}.paypal .pp .b{color:#009cde}
+  .sub{font-size:12.5px;color:var(--muted)} .sub .sep{margin:0 8px;opacity:.5}
+  .rating{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink-2);margin:10px 0 4px}
+  .stars{color:var(--brand);letter-spacing:1px} .rating a{color:var(--muted);text-decoration:underline;text-underline-offset:2px}
+
+  /* options */
+  .opt{margin:20px 0}
+  .opt .lbl{display:flex;align-items:center;justify-content:space-between;font-size:13.5px;font-weight:600;margin-bottom:11px}
+  .opt .lbl .links{display:flex;gap:18px;font-size:12px;font-weight:400}
+  .opt .lbl .links a{color:var(--brand);text-decoration:underline;text-underline-offset:3px}
+  .chips{display:flex;gap:11px}
+  .chip{position:relative;flex:1;border:1.4px solid var(--line-2);border-radius:6px;padding:13px 8px;text-align:center;font-size:13px;cursor:pointer;background:#fff;transition:.15s;font-family:var(--f);color:var(--ink)}
+  .chip small{display:block;font-size:10.5px;color:var(--muted);margin-top:2px}
+  .chip:hover{border-color:var(--ink-2)}
+  .chip.on{background:var(--ink);border-color:var(--ink);color:#fff;font-weight:500}
+  .chip.on small{color:#d9c7cf}
+  .chip input{position:absolute;opacity:0;pointer-events:none}
+  .note{font-size:12px;color:var(--muted);margin-top:11px;line-height:1.55}
+  .customize{display:flex;align-items:center;gap:9px;background:var(--brand-tint);color:var(--brand-dark);font-size:12.5px;font-weight:500;padding:11px 14px;border-radius:6px;margin-top:12px}
+  .customize svg{width:17px;height:17px;stroke:var(--brand);stroke-width:1.7;fill:none}
+
+  .sizesec,.heightsec{margin-top:18px}
+  .sizesec .lbl{font-weight:600}
+  .hsub{font-weight:400;color:var(--muted);font-size:11.5px}
+  .sizegrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+  .sizegrid .chip{padding:11px 4px;min-width:0}
+  .hsel{width:100%;height:48px;border:1.4px solid var(--line-2);border-radius:6px;padding:0 14px;font-family:var(--f);font-size:13.5px;color:var(--ink);background:#fff;cursor:pointer}
+
+  .deliv{border:1px solid var(--line);border-radius:8px;padding:14px;margin:18px 0;font-size:13px}
+  .deliv div{display:flex;align-items:center;gap:10px;color:var(--ink-2)} .deliv div+div{margin-top:10px} .deliv b{color:var(--ink);font-weight:600}
+  .deliv svg{width:18px;height:18px;stroke:var(--brand);stroke-width:1.6;fill:none;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}
+
+  .addons .head{font-size:15px;font-weight:600;margin:22px 0 12px;display:flex;align-items:center;gap:9px}
+  .addons .head small{font-size:11px;font-weight:400;color:var(--muted);border:1px solid var(--line-2);padding:1px 9px;border-radius:20px}
+  .arow{display:flex;align-items:center;gap:12px;border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin-bottom:10px;cursor:pointer;transition:.15s}
+  .arow:hover{border-color:var(--line-2)}
+  .arow .box{width:20px;height:20px;border:1.6px solid var(--line-2);border-radius:4px;flex:0 0 auto;position:relative}
+  .arow.on .box{background:var(--brand);border-color:var(--brand)}
+  .arow.on .box::after{content:"";position:absolute;left:6px;top:2px;width:5px;height:10px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
+  .arow .nm{flex:1;font-size:13.5px;font-weight:500} .arow .pr{font-size:12.5px;color:var(--muted)} .arow .ad{font-size:12.5px;font-weight:600}
+
+  .inline-cta{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0}
+  .inline-cta button{height:54px;border-radius:6px;font-family:var(--f);font-size:14px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:.2s;display:flex;align-items:center;justify-content:center;gap:9px}
+  .inline-cta .add{background:var(--brand);border:1.5px solid var(--brand);color:#fff} .inline-cta .add:hover{background:var(--brand-dark)}
+  .inline-cta .buy{background:var(--ink);border:1.5px solid var(--ink);color:#fff} .inline-cta .buy:hover{background:#000}
+  .inline-cta svg{width:18px;height:18px;stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
+
+  .trust{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px 12px;padding:18px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin:18px 0}
+  .trust div{display:flex;align-items:center;gap:9px;font-size:12.5px;color:var(--ink-2)}
+  .trust svg{width:20px;height:20px;stroke:var(--brand);stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}
+
+  .pd .h{display:flex;align-items:center;justify-content:space-between;font-size:16px;font-weight:600;padding:14px 0}
+  .pd .h svg{width:18px;height:18px;stroke:var(--ink);stroke-width:1.8;fill:none}
+  .spec{display:grid;grid-template-columns:1fr 1fr;gap:12px 40px;font-size:13.5px;padding:2px 0 16px}
+  .spec .row{display:flex;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:10px}
+  .spec .k{color:var(--muted)} .spec .v{font-weight:500}
+  .acc a{display:flex;align-items:center;justify-content:space-between;font-size:14.5px;font-weight:500;padding:16px 0;border-top:1px solid var(--line)}
+  .acc a svg{width:16px;height:16px;stroke:var(--ink-2);stroke-width:2;fill:none}
+
+  /* PREMIUM STICKY ADD-TO-CART BAR (always visible) */
+  .stickybar{position:fixed;left:0;right:0;bottom:0;z-index:80;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);
+             border-top:1px solid var(--line-2);box-shadow:0 -6px 24px -18px rgba(0,0,0,.3)}
+  .stickybar .in{max-width:1440px;margin:0 auto;padding:11px 40px;display:flex;align-items:center;gap:20px}
+  .sb-thumb{width:52px;height:52px;border-radius:6px;overflow:hidden;border:1px solid var(--line);flex:0 0 auto}
+  .sb-thumb img{width:100%;height:100%;object-fit:cover}
+  .sb-info{min-width:0;flex:1}
+  .sb-name{font-family:var(--logo);font-size:15px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--ink)}
+  .sb-price{font-size:14px;color:var(--ink-2);margin-top:2px}
+  .sb-price b{color:var(--ink);font-weight:600;font-size:16px} .sb-price s{color:var(--muted);margin-left:6px}
+  .sb-cta{display:flex;gap:12px;flex:0 0 auto}
+  .sb-cta button{height:48px;padding:0 34px;border-radius:6px;font-family:var(--f);font-size:13.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:.2s;display:flex;align-items:center;gap:9px}
+  .sb-cta .add{background:var(--brand);border:0;color:#fff} .sb-cta .add:hover{background:var(--brand-dark)}
+  .sb-cta .buy{background:var(--ink);border:0;color:#fff} .sb-cta .buy:hover{background:#000}
+  .sb-cta svg{width:17px;height:17px;stroke:#fff;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
+
+  @media (max-width:1100px){ nav a{padding:11px 8px;font-size:12.5px} .hmain{gap:22px} }
+  @media (max-width:980px){ .pdp{grid-template-columns:1fr;gap:30px} .gallery{position:static} .trust{grid-template-columns:1fr 1fr} .sb-info{display:none} .sb-cta{flex:1} .sb-cta button{flex:1;padding:0} }
+</style>
+</head>
+<body>
+
+  <!-- header -->
+  <div class="ship"><div class="in">Free Shipping Worldwide &nbsp;·&nbsp; Delivered Duty Paid &nbsp;·&nbsp; 48-Hour Express Dispatch</div></div>
+  <header id="hdr">
+    <div class="hmain">
+      <a class="logo" href="#"><span class="a">ANDAAZ</span><span class="f">Fashion</span></a>
+      <div class="search"><input placeholder="What are you looking for?"><div class="go"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></div></div>
+      <div class="tools">
+        <a class="help" href="#">Need Help?</a>
+        <div class="icons">
+          <div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M5.6 19.6c.2-3.5 3-5.6 6.4-5.6s6.2 2.1 6.4 5.6"/></svg></div>
+          <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 20.3c-.5-.4-8-5.6-8-10.9A4.25 4.25 0 0 1 8.3 5.1c1.6 0 3 .85 3.7 2.15C12.7 5.95 14.1 5.1 15.7 5.1A4.25 4.25 0 0 1 20 9.4c0 5.3-7.5 10.5-8 10.9z"/></svg></div>
+          <div class="ic"><svg viewBox="0 0 24 24"><path d="M6 8h12l.85 11.4a1 1 0 0 1-1 1.1H6.15a1 1 0 0 1-1-1.1L6 8z"/><path d="M8.7 8.5V6.9a3.3 3.3 0 0 1 6.6 0v1.6"/></svg><span class="n">0</span></div>
+        </div>
+        <span class="region">US &nbsp;·&nbsp; $ USD</span>
+      </div>
+    </div>
+    <nav><div class="in">
+      <a href="#">Wedding Store</a><a href="#">Salwar Kameez</a><a href="#" class="accent">Bridal</a><a href="#">Saree</a>
+      <a href="#">Lehenga</a><a href="#">Indo Western</a><a href="#" class="accent">Plus Size</a><a href="#">Women</a>
+      <a href="#" class="accent">Men</a><a href="#">Kids</a><a href="#">Jewellery</a>
+      <a href="#" class="promo">Buy any 2 for $199</a><a href="#">DIY</a><a href="#">Western</a>
+    </div></nav>
+  </header>
+
+  <div class="crumb"><a href="#">Home</a> / <a href="#">Salwar Kameez</a> / <a href="#">Palazzo Suits</a> / <span class="cur">Pink Palazzo Set With Zari Embroidered A-Line Kurta And Dupatta</span></div>
+
+  <div class="pdp">
+    <!-- gallery -->
+    <div class="gallery">
+      <div class="thumbs">
+        <button class="on" data-src="../images/img-0.jpg"><img src="../images/img-0.jpg" alt=""></button>
+        <button data-src="../images/img-1.jpg"><img src="../images/img-1.jpg" alt=""></button>
+        <button data-src="../images/img-2.jpg"><img src="../images/img-2.jpg" alt=""></button>
+        <button data-src="../images/img-3.jpg"><img src="../images/img-3.jpg" alt=""></button>
+        <button data-src="../images/img-4.jpg"><img src="../images/img-4.jpg" alt=""></button>
+      </div>
+      <div class="stage">
+        <span class="disp"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> 48h Dispatch</span>
+        <div class="gtools">
+          <button title="Wishlist"><svg viewBox="0 0 24 24"><path d="M12 20.3c-.5-.4-8-5.6-8-10.9A4.25 4.25 0 0 1 8.3 5.1c1.6 0 3 .85 3.7 2.15C12.7 5.95 14.1 5.1 15.7 5.1A4.25 4.25 0 0 1 20 9.4c0 5.3-7.5 10.5-8 10.9z"/></svg></button>
+          <button title="Share"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="M8.2 10.9l7.6-4.4M8.2 13.1l7.6 4.4"/></svg></button>
+        </div>
+        <img id="stage" src="../images/img-0.jpg" alt="Pink Palazzo Set">
+        <div class="gpills"><span class="gpill">◎ Touch to zoom</span><span class="gpill colors">More Colors 🌈</span></div>
+      </div>
+    </div>
+
+    <!-- info -->
+    <div class="info">
+      <h1 class="title">Pink Palazzo Set With Zari Embroidered A-Line Kurta And Dupatta</h1>
+      <button class="wishtop" aria-label="Add to wishlist"><svg viewBox="0 0 24 24"><path d="M12 20.3c-.5-.4-8-5.6-8-10.9A4.25 4.25 0 0 1 8.3 5.1c1.6 0 3 .85 3.7 2.15C12.7 5.95 14.1 5.1 15.7 5.1A4.25 4.25 0 0 1 20 9.4c0 5.3-7.5 10.5-8 10.9z"/></svg></button>
+
+      <div class="pricerow">
+        <div class="price"><span class="now" id="apdp-final" data-base="149">$149.00</span><span class="was" id="apdp-regular" data-base="199">$199.00</span><span class="off" id="apdp-off">25% Off</span></div>
+        <button class="offersbtn" data-popup data-title="Offers" data-body="4 offers available on this product — bank card discounts, first-order code, free-gift and bundle offers apply at checkout.">
+          <svg viewBox="0 0 24 24"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v2M13 11v2M13 17v2"/></svg>
+          4 Offers <span>&rarr;</span>
+        </button>
+      </div>
+
+      <div class="metarow">Inclusive of all taxes <span class="sep">|</span> <b>Free Shipping.</b></div>
+      <div class="paypal"><span class="pp"><span class="a">Pay</span><span class="b">Pal</span></span> — Pay in 4 interest-free payments of <b>$37.25</b> with <strong>PayPal</strong>. <a href="#" data-popup data-title="PayPal" data-body="Pay in 4 interest-free installments. Payment plan details apply at checkout.">Learn more</a></div>
+      <div class="sub">SKU: SG222133 <span class="sep">|</span> Ships by 02 Jun</div>
+      <div class="rating"><span class="stars">★★★★☆</span> 4.3/5 <span>·</span> <a href="#">6 reviews</a></div>
+
+      <!-- stitching -->
+      <div class="opt">
+        <div class="lbl">Stitching Option :
+          <span class="links"><a href="#" data-popup data-title="Size Guide" data-body="Size chart will appear here.">Size Guide</a><a href="#" data-popup data-title="How to Measure" data-body="Measuring guide will appear here.">How to Measure</a></span>
+        </div>
+        <div class="chips" id="stitch">
+          <label class="chip on"><input type="radio" name="stitch" data-role="stitch" data-price="0" data-label="Unstitched" data-desc="Fabric only — no stitching included. Perfect for custom tailoring at your own discretion." checked>Unstitched</label>
+          <label class="chip"><input type="radio" name="stitch" data-role="stitch" data-price="15" data-label="Stitched" data-desc="">Stitched <small>+$15</small></label>
+          <label class="chip"><input type="radio" name="stitch" data-role="stitch" data-price="15" data-label="Custom Stitched" data-desc="Get a made-to-measure outfit — customize every detail for your perfect fit.">Custom Stitched <small>+$15</small></label>
+        </div>
+        <p class="note" id="stitch-desc">Fabric only — no stitching included. Perfect for custom tailoring at your own discretion.</p>
+
+        <section class="sizesec" id="sizesec" hidden>
+          <div class="lbl">Size: <strong id="size-label">32</strong> <span class="hsub">Prices may vary by plus size</span></div>
+          <div class="chips sizegrid" id="sizegrid"></div>
+        </section>
+
+        <section class="heightsec" id="heightsec" hidden>
+          <label class="lbl" style="display:block;margin-bottom:9px">Select Your Height <span class="hsub">(Including heels)</span> *</label>
+          <select class="hsel" id="hsel">
+            <option value="">Please Select</option>
+            <option>4'10"</option><option>5'0"</option><option>5'2"</option><option>5'4"</option><option>5'6"</option><option>5'8"</option><option>6'0"</option>
+          </select>
+        </section>
+
+        <div class="customize"><svg viewBox="0 0 24 24" fill="none"><path d="M8 10h8M8 14h5"/><path d="M4 5h16v12H8l-4 3z"/></svg> Customize your outfit — get help here.</div>
+      </div>
+
+      <div class="deliv">
+        <div><svg viewBox="0 0 24 24"><rect x="2" y="7" width="13" height="9"/><path d="M15 10h4l2 3v3h-6z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/></svg> <span><b>Delivery Date:</b> 2 – 3 Business Days From Dispatch Date</span></div>
+        <div><svg viewBox="0 0 24 24"><path d="M13 3L4 14h7l-1 7 9-11h-7l1-7z"/></svg> <span><b>Priority express shipping:</b> Friday, 03 Jun 2026</span></div>
+      </div>
+
+      <div class="addons">
+        <div class="head">Add-Ons <small>Optional</small></div>
+        <div class="arow" data-price="25" data-label="Matching Dupatta"><span class="box"></span><span class="nm">Matching Dupatta</span><span class="pr">$45.00</span><span class="ad">+$25.00</span></div>
+        <div class="arow" data-price="18" data-label="Matching Potli Bag"><span class="box"></span><span class="nm">Matching Potli Bag</span><span class="pr">$35.00</span><span class="ad">+$18.00</span></div>
+        <div class="arow" data-price="40" data-label="Statement Jewellery Set"><span class="box"></span><span class="nm">Statement Jewellery Set</span><span class="pr">$80.00</span><span class="ad">+$40.00</span></div>
+        <div class="arow" data-price="15" data-label="Matching Blouse"><span class="box"></span><span class="nm">Matching Blouse</span><span class="pr">$30.00</span><span class="ad">+$15.00</span></div>
+      </div>
+
+      <div class="inline-cta">
+        <button class="add" onclick="document.getElementById('sb-add').click()"><svg viewBox="0 0 24 24"><path d="M6 8h12l.85 11.4a1 1 0 0 1-1 1.1H6.15a1 1 0 0 1-1-1.1L6 8z"/><path d="M8.7 8.5V6.9a3.3 3.3 0 0 1 6.6 0v1.6"/></svg> Add to Cart</button>
+        <button class="buy">Buy It Now</button>
+      </div>
+
+      <div class="trust">
+        <div><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg> 100% Purchase Protection</div>
+        <div><svg viewBox="0 0 24 24"><path d="M3 12l4-7h10l4 7-4 7H7z"/><circle cx="12" cy="12" r="2.5"/></svg> Delivered Duty Paid</div>
+        <div><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v4h4"/></svg> 15 Days Easy Returns*</div>
+        <div><svg viewBox="0 0 24 24"><path d="M12 3l2.4 5 5.6.5-4.2 3.7 1.3 5.5L12 20l-5.1 2.7 1.3-5.5L4 13.5 9.6 13z"/></svg> Assured Quality</div>
+        <div><svg viewBox="0 0 24 24"><rect x="2" y="7" width="13" height="9"/><path d="M15 10h4l2 3v3h-6z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/></svg> Free Shipping*</div>
+        <div><svg viewBox="0 0 24 24"><path d="M12 2l3 6 6 .9-4.5 4.3 1 6-5.5-3-5.5 3 1-6L3 8.9 9 8z"/></svg> Ethnic Luxury, Worldwide</div>
+      </div>
+
+      <div class="pd">
+        <div class="h">Product Details <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" stroke-linecap="round"/></svg></div>
+        <div class="spec">
+          <div class="row"><span class="k">Fabric</span><span class="v">Art Silk</span></div>
+          <div class="row"><span class="k">Work</span><span class="v">Zari Embroidery</span></div>
+          <div class="row"><span class="k">Kurta</span><span class="v">A-Line</span></div>
+          <div class="row"><span class="k">Neckline</span><span class="v">Round Neck</span></div>
+          <div class="row"><span class="k">Sleeves</span><span class="v">3/4th Sleeves</span></div>
+          <div class="row"><span class="k">Bottom</span><span class="v">Palazzo</span></div>
+          <div class="row"><span class="k">Dupatta</span><span class="v">Included</span></div>
+          <div class="row"><span class="k">Occasion</span><span class="v">Festive &amp; Wedding</span></div>
+          <div class="row"><span class="k">Wash Care</span><span class="v">Dry Clean Only</span></div>
+        </div>
+      </div>
+      <div class="acc">
+        <a href="#">Style &amp; Fit Tips <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5v14" stroke-linecap="round"/></svg></a>
+        <a href="#">Shipping &amp; Returns <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5v14" stroke-linecap="round"/></svg></a>
+        <a href="#">FAQs <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5v14" stroke-linecap="round"/></svg></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ALWAYS-STICKY premium add-to-cart bar -->
+  <div class="stickybar">
+    <div class="in">
+      <span class="sb-thumb"><img src="../images/img-0.jpg" alt=""></span>
+      <div class="sb-info">
+        <div class="sb-name">Pink Palazzo Set With Zari Embroidered A-Line Kurta</div>
+        <div class="sb-price"><b id="sb-price">$149.00</b> <s id="sb-was">$199.00</s></div>
+      </div>
+      <div class="sb-cta">
+        <button class="add" id="sb-add"><svg viewBox="0 0 24 24"><path d="M6 8h12l.85 11.4a1 1 0 0 1-1 1.1H6.15a1 1 0 0 1-1-1.1L6 8z"/><path d="M8.7 8.5V6.9a3.3 3.3 0 0 1 6.6 0v1.6"/></svg> Add to Cart</button>
+        <button class="buy">Buy It Now</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const h=document.getElementById('hdr');const s=()=>h.classList.toggle('scrolled',scrollY>4);s();addEventListener('scroll',s,{passive:true});
+    document.querySelectorAll('.thumbs button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.thumbs button').forEach(x=>x.classList.remove('on'));b.classList.add('on');document.getElementById('stage').src=b.dataset.src;}));
+
+    // real Magento size options (label -> surcharge $)
+    const SIZES=[["32",0],["33",0],["34",0],["35",0],["36",0],["37",0],["38",0],["40",0],["42",0],["44",5],["46",8],["48",10],["50",12],["52",15],["54",18],["56",20],["58",22],["60",25],["63",30],["66",35],["69",40]];
+    const sizegrid=document.getElementById('sizegrid');
+    sizegrid.innerHTML=SIZES.map((s,i)=>`<button type="button" class="chip${i===0?' on':''}" data-price="${s[1]}" data-label="${s[0]}">${s[0]}${s[1]?`<small>+$${s[1]}.00</small>`:''}</button>`).join('');
+
+    const finalEl=document.getElementById('apdp-final'),regEl=document.getElementById('apdp-regular'),offEl=document.getElementById('apdp-off');
+    const baseFinal=+finalEl.dataset.base,baseReg=+regEl.dataset.base;
+    const sizesec=document.getElementById('sizesec'),heightsec=document.getElementById('heightsec'),sizeLabel=document.getElementById('size-label'),descEl=document.getElementById('stitch-desc');
+    const sbPrice=document.getElementById('sb-price'),sbWas=document.getElementById('sb-was');
+    const money=n=>'$'+(Math.round(n*100)/100).toFixed(2);
+
+    function recalc(){
+      let extra=0;
+      const st=document.querySelector('#stitch input:checked'); if(st) extra+=+st.dataset.price;
+      if(!sizesec.hidden){const sp=sizegrid.querySelector('.chip.on'); if(sp) extra+=+sp.dataset.price;}
+      document.querySelectorAll('.arow.on').forEach(a=>extra+=+a.dataset.price);
+      const f=baseFinal+extra,r=baseReg+extra;
+      finalEl.textContent=money(f); regEl.textContent=money(r); offEl.textContent=Math.round((r-f)/r*100)+'% Off';
+      sbPrice.textContent=money(f); sbWas.textContent=money(r);
+    }
+    function applyStitch(){
+      const st=document.querySelector('#stitch input:checked'); const isS=st.dataset.label==='Stitched';
+      sizesec.hidden=!isS; heightsec.hidden=!isS;
+      descEl.textContent=st.dataset.desc||''; descEl.style.display=st.dataset.desc?'block':'none';
+      document.querySelectorAll('#stitch .chip').forEach(l=>l.classList.toggle('on',l.querySelector('input').checked));
+      recalc();
+    }
+    document.querySelectorAll('#stitch input').forEach(r=>r.addEventListener('change',applyStitch));
+    sizegrid.querySelectorAll('.chip').forEach(p=>p.addEventListener('click',()=>{sizegrid.querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));p.classList.add('on');sizeLabel.textContent=p.dataset.label;recalc();}));
+    document.querySelectorAll('.arow').forEach(r=>r.addEventListener('click',()=>{r.classList.toggle('on');recalc();}));
+
+    // popups
+    const pop=document.createElement('div');
+    pop.style.cssText='position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center';
+    pop.innerHTML='<div style="position:absolute;inset:0;background:rgba(0,0,0,.5)"></div><div style="position:relative;background:#fff;border-radius:10px;max-width:440px;width:90%;padding:24px;font-family:var(--f)"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><b id="pt" style="font-size:17px;font-family:var(--logo)"></b><span id="pc" style="cursor:pointer;font-size:24px;line-height:1">&times;</span></div><p id="pb" style="color:#555;font-size:14px;line-height:1.6"></p></div>';
+    document.body.appendChild(pop);
+    const showPop=(t,b)=>{pop.querySelector('#pt').textContent=t;pop.querySelector('#pb').textContent=b;pop.style.display='flex';};
+    const hidePop=()=>pop.style.display='none';
+    pop.querySelector('#pc').onclick=hidePop; pop.children[0].onclick=hidePop;
+    document.addEventListener('keydown',e=>{if(e.key==='Escape')hidePop();});
+    document.querySelectorAll('[data-popup]').forEach(el=>el.addEventListener('click',e=>{e.preventDefault();showPop(el.dataset.title,el.dataset.body);}));
+
+    applyStitch();
+  </script>
+</body>
+</html>
