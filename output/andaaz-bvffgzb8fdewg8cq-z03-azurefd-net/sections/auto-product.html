@@ -821,32 +821,18 @@
     <div class="chead">
       <h2 id="cs-title">Customer Stories</h2>
       <p class="csub">Real brides &amp; shoppers, styled in Andaaz</p>
+      <div class="csnav">
+        <button class="ctl__arrow" id="cs-prev" aria-label="Previous stories"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+        <button class="ctl__arrow" id="cs-next" aria-label="Next stories"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+      </div>
     </div>
-    <div class="grid">
-      <article class="card">
-        <div class="cmedia"><img src="../images/img-0.jpg" alt="Customer styled in Andaaz palazzo set" loading="lazy"></div>
-        <div class="cbody">
-          <div class="cstars">★★★★★</div>
-          <p class="cquote">"The zari work is even richer in person. I felt like royalty at my haldi."</p>
-          <div class="cwho"><span class="cav">A</span><div><div class="cname">Aisha M.</div><div class="cloc">London, UK</div></div></div>
-        </div>
-      </article>
-      <article class="card">
-        <div class="cmedia"><img src="../ctl/ctl-1.jpg" alt="Customer styled in Andaaz saree" loading="lazy"></div>
-        <div class="cbody">
-          <div class="cstars">★★★★★</div>
-          <p class="cquote">"Draped beautifully and the fabric felt premium. Compliments all evening."</p>
-          <div class="cwho"><span class="cav">P</span><div><div class="cname">Priya K.</div><div class="cloc">Toronto, CA</div></div></div>
-        </div>
-      </article>
-      <article class="card">
-        <div class="cmedia"><img src="../ctl/ctl-3.jpg" alt="Customer styled in Andaaz pre-draped saree" loading="lazy"></div>
-        <div class="cbody">
-          <div class="cstars">★★★★☆</div>
-          <p class="cquote">"Custom stitching fit me perfectly. Delivery was quick and duty paid."</p>
-          <div class="cwho"><span class="cav">S</span><div><div class="cname">Sana R.</div><div class="cloc">Dubai, UAE</div></div></div>
-        </div>
-      </article>
+    <div class="cs-rail" id="cs-rail" tabindex="0">
+      <article class="cs-card"><img class="cs-photo" src="../images/img-0.jpg" alt="Aisha M." loading="lazy"><div class="cs-body"><div class="cs-stars">★★★★★</div><p class="cs-quote">"The zari work is even richer in person. I felt like royalty at my haldi."</p><div class="cs-name">Aisha M.</div><div class="cs-loc">London, UK</div></div></article>
+      <article class="cs-card"><img class="cs-photo" src="../ctl/ctl-1.jpg" alt="Priya K." loading="lazy"><div class="cs-body"><div class="cs-stars">★★★★★</div><p class="cs-quote">"Draped beautifully and the fabric felt premium. Compliments all evening."</p><div class="cs-name">Priya K.</div><div class="cs-loc">Toronto, CA</div></div></article>
+      <article class="cs-card"><img class="cs-photo" src="../ctl/ctl-3.jpg" alt="Sana R." loading="lazy"><div class="cs-body"><div class="cs-stars">★★★★☆</div><p class="cs-quote">"Custom stitching fit me perfectly. Delivery was quick and duty paid."</p><div class="cs-name">Sana R.</div><div class="cs-loc">Dubai, UAE</div></div></article>
+      <article class="cs-card"><img class="cs-photo" src="../ctl/ctl-5.jpg" alt="Meera T." loading="lazy"><div class="cs-body"><div class="cs-stars">★★★★★</div><p class="cs-quote">"Ordered for my sister's wedding, the whole family loved the finish."</p><div class="cs-name">Meera T.</div><div class="cs-loc">Sydney, AU</div></div></article>
+      <article class="cs-card"><img class="cs-photo" src="../ctl/ctl-6.jpg" alt="Naina D." loading="lazy"><div class="cs-body"><div class="cs-stars">★★★★★</div><p class="cs-quote">"The colours are exactly as shown. Elegant and true to the photos."</p><div class="cs-name">Naina D.</div><div class="cs-loc">New Jersey, US</div></div></article>
+      <article class="cs-card"><img class="cs-photo" src="../ctl/ctl-4.jpg" alt="Ritu S." loading="lazy"><div class="cs-body"><div class="cs-stars">★★★★☆</div><p class="cs-quote">"Beautiful stonework and quick support when I needed sizing help."</p><div class="cs-name">Ritu S.</div><div class="cs-loc">Manchester, UK</div></div></article>
     </div>
   </section>
 
@@ -1044,6 +1030,22 @@
     (function(){
       var rail=document.getElementById('rv-rail'); if(!rail) return;
       var prevBtn=document.getElementById('rv-prev'), nextBtn=document.getElementById('rv-next');
+      function upd(){var max=rail.scrollWidth-rail.clientWidth-1;prevBtn.disabled=rail.scrollLeft<=1;nextBtn.disabled=rail.scrollLeft>=max;}
+      prevBtn.addEventListener('click',function(){rail.scrollBy({left:-rail.clientWidth,behavior:'smooth'});});
+      nextBtn.addEventListener('click',function(){rail.scrollBy({left:rail.clientWidth,behavior:'smooth'});});
+      rail.addEventListener('scroll',upd,{passive:true}); addEventListener('resize',upd);
+      var down=false,sx=0,ss=0,moved=false;
+      rail.addEventListener('pointerdown',function(e){if(e.pointerType==='touch')return;down=true;moved=false;sx=e.clientX;ss=rail.scrollLeft;rail.classList.add('is-grabbing');});
+      addEventListener('pointermove',function(e){if(!down)return;var dx=e.clientX-sx;if(Math.abs(dx)>4)moved=true;rail.scrollLeft=ss-dx;});
+      addEventListener('pointerup',function(){if(!down)return;down=false;rail.classList.remove('is-grabbing');upd();});
+      rail.addEventListener('click',function(e){if(moved){e.preventDefault();moved=false;}},true);
+      upd();
+    })();
+
+    // ===== Customer Stories slider =====
+    (function(){
+      var rail=document.getElementById('cs-rail'); if(!rail) return;
+      var prevBtn=document.getElementById('cs-prev'), nextBtn=document.getElementById('cs-next');
       function upd(){var max=rail.scrollWidth-rail.clientWidth-1;prevBtn.disabled=rail.scrollLeft<=1;nextBtn.disabled=rail.scrollLeft>=max;}
       prevBtn.addEventListener('click',function(){rail.scrollBy({left:-rail.clientWidth,behavior:'smooth'});});
       nextBtn.addEventListener('click',function(){rail.scrollBy({left:rail.clientWidth,behavior:'smooth'});});
