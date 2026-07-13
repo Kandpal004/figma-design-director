@@ -160,6 +160,21 @@
     .hero__h1{font-size:clamp(34px,4vw,50px)}
     .hero__trust{gap:8px 26px;margin-top:18px;padding-top:14px}
   }
+
+  /* ===================== CATEGORY STRIP (above hero) ===================== */
+  .catstrip{border-bottom:1px solid var(--line);background:#fff}
+  .catstrip__row{list-style:none;max-width:1440px;margin:0 auto;padding:22px 40px;display:flex;align-items:flex-start;justify-content:center;gap:clamp(20px,3vw,42px);overflow-x:auto;scroll-snap-type:x proximity;-ms-overflow-style:none;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .catstrip__row::-webkit-scrollbar{display:none}
+  .catstrip__item{flex:0 0 auto;scroll-snap-align:start}
+  .catstrip__item a{display:flex;flex-direction:column;align-items:center;gap:11px;width:96px;text-align:center}
+  .catstrip__thumb{width:82px;height:82px;border-radius:50%;overflow:hidden;background:var(--field);box-shadow:0 0 0 1px var(--line-2), 0 0 0 0 rgba(161,0,71,0);transition:box-shadow .22s ease,transform .22s ease}
+  .catstrip__thumb img{width:100%;height:100%;object-fit:cover;object-position:center top}
+  .catstrip__item a:hover .catstrip__thumb{transform:translateY(-3px);box-shadow:0 0 0 1.5px var(--brand), 0 10px 20px -12px rgba(161,0,71,.4)}
+  .catstrip__label{font-size:12.5px;font-weight:500;letter-spacing:.01em;line-height:1.25;color:var(--ink);transition:color .18s}
+  .catstrip__item a:hover .catstrip__label{color:var(--brand)}
+  @media (max-width:920px){
+    .catstrip__row{padding:20px;justify-content:flex-start;gap:22px}
+  }
 </style>
 </head>
 <body>
@@ -194,6 +209,24 @@
       <a href="#">Jewellery</a><a href="#" class="sale">Sale</a><a href="#">Home</a>
     </div></nav>
   </header>
+
+  <!-- ============ CATEGORY STRIP (real homepage tiles, above the hero) ============ -->
+  <nav class="catstrip" aria-label="Shop by category">
+    <ul class="catstrip__row" id="catstrip">
+      <li class="catstrip__item"><a href="#"><span class="catstrip__thumb"><img src="../home/category/tile-1.png" alt="Any 2 for $199" loading="lazy"></span><span class="catstrip__label">Any 2 for $199</span></a></li>
+      <li class="catstrip__item"><a href="#"><span class="catstrip__thumb"><img src="../home/category/tile-2.png" alt="Best Seller" loading="lazy"></span><span class="catstrip__label">Best Seller</span></a></li>
+      <li class="catstrip__item"><a href="#"><span class="catstrip__thumb"><img src="../home/category/tile-3.png" alt="Wedding Dresses" loading="lazy"></span><span class="catstrip__label">Wedding Dresses</span></a></li>
+      <li class="catstrip__item"><a href="#"><span class="catstrip__thumb"><img src="../home/category/tile-4.png" alt="Plus Size" loading="lazy"></span><span class="catstrip__label">Plus Size</span></a></li>
+      <li class="catstrip__item"><a href="#"><span class="catstrip__thumb"><img src="../home/category/tile-5.png" alt="Men Clothing" loading="lazy"></span><span class="catstrip__label">Men Clothing</span></a></li>
+      <li class="catstrip__item"><a href="#"><span class="catstrip__thumb"><img src="../home/category/tile-6.png" alt="Saree" loading="lazy"></span><span class="catstrip__label">Saree</span></a></li>
+      <li class="catstrip__item"><a href="#"><span class="catstrip__thumb"><img src="../home/category/tile-7.png" alt="Indo-western" loading="lazy"></span><span class="catstrip__label">Indo-western</span></a></li>
+      <li class="catstrip__item"><a href="#"><span class="catstrip__thumb"><img src="../home/category/tile-8.png" alt="Pakistani Suits" loading="lazy"></span><span class="catstrip__label">Pakistani Suits</span></a></li>
+      <li class="catstrip__item"><a href="#"><span class="catstrip__thumb"><img src="../home/category/tile-9.png" alt="Lehenga" loading="lazy"></span><span class="catstrip__label">Lehenga</span></a></li>
+      <li class="catstrip__item"><a href="#"><span class="catstrip__thumb"><img src="../home/category/tile-10.png" alt="Kids Collection" loading="lazy"></span><span class="catstrip__label">Kids Collection</span></a></li>
+      <li class="catstrip__item"><a href="#"><span class="catstrip__thumb"><img src="../home/category/tile-11.png" alt="Trouser Suits" loading="lazy"></span><span class="catstrip__label">Trouser Suits</span></a></li>
+      <li class="catstrip__item"><a href="#"><span class="catstrip__thumb"><img src="../home/category/tile-12.png" alt="Jewellery" loading="lazy"></span><span class="catstrip__label">Jewellery</span></a></li>
+    </ul>
+  </nav>
 
   <!-- ============ HERO BANNER ============ -->
   <main id="hero" class="hero">
