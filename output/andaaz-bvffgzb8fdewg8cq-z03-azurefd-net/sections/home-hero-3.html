@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Andaaz Fashion | The Festive Edit, Custom-Stitched Worldwide</title>
+<!--
+  SECTION: HOMEPAGE HERO BANNER (full-width immersive, premium ethnic wear). Standalone file.
+  Reuses the EXACT header markup + styles from sections/auto-product.html so the homepage and
+  PDP read as one site. Audited category leaders (Kalki) for the immersive full-bleed banner
+  pattern; did NOT clone them.
+  Kept (real data): top nav (Sarees, Salwar Kameez, Lehenga Choli, Kurtis, Gowns, Menswear,
+  Jewellery, Sale, Home); real Andaaz hero image ../images/img-2.jpg (rani zari kurta, dramatic
+  upper-body editorial shot on a light studio background); brand accent rani #a10047; Hanken
+  Grotesk house type; real utility-bar copy.
+  Improved (craft/CRO): full-bleed cinematic banner with a tight display headline that fills the
+  copy column; ONE confident primary CTA "Shop the Festive Edit" + one quiet secondary link;
+  plain eyebrow (no decorative dash-line); rani used only as a whisper (eyebrow tint + CTA hover);
+  3 quiet objection-defusing trust cues (craft / fit / global delivery); a scrim is added ONLY
+  because our source is a LIGHT-background studio portrait, and the copy is anchored BOTTOM-LEFT
+  over the rani fabric so it never sits on the model's face. DNA 5b fold-fit: JS sets a FIXED
+  hero height = innerHeight - offsetTop; image is object-fit:cover so the 1200x1800 portrait CROPS
+  (never stretches the page); vh-scaled vertical rhythm; medium-laptop (1081-1300) + short-height
+  (820/680) breakpoints so nothing wraps or clips. a11y skip link + focus-visible; reduced motion.
+  Grounding: output/andaaz-.../tokens.json, images/img-2.jpg, auto-product.html header.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --brand:#a10047; --brand-tint:#fbeef3; --brand-dark:#800038;
+    --ink:#1c1b1d; --ink-2:#464a54; --muted:#6e727b;
+    --line:#ececee; --line-2:#e2e2e6; --field:#f5f5f7; --ok:#1f7a4d; --dark:#201c1d;
+    --f:"Hanken Grotesk",system-ui,-apple-system,sans-serif; --logo:"Hanken Grotesk",system-ui,-apple-system,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--f);color:var(--ink);background:#fff;font-weight:400;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit;cursor:pointer}
+  img{display:block;max-width:100%}
+  :focus-visible{outline:2px solid var(--brand);outline-offset:3px;border-radius:2px}
+  .skip{position:absolute;left:-999px;top:0;z-index:300;background:var(--ink);color:#fff;padding:10px 16px;font-size:13px;letter-spacing:.04em}
+  .skip:focus{left:12px;top:10px}
+
+  /* ===================== HEADER (reused from auto-product.html) ===================== */
+  .util{background:var(--dark);color:#fff}
+  .util .in{max-width:1440px;margin:0 auto;padding:0 40px;height:38px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;font-size:12px;letter-spacing:.05em}
+  .util .call{display:inline-flex;align-items:center;gap:8px;color:#fff;opacity:.92}
+  .util .call svg{width:15px;height:15px;stroke:currentColor;stroke-width:1.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .ticker{overflow:hidden;height:20px;text-align:center}
+  .ticker ul{list-style:none;animation:roll 12s infinite}
+  .ticker li{height:20px;line-height:20px;text-transform:uppercase;letter-spacing:.18em;font-size:11px;color:#efe7ea}
+  @keyframes roll{0%,28%{transform:translateY(0)}33%,61%{transform:translateY(-20px)}66%,94%{transform:translateY(-40px)}100%{transform:translateY(-60px)}}
+  @media (prefers-reduced-motion:reduce){.ticker ul{animation:none}}
+  .util .right{justify-self:end;display:inline-flex;align-items:center;gap:16px}
+  header{position:sticky;top:0;z-index:60;background:#fff;border-bottom:1px solid var(--line);transition:box-shadow .3s}
+  header.scrolled{box-shadow:0 8px 26px -20px rgba(0,0,0,.32)}
+  .hmain{max-width:1440px;margin:0 auto;padding:24px 40px 20px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:32px;transition:padding .28s ease}
+  header.scrolled .hmain{padding:13px 40px}
+  .hleft{display:flex;align-items:center;gap:26px}
+  .htxtbtn{display:inline-flex;align-items:center;gap:9px;background:none;border:0;padding:6px 0;color:var(--ink);font-size:12px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;line-height:1}
+  .htxtbtn svg{display:block;width:20px;height:20px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .htxtbtn .lbl{display:inline-flex;align-items:center;line-height:1;transform:translateY(1.5px);position:relative}
+  .htxtbtn:hover{color:var(--brand)}
+  .htxtbtn .lbl::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:1.5px;background:var(--brand);transform:scaleX(0);transform-origin:left;transition:transform .25s}
+  .htxtbtn:hover .lbl::after{transform:scaleX(1)}
+  .logo{justify-self:center;display:flex;flex-direction:column;align-items:center;line-height:.96}
+  .logo .a{font-family:var(--logo);font-weight:700;font-size:32px;letter-spacing:.05em;transition:font-size .28s ease}
+  header.scrolled .logo .a{font-size:25px}
+  .logo .fm{display:flex;align-items:center;gap:9px;margin-top:7px}
+  .logo .fm i{height:1px;width:22px;background:var(--line-2);display:inline-block}
+  .logo .fm span{font-size:9.5px;letter-spacing:.52em;color:var(--ink-2);text-transform:uppercase;padding-left:.52em}
+  .hright{justify-self:end;display:flex;align-items:center;gap:22px}
+  .ic{position:relative;display:inline-flex;align-items:center;justify-content:center;background:none;border:0;padding:0;color:var(--ink)}
+  .ic svg{width:22px;height:22px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .ic .t{display:none}
+  .ic:hover{color:var(--brand)}
+  .ic .n{position:absolute;top:-7px;right:-8px;min-width:17px;height:17px;padding:0 4px;border-radius:9px;background:#e5122e;color:#fff;font-size:10px;font-weight:700;display:grid;place-items:center;border:2px solid #fff}
+  .region-in{display:inline-flex;align-items:center;gap:6px;background:none;border:0;padding:0;font-family:var(--f);font-size:13px;font-weight:600;color:var(--ink);letter-spacing:.04em;cursor:pointer}
+  .region-in svg{width:16px;height:16px;stroke:var(--ink-2);stroke-width:1.5;fill:none}
+  .region-in:hover{color:var(--brand)}
+  nav.cats{border-top:1px solid var(--line)}
+  nav.cats .in{max-width:1440px;margin:0 auto;padding:0 40px;display:flex;align-items:center;justify-content:center;gap:2px;flex-wrap:wrap}
+  nav.cats a{position:relative;padding:14px 16px;font-size:12px;font-weight:400;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);white-space:nowrap}
+  nav.cats a::after{content:"";position:absolute;left:16px;right:16px;bottom:9px;height:1.5px;background:var(--brand);transform:scaleX(0);transform-origin:center;transition:transform .25s}
+  nav.cats a:hover{color:var(--brand)}nav.cats a:hover::after{transform:scaleX(1)}
+  nav.cats a.sale{color:var(--brand);font-weight:500}
+  nav.cats a .new{position:absolute;top:6px;right:2px;font-size:8px;font-weight:600;letter-spacing:.12em;color:var(--brand)}
+
+  /* ===================== HERO (full-width immersive banner) ===================== */
+  .hero{position:relative;width:100%;overflow:hidden;background:#efedee;min-height:520px}
+  .hero__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:52% 14%}
+  /* Scrim is intentional: our source is a LIGHT studio portrait, so full-bleed white text
+     needs a tasteful darkening. Weighted to the BOTTOM-LEFT where the copy sits. */
+  .hero::after{content:"";position:absolute;inset:0;z-index:1;background:
+    linear-gradient(180deg, rgba(14,9,12,.14) 0%, rgba(14,9,12,0) 30%, rgba(14,9,12,0) 44%, rgba(14,9,12,.52) 80%, rgba(14,9,12,.72) 100%),
+    linear-gradient(66deg, rgba(14,9,12,.50) 0%, rgba(14,9,12,.18) 34%, rgba(14,9,12,0) 60%)}
+  .hero__in{position:relative;z-index:2;max-width:1440px;margin:0 auto;height:100%;min-height:inherit;display:flex;flex-direction:column;justify-content:flex-end;padding:0 clamp(24px,5vw,80px) clamp(40px,7vh,76px)}
+  .hero__content{max-width:660px}
+  .hero__eyebrow{display:block;font-size:12.5px;font-weight:600;letter-spacing:.34em;text-transform:uppercase;color:#f4b7d0}
+  .hero__h1{font-family:var(--f);font-weight:700;font-size:clamp(46px,6.6vw,84px);line-height:.94;letter-spacing:-.032em;color:#fff;margin:clamp(16px,2.6vh,26px) 0 0;max-width:14ch;text-shadow:0 2px 34px rgba(0,0,0,.26)}
+  .hero__sub{font-size:17px;line-height:1.6;color:rgba(255,255,255,.93);max-width:46ch;margin-top:clamp(14px,2vh,20px);font-weight:400}
+  .hero__cta{display:flex;align-items:center;gap:26px;flex-wrap:wrap;margin-top:clamp(24px,3.4vh,38px)}
+  .btn-primary{display:inline-flex;align-items:center;gap:11px;background:#fff;color:var(--ink);border:0;border-radius:3px;padding:18px 36px;font-size:13.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;transition:.18s}
+  .btn-primary svg{width:16px;height:16px;stroke:var(--ink);stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s}
+  .btn-primary:hover{background:var(--brand);color:#fff}
+  .btn-primary:hover svg{stroke:#fff;transform:translateX(3px)}
+  .link-secondary{display:inline-flex;align-items:center;gap:9px;font-size:13px;font-weight:600;letter-spacing:.06em;color:#fff}
+  .link-secondary svg{width:16px;height:16px;stroke:currentColor;stroke-width:1.7;fill:none;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s}
+  .link-secondary .u{position:relative}
+  .link-secondary .u::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:1.5px;background:#fff;transform:scaleX(0);transform-origin:left;transition:transform .25s}
+  .link-secondary:hover .u::after{transform:scaleX(1)}
+  .link-secondary:hover svg{transform:translateX(3px)}
+  /* quiet trust cues (objection-defusing, not decoration) */
+  .hero__trust{display:flex;align-items:center;flex-wrap:wrap;gap:26px;margin-top:clamp(20px,3vh,32px);padding-top:clamp(16px,2.2vh,22px);border-top:1px solid rgba(255,255,255,.22);max-width:660px}
+  .hero__trust li{list-style:none;display:inline-flex;align-items:center;gap:9px;font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.9)}
+  .hero__trust svg{width:18px;height:18px;stroke:#f4b7d0;stroke-width:1.6;fill:none;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}
+
+  /* medium-laptop: trim copy so the CTA row + trust cues never wrap or clip */
+  @media (min-width:1081px) and (max-width:1300px){
+    .hero__in{padding-bottom:clamp(36px,6vh,60px)}
+    .hero__h1{font-size:clamp(46px,6vw,68px)}
+    .hero__sub{max-width:42ch}
+    .hero__trust{gap:20px}
+    .hero__trust li{font-size:11.5px;letter-spacing:.08em}
+  }
+  /* short viewports: shrink headline + padding so nothing clips below the fold */
+  @media (max-height:820px){
+    .hero__h1{font-size:clamp(42px,5.4vw,60px)}
+    .hero__sub{margin-top:12px}
+    .hero__trust{margin-top:16px;padding-top:14px}
+  }
+  @media (max-height:680px){
+    .hero__eyebrow{font-size:11.5px}
+    .hero__h1{font-size:clamp(36px,4.8vw,50px);margin-top:12px}
+    .hero__sub{display:none}
+    .hero__cta{margin-top:18px}
+    .hero__trust{display:none}
+  }
+  /* tablet / mobile */
+  @media (max-width:820px){
+    .hero__img{object-position:52% 12%}
+    .hero__in{padding-bottom:32px}
+    .hero__content,.hero__h1{max-width:none}
+    .hero__sub{max-width:34ch}
+    .hero__trust{gap:16px;max-width:none}
+    .hero__trust li{font-size:11px}
+  }
+  @media (max-width:920px){
+    .util .call,.ticker{display:none}
+    nav.cats{display:none}
+    .hmain{grid-template-columns:auto 1fr auto;padding:16px 20px;gap:14px}
+    .util .in{grid-template-columns:1fr;justify-items:end}
+  }
+</style>
+</head>
+<body>
+  <a class="skip" href="#hero">Skip to content</a>
+
+  <!-- ============ HEADER (reused from auto-product.html) ============ -->
+  <div class="util"><div class="in">
+    <a class="call" href="#"><svg viewBox="0 0 24 24"><path d="M6 4h3l1.5 4-2 1.4a12 12 0 0 0 5.1 5.1l1.4-2 4 1.5v3a2 2 0 0 1-2.2 2A16 16 0 0 1 4 6.2 2 2 0 0 1 6 4z"/></svg>Book a Styling Consultation</a>
+    <div class="ticker" aria-hidden="true"><ul>
+      <li>Free Shipping Worldwide</li><li>Delivered Duty Paid, No Surprises</li><li>48-Hour Express Dispatch</li>
+    </ul></div>
+    <div class="right"><a href="#">Track Order</a></div>
+  </div></div>
+
+  <header id="hdr">
+    <div class="hmain">
+      <div class="hleft">
+        <button class="htxtbtn" aria-label="Search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><span class="lbl">Search</span></button>
+      </div>
+      <a class="logo" href="#" aria-label="Andaaz Fashion home">
+        <span class="a">ANDAAZ</span><span class="fm"><i></i><span>Fashion</span><i></i></span>
+      </a>
+      <div class="hright">
+        <button class="ic" aria-label="Account"><svg viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="t">Account</span></button>
+        <button class="ic" aria-label="Shopping bag" id="bag"><svg viewBox="0 0 24 24"><path d="M16 10a4 4 0 0 1-8 0"/><path d="M3.103 6.034h17.794"/><path d="M3.4 5.467a2 2 0 0 0-.4 1.2V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.667a2 2 0 0 0-.4-1.2l-2-2.667A2 2 0 0 0 17 2H7a2 2 0 0 0-1.6.8z"/></svg><span class="t">Bag</span><span class="n">0</span></button>
+        <button class="region-in" aria-label="Region: India"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.5 2.4 3.8 5.6 3.8 9s-1.3 6.6-3.8 9c-2.5-2.4-3.8-5.6-3.8-9s1.3-6.6 3.8-9z"/></svg>IN</button>
+      </div>
+    </div>
+    <nav class="cats" aria-label="Product categories"><div class="in">
+      <a href="#">Sarees</a><a href="#">Salwar Kameez</a><a href="#">Lehenga Choli</a>
+      <a href="#">Kurtis <span class="new">NEW</span></a><a href="#">Gowns</a><a href="#">Menswear</a>
+      <a href="#">Jewellery</a><a href="#" class="sale">Sale</a><a href="#">Home</a>
+    </div></nav>
+  </header>
+
+  <!-- ============ HERO BANNER (full-width immersive) ============ -->
+  <main id="hero" class="hero">
+    <img class="hero__img" src="../images/img-2.jpg" alt="Model wearing a rani pink zari-embroidered kurta and organza dupatta from the Andaaz Festive Edit" fetchpriority="high">
+    <div class="hero__in">
+      <div class="hero__content">
+        <span class="hero__eyebrow">The Festive Edit</span>
+        <h1 class="hero__h1">Woven for the nights you&rsquo;ll remember</h1>
+        <p class="hero__sub">Hand-embroidered zari, custom-stitched to your measurements and shipped worldwide.</p>
+        <div class="hero__cta">
+          <a class="btn-primary" href="#">Shop the Festive Edit
+            <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+          </a>
+          <a class="link-secondary" href="#"><span class="u">Explore New Arrivals</span>
+            <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+          </a>
+        </div>
+        <ul class="hero__trust">
+          <li>
+            <svg viewBox="0 0 24 24"><path d="M12 3l2.3 4.7 5.2.8-3.7 3.6.9 5.1L12 15l-4.6 2.4.9-5.1L4.5 8.5l5.2-.8L12 3z"/></svg>
+            Authentic Zari Craft
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24"><path d="M6 4l3 2 3-3 3 3 3-2 1 15a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L6 4z"/><path d="M9 12h6"/></svg>
+            Made to Your Measurements
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.6 2.4 3.9 5.6 3.9 9s-1.3 6.6-3.9 9c-2.6-2.4-3.9-5.6-3.9-9s1.3-6.6 3.9-9z"/></svg>
+            Shipped Worldwide
+          </li>
+        </ul>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // header elevates on scroll (matches auto-product.html behaviour)
+    var hdr = document.getElementById('hdr');
+    var onScroll = function(){ hdr.classList.toggle('scrolled', window.scrollY > 8); };
+    window.addEventListener('scroll', onScroll, {passive:true});
+    onScroll();
+
+    // DNA 5b fold-fit: set a FIXED hero height = innerHeight - offsetTop so the whole hero
+    // (below the sticky header) fills the first fold with no scroll. Fixed height keeps the
+    // portrait image constrained by object-fit:cover (it CROPS, never stretches the page).
+    var hero = document.getElementById('hero');
+    function fitHero(){
+      hero.style.height = '';                                       // reset to measure real top
+      var top = hero.getBoundingClientRect().top + (window.scrollY || window.pageYOffset || 0);
+      var h = window.innerHeight - top;                             // remaining viewport below header
+      if (h > 460) hero.style.height = h + 'px';                    // guard very short screens
+    }
+    window.addEventListener('resize', fitHero);
+    window.addEventListener('load', fitHero);
+    fitHero();
+  </script>
+</body>
+</html>
