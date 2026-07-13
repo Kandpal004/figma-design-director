@@ -5,26 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Andaaz Fashion | Premium Ethnic Wear, Custom-Stitched Worldwide</title>
 <!--
-  FULL HOMEPAGE (assembled). Combines three already-built sections into one standalone document:
-  (1) utility bar + sticky HEADER + category strip + HERO  ....... sections/home-hero.html
-  (2) SHOP BY COLLECTION (3-card occasion block)  ................. sections/home-collections.html
-  (3) NEW ARRIVALS product rail (.ctl__ pattern)  ................ sections/home-newarrivals.html
-  Shared :root tokens, header CSS, and the header-scroll JS are included ONCE (from the hero file,
-  which carries the superset tokens incl. --brand-tint-2). Each section's UNIQUE css/markup/JS is
-  appended once, in page order. No section changed visually; same images, text and behaviour.
-  Grounding: output/andaaz-.../tokens.json, ctl-data.json, real images (images/, home/, ctl/).
+  FULL HOMEPAGE (single standalone document). Composed from four already-built sections, in order:
+    1) home-hero.html        -> utility bar + sticky header + category strip + hero
+    2) home-offergrid.html   -> "The Sale Edit" 4-card offer grid
+    3) home-collections.html -> "Shop by Collection" 3-card occasion block
+    4) home-newarrivals.html -> "New Arrivals" product rail
+  Shared parts (root tokens, base/reset, header CSS, header-responsive 920px block, header markup,
+  header-scroll JS) are de-duplicated and included ONCE. Each section's unique CSS/markup/JS is
+  appended once, in order. Real data (images/text/prices) and behaviour preserved verbatim.
+  Grounding: output/andaaz-.../tokens.json, real images, brand accent rani #a10047, house fonts.
 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
-  /* ===================== SHARED TOKENS + BASE (once) ===================== */
+  /* ===================== SHARED TOKENS ===================== */
   :root{
     --brand:#a10047; --brand-tint:#fbeef3; --brand-tint-2:#f7e4ec; --brand-dark:#800038;
     --ink:#1c1b1d; --ink-2:#464a54; --muted:#6e727b;
     --line:#ececee; --line-2:#e2e2e6; --field:#f5f5f7; --ok:#1f7a4d; --dark:#201c1d;
     --f:"Hanken Grotesk",system-ui,-apple-system,sans-serif; --logo:"Hanken Grotesk",system-ui,-apple-system,sans-serif;
   }
+  /* ===================== SHARED BASE / RESET ===================== */
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
   body{font-family:var(--f);color:var(--ink);background:#fff;font-weight:400;-webkit-font-smoothing:antialiased}
@@ -35,7 +37,7 @@
   .skip{position:absolute;left:-999px;top:0;z-index:300;background:var(--ink);color:#fff;padding:10px 16px;font-size:13px;letter-spacing:.04em}
   .skip:focus{left:12px;top:10px}
 
-  /* ===================== HEADER (shared, once) ===================== */
+  /* ===================== HEADER (shared, reused from auto-product.html) ===================== */
   .util{background:var(--dark);color:#fff}
   .util .in{max-width:1440px;margin:0 auto;padding:0 40px;height:38px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;font-size:12px;letter-spacing:.05em}
   .util .call{display:inline-flex;align-items:center;gap:8px;color:#fff;opacity:.92}
@@ -79,7 +81,8 @@
   nav.cats a:hover{color:var(--brand)}nav.cats a:hover::after{transform:scaleX(1)}
   nav.cats a.sale{color:var(--brand);font-weight:500}
   nav.cats a .new{position:absolute;top:6px;right:2px;font-size:8px;font-weight:600;letter-spacing:.12em;color:var(--brand)}
-  /* shared header responsive (once) */
+
+  /* ===================== HEADER RESPONSIVE (shared, once) ===================== */
   @media (max-width:920px){
     .util .call,.ticker{display:none}
     nav.cats{display:none}
@@ -159,7 +162,7 @@
     .hero__trust{gap:8px 26px;margin-top:18px;padding-top:14px}
   }
 
-  /* ===================== CATEGORY STRIP (above hero) ===================== */
+  /* ===================== CATEGORY STRIP (above hero, from home-hero.html) ===================== */
   .catstrip{border-bottom:1px solid var(--line);background:#fff}
   .catstrip__row{list-style:none;max-width:1440px;margin:0 auto;padding:12px 40px;display:flex;align-items:flex-start;justify-content:space-between;gap:10px;overflow-x:auto;scroll-snap-type:x proximity;-ms-overflow-style:none;scrollbar-width:none;-webkit-overflow-scrolling:touch}
   .catstrip__row::-webkit-scrollbar{display:none}
@@ -172,6 +175,44 @@
   .catstrip__item a:hover .catstrip__label{color:var(--brand)}
   @media (max-width:920px){
     .catstrip__row{padding:14px 20px;justify-content:flex-start;gap:16px}
+  }
+
+  /* ===================== OFFER GRID ("The Sale Edit", from home-offergrid.html) ===================== */
+  .sale{max-width:1440px;margin:0 auto;padding:72px 40px 80px}
+  .sale__head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:36px}
+  .sale__eyebrow{display:block;font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--brand);margin-bottom:12px}
+  .sale__title{font-size:36px;font-weight:700;line-height:1.14;letter-spacing:-.015em;color:var(--ink)}
+  .sale__sub{margin-top:10px;font-size:14px;color:var(--ink-2);letter-spacing:.005em}
+  .sale__viewall{flex:0 0 auto;display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:500;letter-spacing:.02em;color:var(--ink);padding-bottom:4px}
+  .sale__viewall svg{width:15px;height:15px;stroke:currentColor;stroke-width:1.7;fill:none;stroke-linecap:round;stroke-linejoin:round;transition:transform .25s}
+  .sale__viewall:hover{color:var(--brand)}
+  .sale__viewall:hover svg{transform:translateX(3px)}
+
+  .sale__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  .card{position:relative;display:block;overflow:hidden;border-radius:6px;background:var(--field);isolation:isolate}
+  .card__media{position:relative;aspect-ratio:3/4;overflow:hidden}
+  .card__media img{width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform .7s cubic-bezier(.2,.6,.2,1)}
+  .card:hover .card__media img,.card:focus-visible .card__media img{transform:scale(1.045)}
+  /* single functional legibility scrim, bottom-weighted, two stops, no decoration */
+  .card__scrim{position:absolute;inset:0;background:linear-gradient(to top,rgba(20,15,18,.72) 0%,rgba(20,15,18,.28) 26%,rgba(20,15,18,0) 52%);z-index:1}
+  .card__body{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:24px 22px}
+  .card__offer{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#fff;opacity:.94;margin-bottom:8px}
+  .card__label{font-size:24px;font-weight:700;line-height:1.12;letter-spacing:-.01em;color:#fff}
+  .card__cta{margin-top:18px;display:inline-flex;align-items:center;gap:9px;background:#fff;color:var(--ink);border:0;border-radius:3px;padding:12px 22px;font-family:var(--f);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;transition:background .22s ease,color .22s ease}
+  .card__cta svg{width:14px;height:14px;stroke:currentColor;stroke-width:1.9;fill:none;stroke-linecap:round;stroke-linejoin:round;transition:transform .22s ease}
+  .card:hover .card__cta,.card:focus-visible .card__cta{background:var(--brand);color:#fff}
+  .card:hover .card__cta svg{transform:translateX(3px)}
+
+  @media (max-width:1080px){
+    .sale{padding:56px 28px 60px}
+    .sale__grid{grid-template-columns:repeat(2,1fr);gap:18px}
+  }
+  @media (max-width:640px){
+    .sale{padding:44px 18px 52px}
+    .sale__head{flex-direction:column;align-items:flex-start;gap:14px;margin-bottom:26px}
+    .sale__title{font-size:29px}
+    .sale__grid{grid-template-columns:1fr;gap:16px}
+    .card__label{font-size:22px}
   }
 
   /* ===================== SHOP BY COLLECTION (from home-collections.html) ===================== */
@@ -229,7 +270,7 @@
   .ctl__rail{display:flex;gap:32px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding-bottom:6px;scrollbar-width:none}
   .ctl__rail::-webkit-scrollbar{display:none}
   .ctl__rail.is-grabbing{scroll-behavior:auto;cursor:grabbing;scroll-snap-type:none}
-  /* exactly 4 whole cards fit the row — no cut/partial card */
+  /* exactly 4 whole cards fit the row, no cut/partial card */
   .ctl__card{flex:0 0 calc((100% - 96px)/4);scroll-snap-align:start}
   .ctl__media{position:relative;background:var(--field);overflow:hidden;aspect-ratio:3/4}
   .ctl__media img{width:100%;height:100%;object-fit:cover;transition:transform .7s ease}
@@ -241,6 +282,7 @@
 
   @media (max-width:900px){
     .na{padding:44px 18px 54px}
+    .na__rail{gap:16px}
     .na__nav{display:none}
     .ctl__rail{gap:16px}
     .ctl__card{flex:0 0 calc((100% - 16px)/2)}
@@ -250,7 +292,7 @@
 <body>
   <a class="skip" href="#hero">Skip to content</a>
 
-  <!-- ============ HEADER (once) ============ -->
+  <!-- ============ HEADER (shared, once) ============ -->
   <div class="util"><div class="in">
     <a class="call" href="#"><svg viewBox="0 0 24 24"><path d="M6 4h3l1.5 4-2 1.4a12 12 0 0 0 5.1 5.1l1.4-2 4 1.5v3a2 2 0 0 1-2.2 2A16 16 0 0 1 4 6.2 2 2 0 0 1 6 4z"/></svg>Book a Styling Consultation</a>
     <div class="ticker" aria-hidden="true"><ul>
@@ -343,6 +385,68 @@
     </div>
   </main>
 
+  <!-- ============ OFFER GRID ("The Sale Edit") ============ -->
+  <section class="sale" id="sale" aria-labelledby="sale-title">
+    <div class="sale__head">
+      <div>
+        <span class="sale__eyebrow">The Sale Edit</span>
+        <h2 class="sale__title" id="sale-title">Festive Sale, Now On</h2>
+        <p class="sale__sub">Handpicked styles at their best prices of the season.</p>
+      </div>
+      <a class="sale__viewall" href="#">View All Sale<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+
+    <div class="sale__grid">
+      <a class="card" href="#" aria-label="Shop Salwar Suits, up to 50% off">
+        <div class="card__media">
+          <img src="../home/prod/k1.jpg" alt="Model wearing a festive salwar suit">
+          <span class="card__scrim" aria-hidden="true"></span>
+        </div>
+        <div class="card__body">
+          <span class="card__offer">Up to 50% Off</span>
+          <div class="card__label">Salwar Suits</div>
+          <span class="card__cta">Shop Now<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <a class="card" href="#" aria-label="Shop Lehengas, up to 50% off">
+        <div class="card__media">
+          <img src="../home/prod/l2.jpg" alt="Model wearing an embroidered lehenga">
+          <span class="card__scrim" aria-hidden="true"></span>
+        </div>
+        <div class="card__body">
+          <span class="card__offer">Up to 50% Off</span>
+          <div class="card__label">Lehengas</div>
+          <span class="card__cta">Shop Now<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <a class="card" href="#" aria-label="Shop Sarees, up to 50% off">
+        <div class="card__media">
+          <img src="../home/prod/s2.jpg" alt="Model draped in a designer saree">
+          <span class="card__scrim" aria-hidden="true"></span>
+        </div>
+        <div class="card__body">
+          <span class="card__offer">Up to 50% Off</span>
+          <div class="card__label">Sarees</div>
+          <span class="card__cta">Shop Now<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <a class="card" href="#" aria-label="Shop the Festive Edit, up to 50% off">
+        <div class="card__media">
+          <img src="../home/prod/l8.jpg" alt="Model in a festive occasion outfit">
+          <span class="card__scrim" aria-hidden="true"></span>
+        </div>
+        <div class="card__body">
+          <span class="card__offer">Up to 50% Off</span>
+          <div class="card__label">Festive Edit</div>
+          <span class="card__cta">Shop Now<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+    </div>
+  </section>
+
   <!-- ============ SHOP BY COLLECTION ============ -->
   <section class="collections" id="collections" aria-labelledby="col-title">
     <div class="col-head">
@@ -424,7 +528,7 @@
   </section>
 
   <script>
-    // ===== Sticky header shadow on scroll (once, shared by all sections) =====
+    // ===== Sticky header shadow on scroll (shared, once) =====
     var hdr = document.getElementById('hdr');
     var onScroll = function(){ hdr.classList.toggle('scrolled', window.scrollY > 8); };
     window.addEventListener('scroll', onScroll, {passive:true});
