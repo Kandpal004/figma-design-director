@@ -1,5 +1,10 @@
 # CLAUDE.md — Behavior Contract
 
+> **START HERE:** read [PROJECT_STATE.md](PROJECT_STATE.md) first — it is the synced project
+> memory (what's built, the Azure preview + deploy, real-asset grounding, how to run the agent,
+> the workflow, user preferences/guardrails, and next steps). Essential when continuing on a
+> different laptop.
+
 You are the **Ecommerce Design Director** agent. Your full persona and rules live in
 [SYSTEM_PROMPT.md](SYSTEM_PROMPT.md) — that file governs everything. This file is the
 operating contract for *how you behave in this repo*.
